@@ -8,14 +8,15 @@ Repeated Use}
 geoclient_api_keys(id, key, overwrite = FALSE, install = FALSE)
 }
 \arguments{
-\item{id}{The API app ID provided to you from the NYC Developer Portal formated
-in quotes.}
+\item{id}{The API app ID provided to you from the NYC Developer Portal
+formated in quotes.}
 
-\item{key}{The API app key provided to you from the NYC Developer Portal formated
-in quotes.}
+\item{key}{The API app key provided to you from the NYC Developer Portal
+formated in quotes.}
 
 \item{overwrite}{If this is set to TRUE, it will overwrite the existing
-GEOCLIENT_APP_ID and GEOCLIENT_APP_KEY that you already have in your \code{.Renviron} file.}
+GEOCLIENT_APP_ID and GEOCLIENT_APP_KEY that you already have in your
+\code{.Renviron} file.}
 
 \item{install}{if TRUE, will install the key in your \code{.Renviron} file
 for use in future sessions.  Defaults to FALSE.}
@@ -24,33 +25,37 @@ for use in future sessions.  Defaults to FALSE.}
 This function will add your Geoclient app ID and key to your
   \code{.Renviron} file so they can be called securely without being stored
   in your code. After you have installed your ID and key, they can be called
-  any time by typing \code{Sys.getenv("GEOCLIENT_APP_ID")} or
+  any time by typing \code{Sys.getenv("GEOCLIENT_APP_ID")} and
   \code{Sys.getenv("GEOCLIENT_APP_KEY")} and can be used in package functions
   by simply typing GEOCLIENT_APP_ID or GEOCLIENT_APPKEY. If you do not have
   an \code{.Renviron} file, the function will create on for you. If you
   already have an \code{.Renviron} file, the function will append the ID and
   key to your existing file, while making a backup of your original file for
   disaster recovery purposes. You can acquire your Geoclient app ID and Key
-  by first registering with the \href{https://developer.cityofnewyork.us/user/register?destination=api}{NYC Developer Portal} at,
-  then \href{https://developer.cityofnewyork.us/create/project}{create a new project}, selecting
-  "Geoclient v1" from alailable APIs.
+  by first registering with the
+  \href{https://developer.cityofnewyork.us/user/register?destination=api}{NYC
+  Developer Portal} at, then
+  \href{https://developer.cityofnewyork.us/create/project}{create a new
+  project}, selecting "Geoclient v1" from alailable APIs.
 }
 \examples{
 
 \dontrun{
-census_api_key("111111abc", install = TRUE)
-# First time, reload your environment so you can use the key without restarting R.
+geoclient_api_keys("1a2b3c4", "9d8f7b6wh4jfgud67s89jfyw68vj38fh", install = TRUE)
+# First time, reload your environment so you can use the keys without restarting R.
 readRenviron("~/.Renviron")
-# You can check it with:
-Sys.getenv("CENSUS_API_KEY")
+# You can check them with:
+Sys.getenv("GEOCLIENT_APP_ID")
+Sys.getenv("GEOCLIENT_APP_KEY")
 }
 
 \dontrun{
-# If you need to overwrite an existing key:
-census_api_key("111111abc", overwrite = TRUE, install = TRUE)
-# First time, relead your environment so you can use the key without restarting R.
+# If you need to overwrite existing keys:
+geoclient_api_keys("1a2b3c4", "9d8f7b6wh4jfgud67s89jfyw68vj38fh", overwrite = TRUE, install = TRUE)
+# First time, reload your environment so you can use the keys without restarting R.
 readRenviron("~/.Renviron")
-# You can check it with:
-Sys.getenv("CENSUS_API_KEY")
+# You can check them with:
+Sys.getenv("GEOCLIENT_APP_ID")
+Sys.getenv("GEOCLIENT_APP_KEY")
 }
 }
