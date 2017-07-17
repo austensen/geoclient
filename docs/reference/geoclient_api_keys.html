@@ -12,8 +12,8 @@ Repeated Use — geoclient_api_keys • geoclient</title>
 <!-- jquery -->
 <script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script>
 <!-- Bootstrap -->
+<link href="https://maxcdn.bootstrapcdn.com/bootswatch/3.3.7/spacelab/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous">
 
-<link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
 
 <!-- Font Awesome icons -->
@@ -64,7 +64,16 @@ Repeated Use — geoclient_api_keys • geoclient</title>
       </ul>
       
       <ul class="nav navbar-nav navbar-right">
-        
+        <li>
+  <a href="http://github.com/austensen/geoclient">
+    <span class="fa fa-github fa-lg"></span>
+     
+    Source
+  </a>
+</li>
+<li>
+  <a href="../reference/index.html">Reference</a>
+</li>
       </ul>
     </div><!--/.nav-collapse -->
   </div><!--/.container -->
@@ -84,16 +93,18 @@ Repeated Use</h1>
     <p>This function will add your Geoclient app ID and key to your
   <code>.Renviron</code> file so they can be called securely without being stored
   in your code. After you have installed your ID and key, they can be called
-  any time by typing <code>Sys.getenv("GEOCLIENT_APP_ID")</code> or
+  any time by typing <code>Sys.getenv("GEOCLIENT_APP_ID")</code> and
   <code>Sys.getenv("GEOCLIENT_APP_KEY")</code> and can be used in package functions
   by simply typing GEOCLIENT_APP_ID or GEOCLIENT_APPKEY. If you do not have
   an <code>.Renviron</code> file, the function will create on for you. If you
   already have an <code>.Renviron</code> file, the function will append the ID and
   key to your existing file, while making a backup of your original file for
   disaster recovery purposes. You can acquire your Geoclient app ID and Key
-  by first registering with the <a href='https://developer.cityofnewyork.us/user/register?destination=api'>NYC Developer Portal</a> at,
-  then <a href='https://developer.cityofnewyork.us/create/project'>create a new project</a>, selecting
-  "Geoclient v1" from alailable APIs.</p>
+  by first registering with the
+  <a href='https://developer.cityofnewyork.us/user/register?destination=api'>NYC
+  Developer Portal</a> at, then
+  <a href='https://developer.cityofnewyork.us/create/project'>create a new
+  project</a>, selecting "Geoclient v1" from alailable APIs.</p>
     
 
     <pre class="usage"><span class='fu'>geoclient_api_keys</span>(<span class='no'>id</span>, <span class='no'>key</span>, <span class='kw'>overwrite</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>install</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</pre>
@@ -103,18 +114,19 @@ Repeated Use</h1>
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>id</th>
-      <td><p>The API app ID provided to you from the NYC Developer Portal formated
-in quotes.</p></td>
+      <td><p>The API app ID provided to you from the NYC Developer Portal
+formated in quotes.</p></td>
     </tr>
     <tr>
       <th>key</th>
-      <td><p>The API app key provided to you from the NYC Developer Portal formated
-in quotes.</p></td>
+      <td><p>The API app key provided to you from the NYC Developer Portal
+formated in quotes.</p></td>
     </tr>
     <tr>
       <th>overwrite</th>
       <td><p>If this is set to TRUE, it will overwrite the existing
-GEOCLIENT_APP_ID and GEOCLIENT_APP_KEY that you already have in your <code>.Renviron</code> file.</p></td>
+GEOCLIENT_APP_ID and GEOCLIENT_APP_KEY that you already have in your
+<code>.Renviron</code> file.</p></td>
     </tr>
     <tr>
       <th>install</th>
@@ -127,19 +139,21 @@ for use in future sessions.  Defaults to FALSE.</p></td>
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'>
 </div><span class='co'># NOT RUN {</span>
-<span class='fu'>census_api_key</span>(<span class='st'>"111111abc"</span>, <span class='kw'>install</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)
-<span class='co'># First time, reload your environment so you can use the key without restarting R.</span>
+<span class='fu'>geoclient_api_keys</span>(<span class='st'>"1a2b3c4"</span>, <span class='st'>"9d8f7b6wh4jfgud67s89jfyw68vj38fh"</span>, <span class='kw'>install</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)
+<span class='co'># First time, reload your environment so you can use the keys without restarting R.</span>
 <span class='fu'>readRenviron</span>(<span class='st'>"~/.Renviron"</span>)
-<span class='co'># You can check it with:</span>
-<span class='fu'>Sys.getenv</span>(<span class='st'>"CENSUS_API_KEY"</span>)
+<span class='co'># You can check them with:</span>
+<span class='fu'>Sys.getenv</span>(<span class='st'>"GEOCLIENT_APP_ID"</span>)
+<span class='fu'>Sys.getenv</span>(<span class='st'>"GEOCLIENT_APP_KEY"</span>)
 <span class='co'># }</span><div class='input'>
 </div><span class='co'># NOT RUN {</span>
-<span class='co'># If you need to overwrite an existing key:</span>
-<span class='fu'>census_api_key</span>(<span class='st'>"111111abc"</span>, <span class='kw'>overwrite</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>install</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)
-<span class='co'># First time, relead your environment so you can use the key without restarting R.</span>
+<span class='co'># If you need to overwrite existing keys:</span>
+<span class='fu'>geoclient_api_keys</span>(<span class='st'>"1a2b3c4"</span>, <span class='st'>"9d8f7b6wh4jfgud67s89jfyw68vj38fh"</span>, <span class='kw'>overwrite</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>install</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)
+<span class='co'># First time, reload your environment so you can use the keys without restarting R.</span>
 <span class='fu'>readRenviron</span>(<span class='st'>"~/.Renviron"</span>)
-<span class='co'># You can check it with:</span>
-<span class='fu'>Sys.getenv</span>(<span class='st'>"CENSUS_API_KEY"</span>)
+<span class='co'># You can check them with:</span>
+<span class='fu'>Sys.getenv</span>(<span class='st'>"GEOCLIENT_APP_ID"</span>)
+<span class='fu'>Sys.getenv</span>(<span class='st'>"GEOCLIENT_APP_KEY"</span>)
 <span class='co'># }</span></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
