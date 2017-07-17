@@ -1,0 +1,15 @@
+Package: geoclient
+Title: R interface to NYC's _Geoclient_ REST API
+Version: 0.0.0.9000
+Authors@R: person("Maxwell", "Austensen", email = "maxwell.austensen@nyu.edu", role = c("aut", "cre"))
+Description: An interface to NYC's _Geoclient_ REST API. 
+Depends: R (>= 3.3.2)
+License: MIT + file LICENSE
+Encoding: UTF-8
+LazyData: true
+Imports: httr,
+    jsonlite,
+    purrr,
+    sf,
+    glue
+RoxygenNote: 6.0.1
