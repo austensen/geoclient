@@ -11,10 +11,12 @@ License: MIT + file LICENSE
 Encoding: UTF-8
 LazyData: true
 Depends: R (>= 3.3.2)
-Imports: 
+Imports:
     httr,
     jsonlite,
     purrr,
     sf,
-    glue
+    glue,
+    dplyr
 RoxygenNote: 6.0.1
+Roxygen: list(markdown = TRUE)
