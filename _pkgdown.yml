@@ -1,0 +1,11 @@
+template:
+  params:
+    bootswatch: spacelab
+
+navbar:
+  right:
+  - text: Source
+    href: http://github.com/austensen/geoclient
+    icon: fa-github fa-lg
+  - text: Reference
+    href: reference/index.html
