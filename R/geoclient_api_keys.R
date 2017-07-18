@@ -14,7 +14,7 @@
 #'   \href{https://developer.cityofnewyork.us/user/register?destination=api}{NYC
 #'   Developer Portal} at, then
 #'   \href{https://developer.cityofnewyork.us/create/project}{create a new
-#'   project}, selecting "Geoclient v1" from alailable APIs.
+#'   project}, selecting "Geoclient v1" from available APIs.
 #' @param id The API app ID provided to you from the NYC Developer Portal
 #'   formated in quotes.
 #' @param key The API app key provided to you from the NYC Developer Portal
