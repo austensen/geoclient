@@ -1,4 +1,4 @@
-
+# SF return sf dataframe with crs = 2263 (used by NYC DCP)
 
 add_bbl <- function(df, number, street, borough = NULL, zip = NULL, bbl = "bbl", geometry = FALSE) {
 
@@ -46,7 +46,7 @@ add_bbl <- function(df, number, street, borough = NULL, zip = NULL, bbl = "bbl",
     sf_df <- sf::st_as_sf(df,
       coords = c("lon", "lat"),
       na.fail = FALSE,
-      crs = "+proj=longlat +datum=WGS84")
+      crs = 2263)
 
     return(sf_df)
   }
@@ -64,4 +64,11 @@ addr_df <- tribble(
 
 addr_df %>% add_bbl(num, st, boro, zip)
 
-addr_df %>% add_bbl(num, st, boro, zip, geometry = TRUE)
+addr_df %>% add_bbl(num, st, boro, zip, geometry = TRUE) -> foo
+
+library(sf)
+library(tigris)
+nyc <- tigris::places(36, class = "sf") %>% filter(GEOID == "3651000")
+
+plot(nyc[0])
+plot(foo[0], add = TRUE)
