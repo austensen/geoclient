@@ -1,0 +1,37 @@
+---
+output:
+  github_document:
+    html_preview: false
+---
+
+<!-- README.md is generated from README.Rmd. Please edit that file -->
+
+```{r, echo = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>",
+  fig.path = "README-"
+)
+options(tibble.print_min = 5, tibble.print_max = 5)
+```
+
+### geoclient: Tools to work with NYC's _Geoclient_ REST API
+
+### _This package is a very early work-in-progress_
+
+Tools to work with NYC's _Geoclient_ REST API. Retrieve Borough-Block-Lot (BBL) and other data from addresses. Allows useres to optionally return a simple features (sf) dataframe with a list-column containing BBL  geometry.
+
+
+### Installation
+
+Install from Github with [devtools](https://github.com/hadley/devtools):
+
+```{r, eval = FALSE}
+# install.packages("devtools")
+devtools::install_github("austensen/geoclient")
+```
+
+
+
+
+

@@ -47,6 +47,9 @@
 #' }
 #' @export
 
+
+# This function was borrowed from Kyle Walkerke's amazing tidycensus package
+
 geoclient_api_keys <- function(id, key, overwrite = FALSE, install = FALSE){
 
   if (install == TRUE) {

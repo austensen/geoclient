@@ -1,12 +1,14 @@
 Package: geoclient
 Type: Package
-Title: R interface to NYC's _Geoclient_ REST API
+Title: Tools to work with NYC's _Geoclient_ REST API
 Version: 0.0.0.9000
 Authors@R: person("Maxwell", "Austensen", email = "maxwell.austensen@nyu.edu", role = c("aut", "cre"))
 Date: 2017-07-16
 URL: https://github.com/austensen/geoclient
 BugReports: https://github.com/austensen/geoclient/issues
-Description: An interface to NYC's _Geoclient_ REST API. 
+Description: Tools to work with NYC's _Geoclient_ REST API. Retrieve Borough-Block-Lot (BBL) and other 
+  data from addresses. Allows useres to optionally return a simple features (sf) dataframe with a 
+  list-column containing BBL  geometry.
 License: MIT + file LICENSE
 Encoding: UTF-8
 LazyData: true
