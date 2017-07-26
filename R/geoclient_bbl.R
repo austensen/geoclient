@@ -1,41 +1,59 @@
+#' Retrieve Dataframe Response from Geoclient for BBLs
+#'
+#' This function takes BBLs (borough-block-lot) and returns Geoclient response
+#' in a tibble. The BBLs can be provided either in a vector as a named argument
+#' or as a dataframe and column name of the BBL field. The Geoclient API's app
+#' ID and key can either be provided directly as arguments, or you can first use
+#' [geoclient_api_keys()] to add them to your `.Renviron` file so they can be
+#' called securely without being stored in your code. You can acquire your
+#' Geoclient app ID and Key by first registering with the
+#' [https://developer.cityofnewyork.us/user/register?destination=api](NYC
+#' Developer Portal) at, then
+#' [https://developer.cityofnewyork.us/create/project](create a new project),
+#' selecting "Geoclient v1" from available APIs.
+#'
+#' @param df Dataframe that contains a column of BBLs. Defaults to `NULL` and
+#'   `bbl` is taked as a vector.
+#' @param bbl Either a vector of BBLs (numeric or character is accepted), or a
+#'   bare column name of the bbl field if a dataframe is provided.
+#' @param id The API app ID provided to you from the NYC Developer Portal
+#'   formated in quotes. Defaults to `NULL` and your key is accessed from your
+#'   `.Renviron`.
+#' @param key The API app key provided to you from the NYC Developer Portal
+#'   formated in quotes. Defaults to `NULL` and your key is accessed from your
+#'   `.Renviron`.
+#' @examples
+#'
+#' \dontrun{
+#'
+#' geoclient_api_keys("1a2b3c4", "9d8f7b6wh4jfgud67s89jfyw68vj38fh", install = TRUE)
+#' # First time, reload your environment so you can use the keys without restarting R.
+#' readRenviron("~/.Renviron")
+#'
+#' geoclient_bbl(bbl = 1005430053)
+#' geoclient_bbl(bbl = c("1005430053", "1005107502"))
+#'
+#' library(dplyr)
+#'
+#' df <- tibble(BBL = c("1005430053", "1005107502"))
+#'
+#' df %>% geoclient_bbl(BBL)
+#' }
+#'
+#' @export
 
+geoclient_bbl <- function(df = NULL, bbl, id = NULL, key = NULL) {
 
-geoclient_bbl <- function(df = NULL, bbl) {
+  # Temporarily change option to prevent scientific notation when coercing double to character
+  op <- options(scipen = 999)
+  on.exit(options(op))
 
-  # If a dataframe is provided, get the vector from there, otherwise just use input vector
-  if (!is.null(df)) {
-    if (!is.data.frame(df)) {
-      stop_glue("If a dataframe is not given as the first argument, the other argument must be named")
-    }
+  if (Sys.getenv('GEOCLIENT_APP_ID') != '' || Sys.getenv('GEOCLIENT_APP_KEY') != '') {
 
-    bbl <- enquo(bbl)
-    bbl <- dplyr::pull(df, !!bbl)
-  }
+    id <- Sys.getenv('GEOCLIENT_APP_ID')
+    key <- Sys.getenv('GEOCLIENT_APP_KEY')
 
-  # To avoid sending multiple requests for the same address, preserve original
-  # inputs, use deduplicated version for request, then join the respone back to
-  # original inputs before returning final result
-
-  bbl_orig <- tibble::tibble(bbl = bbl)
-
-  bbl_dedup <- dplyr::distinct(bbl_orig)
-
-  pb <- dplyr::progress_estimated(nrow(bbl_dedup))
-
-  # TODO: incorporate rate limiting, 2500/min
-  res <- purrr::pmap_df(as_list(bbl_dedup), single_bbl, pb = pb)
-
-  res <- dplyr::bind_cols(bbl_dedup, res)
-  res <- dplyr::select(res, -bbl1)
-
-  res <- dplyr::left_join(bbl_orig, res, by = c("bbl"))
-
-  res
-}
-
-single_bbl <- function(bbl, pb = NULL, ...) {
-
-  if (Sys.getenv('GEOCLIENT_APP_ID') == '' || Sys.getenv('GEOCLIENT_APP_KEY') == '') {
+  } else if (is_null("id") || is_null("key")) {
 
     stop_glue(
       "A Geoclient app ID and key are required.
@@ -44,25 +62,26 @@ single_bbl <- function(bbl, pb = NULL, ...) {
     )
   }
 
-  id <- Sys.getenv('CENSUS_API_ID')
-  key <- Sys.getenv('CENSUS_API_KEY')
+  # If a dataframe is provided, get the vector from there, otherwise just use input vector
+  if (!is.null(df)) {
+    if (!is.data.frame(df)) {
+      stop_glue("If a dataframe is not given as the first argument, the bbl argument must be named")
+    }
 
-  # For creating a progress bar
-  # Thanks to Bob Rudis' post: https://rud.is/b/2017/05/05/scrapeover-friday-a-k-a-another-r-scraping-makeover/
-  if (!is.null(pb) && (pb$n > 10)) pb$tick()$print()
-
-  if (is.numeric(bbl)) {
-    bbl <- as.integer(bbl)
+    bbl <- enquo(bbl)
+    bbl <- dplyr::pull(df, !!bbl)
   }
 
   bbl <- as.character(bbl)
 
-  if (stringr::str_length(bbl) != 10) {
+  all_bbls_correct <- bbl %>% stringr::str_length() %>% all(. == 10)
+
+  if (is_false(all_bbls_correct)) {
     stop_glue("BBL must be formatted as a 10-digit code, with 1-digit borough, 5-digit block, 4-digit lot")
   }
 
   borough <- stringr::str_sub(bbl, 1, 1)
-  borough <- case_when(
+  borough <- dplyr::case_when(
     borough == "1" ~ "manhattan",
     borough == "2" ~ "bronx",
     borough == "3" ~ "brooklyn",
@@ -73,23 +92,19 @@ single_bbl <- function(bbl, pb = NULL, ...) {
   block <- stringr::str_sub(bbl, 2, 6)
   lot <- stringr::str_sub(bbl, 7, 10)
 
-  resp <- rGET(
-    "https://api.cityofnewyork.us/geoclient/v1/bbl.json?",
-    httr::accept_json(),
-    query = list(
-      "borough" = borough,
-      "block" = block,
-      "lot" = lot,
-      "app_id" = Sys.getenv("GEOCLIENT_APP_ID"),
-      "app_key" = Sys.getenv("GEOCLIENT_APP_KEY")
-    )
+  bbl_inputs <- tibble::tibble(
+    borough = borough,
+    block = block,
+    lot = lot
   )
 
-  httr::stop_for_status(resp)
+  res <- vectorized_requests(
+    inputs = bbl_inputs,
+    operation = "bbl",
+    id = id,
+    key = key
+  )
 
-  parsed <- content_as_json_UTF8(resp)[["bbl"]]
-
-  tibble::as_tibble(parsed)
+  res
 }
-
 

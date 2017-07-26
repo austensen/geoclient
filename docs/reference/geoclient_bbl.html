@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Install Geoclient API ID and Key in Your <code>.Renviron</code> File for Repeated Use — geoclient_api_keys • geoclient</title>
+<title>Retrieve dataframe response from Geoclient for BBLs — geoclient_bbl • geoclient</title>
 
 <!-- jquery -->
 <script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script>
@@ -84,51 +84,49 @@
       <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Install Geoclient API ID and Key in Your <code>.Renviron</code> File for Repeated Use</h1>
+    <h1>Retrieve dataframe response from Geoclient for BBLs</h1>
     </div>
 
     
-    <p>This function will add your Geoclient app ID and key to your <code>.Renviron</code> file
-so they can be called securely without being stored in your code. After you
-have installed your ID and key, they can be called any time by typing
-<code>Sys.getenv("GEOCLIENT_APP_ID")</code> and <code>Sys.getenv("GEOCLIENT_APP_KEY")</code> and
-can be used in package functions by simply typing GEOCLIENT_APP_ID or
-GEOCLIENT_APPKEY. If you do not have an <code>.Renviron</code> file, the function will
-create on for you. If you already have an <code>.Renviron</code> file, the function will
-append the ID and key to your existing file, while making a backup of your
-original file for disaster recovery purposes. You can acquire your Geoclient
-app ID and Key by first registering with the
+    <p>This function takes BBLs (borough-block-lot) and returns Geoclient response
+in a tibble. The BBLs can be provided either in a vector as a named argument
+or as a dataframe and column name of the BBL field. The Geoclient API's app
+ID and key can either be provided directly as arguments, or you can first use
+<code><a href='geoclient_api_keys.html'>geoclient_api_keys()</a></code> to add them to your <code>.Renviron</code> file so they can be
+called securely without being stored in your code. You can acquire your
+Geoclient app ID and Key by first registering with the
 https://developer.cityofnewyork.us/user/register?destination=api(NYC
 Developer Portal) at, then
 https://developer.cityofnewyork.us/create/project(create a new project),
 selecting "Geoclient v1" from available APIs.</p>
     
 
-    <pre class="usage"><span class='fu'>geoclient_api_keys</span>(<span class='no'>id</span>, <span class='no'>key</span>, <span class='kw'>overwrite</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>install</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</pre>
+    <pre class="usage"><span class='fu'>geoclient_bbl</span>(<span class='kw'>df</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='no'>bbl</span>, <span class='kw'>id</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>key</span> <span class='kw'>=</span> <span class='kw'>NULL</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a> Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
+      <th>df</th>
+      <td><p>Dataframe that contains a column of BBLs. Defaults to <code>NULL</code> and
+<code>bbl</code> is taked as a vector.</p></td>
+    </tr>
+    <tr>
+      <th>bbl</th>
+      <td><p>Either a vector of BBLs (numeric or character is accepted), or a
+bare column name of the bbl field if a dataframe is provided.</p></td>
+    </tr>
+    <tr>
       <th>id</th>
       <td><p>The API app ID provided to you from the NYC Developer Portal
-formated in quotes.</p></td>
+formated in quotes. Defaults to <code>NULL</code> and your key is accessed from your
+<code>.Renviron</code>.</p></td>
     </tr>
     <tr>
       <th>key</th>
       <td><p>The API app key provided to you from the NYC Developer Portal
-formated in quotes.</p></td>
-    </tr>
-    <tr>
-      <th>overwrite</th>
-      <td><p>If this is set to TRUE, it will overwrite the existing
-GEOCLIENT_APP_ID and GEOCLIENT_APP_KEY that you already have in your
-<code>.Renviron</code> file.</p></td>
-    </tr>
-    <tr>
-      <th>install</th>
-      <td><p>if TRUE, will install the key in your <code>.Renviron</code> file for use
-in future sessions.  Defaults to FALSE.</p></td>
+formated in quotes. Defaults to <code>NULL</code> and your key is accessed from your
+<code>.Renviron</code>.</p></td>
     </tr>
     </table>
     
@@ -136,22 +134,20 @@ in future sessions.  Defaults to FALSE.</p></td>
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'>
 </div><span class='co'># NOT RUN {</span>
-<span class='fu'>geoclient_api_keys</span>(<span class='st'>"1a2b3c4"</span>, <span class='st'>"9d8f7b6wh4jfgud67s89jfyw68vj38fh"</span>, <span class='kw'>install</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)
+<span class='fu'><a href='geoclient_api_keys.html'>geoclient_api_keys</a></span>(<span class='st'>"1a2b3c4"</span>, <span class='st'>"9d8f7b6wh4jfgud67s89jfyw68vj38fh"</span>, <span class='kw'>install</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)
 <span class='co'># First time, reload your environment so you can use the keys without restarting R.</span>
 <span class='fu'>readRenviron</span>(<span class='st'>"~/.Renviron"</span>)
-<span class='co'># You can check them with:</span>
-<span class='fu'>Sys.getenv</span>(<span class='st'>"GEOCLIENT_APP_ID"</span>)
-<span class='fu'>Sys.getenv</span>(<span class='st'>"GEOCLIENT_APP_KEY"</span>)
+
+<span class='fu'>geoclient_bbl</span>(<span class='kw'>bbl</span> <span class='kw'>=</span> <span class='fl'>1005430053</span>)
+<span class='fu'>geoclient_bbl</span>(<span class='kw'>bbl</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='st'>"1005430053"</span>, <span class='st'>"1005107502"</span>))
+
+<span class='fu'>library</span>(<span class='no'>dplyr</span>)
+
+<span class='no'>df</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='http://dplyr.tidyverse.org/reference/reexports.html'>tibble</a></span>(<span class='kw'>BBL</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='st'>"1005430053"</span>, <span class='st'>"1005107502"</span>))
+
+<span class='no'>df</span> <span class='kw'>%&gt;%</span> <span class='fu'>geoclient_bbl</span>(<span class='no'>BBL</span>)
 <span class='co'># }</span><div class='input'>
-</div><span class='co'># NOT RUN {</span>
-<span class='co'># If you need to overwrite existing keys:</span>
-<span class='fu'>geoclient_api_keys</span>(<span class='st'>"1a2b3c4"</span>, <span class='st'>"9d8f7b6wh4jfgud67s89jfyw68vj38fh"</span>, <span class='kw'>overwrite</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>install</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)
-<span class='co'># First time, reload your environment so you can use the keys without restarting R.</span>
-<span class='fu'>readRenviron</span>(<span class='st'>"~/.Renviron"</span>)
-<span class='co'># You can check them with:</span>
-<span class='fu'>Sys.getenv</span>(<span class='st'>"GEOCLIENT_APP_ID"</span>)
-<span class='fu'>Sys.getenv</span>(<span class='st'>"GEOCLIENT_APP_KEY"</span>)
-<span class='co'># }</span></pre>
+</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>

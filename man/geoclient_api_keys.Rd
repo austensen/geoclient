@@ -2,8 +2,7 @@
 % Please edit documentation in R/geoclient_api_keys.R
 \name{geoclient_api_keys}
 \alias{geoclient_api_keys}
-\title{Install Geoclient API App ID and Key in Your \code{.Renviron} File for Repeated
-Use}
+\title{Install Geoclient API ID and Key in Your \code{.Renviron} File for Repeated Use}
 \usage{
 geoclient_api_keys(id, key, overwrite = FALSE, install = FALSE)
 }
@@ -22,20 +21,19 @@ GEOCLIENT_APP_ID and GEOCLIENT_APP_KEY that you already have in your
 in future sessions.  Defaults to FALSE.}
 }
 \description{
-This function will add your Geoclient app ID and key to your
-\code{.Renviron} file so they can be called securely without being stored in
-your code. After you have installed your ID and key, they can be called any
-time by typing \code{Sys.getenv("GEOCLIENT_APP_ID")} and
-\code{Sys.getenv("GEOCLIENT_APP_KEY")} and can be used in package functions by
-simply typing GEOCLIENT_APP_ID or GEOCLIENT_APPKEY. If you do not have an
-\code{.Renviron} file, the function will create on for you. If you already have
-an \code{.Renviron} file, the function will append the ID and key to your
-existing file, while making a backup of your original file for disaster
-recovery purposes. You can acquire your Geoclient app ID and Key by first
-registering with the
-\figure{R:https://developer.cityofnewyork.us/user/register?destination=api}{}(NYC
+This function will add your Geoclient app ID and key to your \code{.Renviron} file
+so they can be called securely without being stored in your code. After you
+have installed your ID and key, they can be called any time by typing
+\code{Sys.getenv("GEOCLIENT_APP_ID")} and \code{Sys.getenv("GEOCLIENT_APP_KEY")} and
+can be used in package functions by simply typing GEOCLIENT_APP_ID or
+GEOCLIENT_APPKEY. If you do not have an \code{.Renviron} file, the function will
+create on for you. If you already have an \code{.Renviron} file, the function will
+append the ID and key to your existing file, while making a backup of your
+original file for disaster recovery purposes. You can acquire your Geoclient
+app ID and Key by first registering with the
+\link{https://developer.cityofnewyork.us/user/register?destination=api}(NYC
 Developer Portal) at, then
-\figure{R:https://developer.cityofnewyork.us/create/project}{}(create a new project),
+\link{https://developer.cityofnewyork.us/create/project}(create a new project),
 selecting "Geoclient v1" from available APIs.
 }
 \examples{
