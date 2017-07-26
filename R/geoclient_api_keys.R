@@ -1,5 +1,4 @@
-#' Install Geoclient API App ID and Key in Your `.Renviron` File for Repeated
-#' Use
+#' Install Geoclient API ID and Key in Your `.Renviron` File for Repeated Use
 #' @description This function will add your Geoclient app ID and key to your
 #'   `.Renviron` file so they can be called securely without being stored in
 #'   your code. After you have installed your ID and key, they can be called any
