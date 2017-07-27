@@ -11,6 +11,8 @@ reference:
     - geoclient_bin
 
 navbar:
+  left:
+  - text:
   right:
   - text: Source
     href: http://github.com/austensen/geoclient
