@@ -53,22 +53,22 @@ add_bbl <- function(df, number, street, borough = NULL, zip = NULL, bbl = "bbl",
 }
 
 
-library(tibble)
-library(dplyr)
+# library(tibble)
+# library(dplyr)
 
-addr_df <- tribble(
-  ~num,  ~st,             ~boro,      ~zip,
-  "139", "MacDougal St", "Manhattan", NA,
-  "114", "east 1st street", NA,          "10009-7924"
-)
+# addr_df <- tribble(
+#   ~num,  ~st,             ~boro,      ~zip,
+#   "139", "MacDougal St", "Manhattan", NA,
+#   "114", "east 1st street", NA,          "10009-7924"
+# )
 
-addr_df %>% add_bbl(num, st, boro, zip)
+# addr_df %>% add_bbl(num, st, boro, zip)
 
-addr_df %>% add_bbl(num, st, boro, zip, geometry = TRUE) -> foo
+# addr_df %>% add_bbl(num, st, boro, zip, geometry = TRUE) -> foo
 
-library(sf)
-library(tigris)
-nyc <- tigris::places(36, class = "sf") %>% filter(GEOID == "3651000")
+# library(sf)
+# library(tigris)
+# nyc <- tigris::places(36, class = "sf") %>% filter(GEOID == "3651000")
 
-plot(nyc[0])
-plot(foo[0], add = TRUE)
+# plot(nyc[0])
+# plot(foo[0], add = TRUE)
