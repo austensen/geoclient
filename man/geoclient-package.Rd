@@ -6,9 +6,7 @@
 \alias{geoclient-package}
 \title{geoclient: Tools to work with NYC's _Geoclient_ REST API}
 \description{
-Tools to work with NYC's _Geoclient_ REST API. Retrieve Borough-Block-Lot (BBL) and other
-data from addresses. Allows users to optionally return a simple features (sf) dataframe with a
-list-column containing BBL geometry.
+Tools to work with NYC's _Geoclient_ REST API.
 }
 \seealso{
 Useful links:

@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Retrieve Dataframe Response from Geoclient for BBLs — geoclient_bbl • geoclient</title>
+<title>Retrieve Dataframe Response from Geoclient for BINs — geoclient_bin • geoclient</title>
 
 <!-- jquery -->
 <script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script>
@@ -84,44 +84,44 @@
       <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Retrieve Dataframe Response from Geoclient for BBLs</h1>
+    <h1>Retrieve Dataframe Response from Geoclient for BINs</h1>
     </div>
 
     
-    <p>This function takes BBLs (borough-block-lot) and returns the Geoclient
-response as a tibble. The BBLs can be provided either in a vector as a named
-argument or with a dataframe and column name of the BBL field. The Geoclient
-API's app ID and key can either be provided directly as arguments, or you can
-first use <code><a href='geoclient_api_keys.html'>geoclient_api_keys()</a></code> to add them to your <code>.Renviron</code> file so they
-can be called securely without being stored in your code.</p>
+    <p>This function takes BINs (Building Identification Number) and returns the
+Geoclient response as a tibble. The BINs can be provided either in a vector
+as a named argument or with a dataframe and column name of the BIN field. The
+Geoclient API's app ID and key can either be provided directly as arguments,
+or you can first use <code><a href='geoclient_api_keys.html'>geoclient_api_keys()</a></code> to add them to your <code>.Renviron</code>
+file so they can be called securely without being stored in your code.</p>
     
 
-    <pre class="usage"><span class='fu'>geoclient_bbl</span>(<span class='kw'>df</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='no'>bbl</span>, <span class='kw'>id</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>key</span> <span class='kw'>=</span> <span class='kw'>NULL</span>)</pre>
+    <pre class="usage"><span class='fu'>geoclient_bin</span>(<span class='kw'>df</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='no'>bin</span>, <span class='kw'>id</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>key</span> <span class='kw'>=</span> <span class='kw'>NULL</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a> Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>df</th>
-      <td><p>Dataframe that contains a column of BBLs. Defaults to <code>NULL</code> and
-<code>bbl</code> is taken as a vector.</p></td>
-    </tr>
-    <tr>
-      <th>bbl</th>
-      <td><p>Either a vector of BBLs (numeric or character is accepted), or a
-bare column name of the bbl field if a dataframe is provided.</p></td>
+      <td><p>Dataframe that contains a column of BINs. Defaults to <code>NULL</code> and
+<code>bin</code> is taken as a vector.</p></td>
     </tr>
     <tr>
       <th>id</th>
       <td><p>The API app ID provided to you from the NYC Developer Portal
-formated in quotes. Defaults to <code>NULL</code> and your key is accessed from your
+formated in quotes. Defaults to <code>NULL</code> and the id is accessed from your
 <code>.Renviron</code>.</p></td>
     </tr>
     <tr>
       <th>key</th>
       <td><p>The API app key provided to you from the NYC Developer Portal
-formated in quotes. Defaults to <code>NULL</code> and your key is accessed from your
+formated in quotes. Defaults to <code>NULL</code> and the key is accessed from your
 <code>.Renviron</code>.</p></td>
+    </tr>
+    <tr>
+      <th>bbl</th>
+      <td><p>Either a vector of BINs (numeric or character is accepted), or a
+bare column name of the bin field if a dataframe is provided.</p></td>
     </tr>
     </table>
     
@@ -131,14 +131,14 @@ formated in quotes. Defaults to <code>NULL</code> and your key is accessed from 
 </div><span class='co'># NOT RUN {</span>
 <span class='fu'><a href='geoclient_api_keys.html'>geoclient_api_keys</a></span>(<span class='st'>"1a2b3c4"</span>, <span class='st'>"9d8f7b6wh4jfgud67s89jfyw68vj38fh"</span>)
 
-<span class='fu'>geoclient_bbl</span>(<span class='kw'>bbl</span> <span class='kw'>=</span> <span class='fl'>1005430053</span>)
-<span class='fu'>geoclient_bbl</span>(<span class='kw'>bbl</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='st'>"1005430053"</span>, <span class='st'>"1005107502"</span>))
+<span class='fu'>geoclient_bin</span>(<span class='kw'>bin</span> <span class='kw'>=</span> <span class='fl'>1015862</span>)
+<span class='fu'>geoclient_bin</span>(<span class='kw'>bin</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='st'>"1008760"</span>, <span class='st'>"1007941"</span>))
 
 <span class='fu'>library</span>(<span class='no'>dplyr</span>)
 
-<span class='no'>df</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='http://dplyr.tidyverse.org/reference/reexports.html'>tibble</a></span>(<span class='kw'>BBL</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='st'>"1005430053"</span>, <span class='st'>"1005107502"</span>))
+<span class='no'>df</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='http://dplyr.tidyverse.org/reference/reexports.html'>tibble</a></span>(<span class='kw'>BIN</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='st'>"1008760"</span>, <span class='st'>"1007941"</span>))
 
-<span class='fu'>geoclient_bbl</span>(<span class='no'>df</span>, <span class='no'>BBL</span>)
+<span class='fu'>geoclient_bin</span>(<span class='no'>df</span>, <span class='no'>BIN</span>)
 <span class='co'># }</span><div class='input'>
 </div></pre>
   </div>

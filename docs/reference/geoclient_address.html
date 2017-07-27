@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Retrieve dataframe response from Geoclient for addresses — geoclient_address • geoclient</title>
+<title>Retrieve Dataframe Response from Geoclient for Addresses — geoclient_address • geoclient</title>
 
 <!-- jquery -->
 <script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script>
@@ -84,21 +84,18 @@
       <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Retrieve dataframe response from Geoclient for addresses</h1>
+    <h1>Retrieve Dataframe Response from Geoclient for Addresses</h1>
     </div>
 
     
-    <p>This function takes BBLs (borough-block-lot) and returns Geoclient response
-in a tibble. The BBLs can be provided either in a vector as a named argument
-or as a dataframe and column name of the BBL field. The Geoclient API's app
-ID and key can either be provided directly as arguments, or you can first use
+    <p>This function takes components of addresses and returns the Geoclient
+response as a tibble. The house number, street name, and one of either
+borough or zipcode are required. The address components can be provided
+either in separate vectors as a named arguments or with a dataframe and
+column names containing each component. The Geoclient API's app ID and key
+can either be provided directly as arguments, or you can first use
 <code><a href='geoclient_api_keys.html'>geoclient_api_keys()</a></code> to add them to your <code>.Renviron</code> file so they can be
-called securely without being stored in your code. You can acquire your
-Geoclient app ID and Key by first registering with the
-https://developer.cityofnewyork.us/user/register?destination=api(NYC
-Developer Portal) at, then
-https://developer.cityofnewyork.us/create/project(create a new project),
-selecting "Geoclient v1" from available APIs.</p>
+called securely without being stored in your code.</p>
     
 
     <pre class="usage"><span class='fu'>geoclient_address</span>(<span class='kw'>df</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='no'>number</span>, <span class='no'>street</span>, <span class='kw'>borough</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>zip</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
@@ -110,7 +107,7 @@ selecting "Geoclient v1" from available APIs.</p>
     <tr>
       <th>df</th>
       <td><p>Dataframe that contains a column of BBLs. Defaults to <code>NULL</code> and
-<code>bbl</code> is taked as a vector.</p></td>
+<code>bbl</code> is taken as a vector.</p></td>
     </tr>
     <tr>
       <th>id</th>
@@ -135,9 +132,7 @@ bare column name of the bbl field if a dataframe is provided.</p></td>
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'>
 </div><span class='co'># NOT RUN {</span>
-<span class='fu'><a href='geoclient_api_keys.html'>geoclient_api_keys</a></span>(<span class='st'>"1a2b3c4"</span>, <span class='st'>"9d8f7b6wh4jfgud67s89jfyw68vj38fh"</span>, <span class='kw'>install</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)
-<span class='co'># First time, reload your environment so you can use the keys without restarting R.</span>
-<span class='fu'>readRenviron</span>(<span class='st'>"~/.Renviron"</span>)
+<span class='fu'><a href='geoclient_api_keys.html'>geoclient_api_keys</a></span>(<span class='st'>"1a2b3c4"</span>, <span class='st'>"9d8f7b6wh4jfgud67s89jfyw68vj38fh"</span>)
 
 <span class='fu'>geoclient_address</span>(
   <span class='kw'>number</span> <span class='kw'>=</span> <span class='st'>"139"</span>,
@@ -149,16 +144,16 @@ bare column name of the bbl field if a dataframe is provided.</p></td>
 <span class='fu'>library</span>(<span class='no'>tibble</span>)
 <span class='fu'>library</span>(<span class='no'>dplyr</span>)
 
-<span class='no'>addr</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='http://www.rdocumentation.org/packages/tibble/topics/tribble'>tribble</a></span>(
+<span class='no'>df</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='http://www.rdocumentation.org/packages/tibble/topics/tribble'>tribble</a></span>(
   ~<span class='no'>num</span>,  ~<span class='no'>st</span>,                ~<span class='no'>boro</span>,         ~<span class='no'>zip</span>,
   <span class='st'>"139"</span>, <span class='st'>"MacDougal St"</span>,     <span class='st'>"manhattan"</span>,   <span class='st'>"11231"</span>,
   <span class='st'>"295"</span>, <span class='st'>"Lafayette street"</span>, <span class='fl'>NA_character_</span>, <span class='st'>"10012-2722"</span>,
   <span class='st'>"40"</span>,  <span class='st'>"WASHINGTON SQ S"</span>,  <span class='st'>"MN"</span>,          <span class='fl'>NA_character_</span>
 )
 
-<span class='fu'>geoclient_address</span>(<span class='no'>addr</span>, <span class='no'>num</span>, <span class='no'>st</span>, <span class='no'>boro</span>, <span class='no'>zip</span>)
+<span class='fu'>geoclient_address</span>(<span class='no'>df</span>, <span class='no'>num</span>, <span class='no'>st</span>, <span class='no'>boro</span>, <span class='no'>zip</span>)
 
-<span class='no'>addr</span> <span class='kw'>%&gt;%</span>
+<span class='no'>df</span> <span class='kw'>%&gt;%</span>
   <span class='fu'><a href='http://dplyr.tidyverse.org/reference/mutate.html'>mutate</a></span>(
     <span class='kw'>bbl</span> <span class='kw'>=</span> <span class='fu'>geoclient_address</span>(<span class='kw'>number</span> <span class='kw'>=</span> <span class='no'>num</span>, <span class='kw'>street</span> <span class='kw'>=</span> <span class='no'>st</span>, <span class='kw'>borough</span> <span class='kw'>=</span> <span class='no'>boro</span>, <span class='kw'>zip</span> <span class='kw'>=</span> <span class='no'>zip</span>)<span class='kw'>[[</span><span class='st'>"bbl"</span>]]
   )
