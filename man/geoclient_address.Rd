@@ -2,14 +2,14 @@
 % Please edit documentation in R/geoclient_address.R
 \name{geoclient_address}
 \alias{geoclient_address}
-\title{Retrieve dataframe response from Geoclient for addresses}
+\title{Retrieve Dataframe Response from Geoclient for Addresses}
 \usage{
 geoclient_address(df = NULL, number, street, borough = NULL, zip = NULL,
   id = NULL, key = NULL)
 }
 \arguments{
 \item{df}{Dataframe that contains a column of BBLs. Defaults to \code{NULL} and
-\code{bbl} is taked as a vector.}
+\code{bbl} is taken as a vector.}
 
 \item{id}{The API app ID provided to you from the NYC Developer Portal
 formated in quotes. Defaults to \code{NULL} and your key is accessed from your
@@ -23,25 +23,20 @@ formated in quotes. Defaults to \code{NULL} and your key is accessed from your
 bare column name of the bbl field if a dataframe is provided.}
 }
 \description{
-This function takes BBLs (borough-block-lot) and returns Geoclient response
-in a tibble. The BBLs can be provided either in a vector as a named argument
-or as a dataframe and column name of the BBL field. The Geoclient API's app
-ID and key can either be provided directly as arguments, or you can first use
+This function takes components of addresses and returns the Geoclient
+response as a tibble. The house number, street name, and one of either
+borough or zipcode are required. The address components can be provided
+either in separate vectors as a named arguments or with a dataframe and
+column names containing each component. The Geoclient API's app ID and key
+can either be provided directly as arguments, or you can first use
 \code{\link[=geoclient_api_keys]{geoclient_api_keys()}} to add them to your \code{.Renviron} file so they can be
-called securely without being stored in your code. You can acquire your
-Geoclient app ID and Key by first registering with the
-\link{https://developer.cityofnewyork.us/user/register?destination=api}(NYC
-Developer Portal) at, then
-\link{https://developer.cityofnewyork.us/create/project}(create a new project),
-selecting "Geoclient v1" from available APIs.
+called securely without being stored in your code.
 }
 \examples{
 
 \dontrun{
 
-geoclient_api_keys("1a2b3c4", "9d8f7b6wh4jfgud67s89jfyw68vj38fh", install = TRUE)
-# First time, reload your environment so you can use the keys without restarting R.
-readRenviron("~/.Renviron")
+geoclient_api_keys("1a2b3c4", "9d8f7b6wh4jfgud67s89jfyw68vj38fh")
 
 geoclient_address(
   number = "139",
@@ -53,16 +48,16 @@ geoclient_address(
 library(tibble)
 library(dplyr)
 
-addr <- tribble(
+df <- tribble(
   ~num,  ~st,                ~boro,         ~zip,
   "139", "MacDougal St",     "manhattan",   "11231",
   "295", "Lafayette street", NA_character_, "10012-2722",
   "40",  "WASHINGTON SQ S",  "MN",          NA_character_
 )
 
-geoclient_address(addr, num, st, boro, zip)
+geoclient_address(df, num, st, boro, zip)
 
-addr \%>\%
+df \%>\%
   mutate(
     bbl = geoclient_address(number = num, street = st, borough = boro, zip = zip)[["bbl"]]
   )

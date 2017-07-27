@@ -3,5 +3,6 @@
 export(geoclient_address)
 export(geoclient_api_keys)
 export(geoclient_bbl)
+export(geoclient_bin)
 import(rlang)
 importFrom(dplyr,"%>%")

@@ -1,7 +1,48 @@
+#' Retrieve Dataframe Response from Geoclient for BINs
+#'
+#' This function takes BINs (Building Identification Number) and returns the
+#' Geoclient response as a tibble. The BINs can be provided either in a vector
+#' as a named argument or with a dataframe and column name of the BIN field. The
+#' Geoclient API's app ID and key can either be provided directly as arguments,
+#' or you can first use [geoclient_api_keys()] to add them to your `.Renviron`
+#' file so they can be called securely without being stored in your code.
+#'
+#' @param df Dataframe that contains a column of BINs. Defaults to `NULL` and
+#'   `bin` is taken as a vector.
+#' @param bbl Either a vector of BINs (numeric or character is accepted), or a
+#'   bare column name of the bin field if a dataframe is provided.
+#' @param id The API app ID provided to you from the NYC Developer Portal
+#'   formated in quotes. Defaults to `NULL` and the id is accessed from your
+#'   `.Renviron`.
+#' @param key The API app key provided to you from the NYC Developer Portal
+#'   formated in quotes. Defaults to `NULL` and the key is accessed from your
+#'   `.Renviron`.
+#' @examples
+#'
+#' \dontrun{
+#'
+#' geoclient_api_keys("1a2b3c4", "9d8f7b6wh4jfgud67s89jfyw68vj38fh")
+#'
+#' geoclient_bin(bin = 1015862)
+#' geoclient_bin(bin = c("1008760", "1007941"))
+#'
+#' library(dplyr)
+#'
+#' df <- tibble(BIN = c("1008760", "1007941"))
+#'
+#' geoclient_bin(df, BIN)
+#' }
+#'
+#' @export
 
+geoclient_bin <- function(df = NULL, bin, id = NULL, key = NULL) {
 
+  # Temporarily change option to prevent scientific notation when coercing double to character
+  op <- options(scipen = 999)
+  on.exit(options(op))
 
-geoclient_bin <- function(df = NULL, bin) {
+  # Get Geoclient App ID and Key (either from .Renviron or arguments)
+  creds <- get_credentials(id, key)
 
   # If a dataframe is provided, get the vector from there, otherwise just use input vector
   if (!is.null(df)) {
@@ -13,67 +54,21 @@ geoclient_bin <- function(df = NULL, bin) {
     bin <- dplyr::pull(df, !!bin)
   }
 
-  # To avoid sending multiple requests for the same address, preserve original
-  # inputs, use deduplicated version for request, then join the respone back to
-  # original inputs before returning final result
-
-  bin_orig <- tibble::tibble(bin = bin)
-
-  bin_dedup <- dplyr::distinct(bin_orig)
-
-  pb <- dplyr::progress_estimated(nrow(bin_dedup))
-
-  # TODO: incorporate rate limiting, 2500/min
-  res <- purrr::pmap_df(as_list(bin_dedup), single_bin, pb = pb)
-
-  res <- dplyr::bind_cols(bin_dedup, res)
-
-  res <- dplyr::left_join(bin_orig, res, by = c("bin"))
-
-  res
-}
-
-single_bin <- function(bin, pb = NULL, ...) {
-
-  if (Sys.getenv('GEOCLIENT_APP_ID') == '' || Sys.getenv('GEOCLIENT_APP_KEY') == '') {
-
-    stop_glue(
-      "A Geoclient app ID and key are required.
-      Obtain them at https://developer.cityofnewyork.us/user/register?destination=api,",
-      "and then supply them to the `geoclient_api_keys` function to avoid entering them with each call."
-    )
-  }
-
-  id <- Sys.getenv('CENSUS_API_ID')
-  key <- Sys.getenv('CENSUS_API_KEY')
-
-  # For creating a progress bar
-  # Thanks to Bob Rudis' post: https://rud.is/b/2017/05/05/scrapeover-friday-a-k-a-another-r-scraping-makeover/
-  if (!is.null(pb) && (pb$n > 10)) pb$tick()$print()
-
-  if (is.numeric(bin)) {
-    bin <- as.integer(bin)
-  }
-
   bin <- as.character(bin)
 
   if (stringr::str_length(bin) != 7) {
     stop_glue("BIN must be formatted as a 7-digit code, with the first digit being the borough code")
   }
 
-  resp <- rGET(
-    "https://api.cityofnewyork.us/geoclient/v1/bin.json?",
-    httr::accept_json(),
-    query = list(
-      "bin" = bin,
-      "app_id" = Sys.getenv("GEOCLIENT_APP_ID"),
-      "app_key" = Sys.getenv("GEOCLIENT_APP_KEY")
-    )
+  bin_inputs <- tibble::tibble(
+    bin = bin
   )
 
-  httr::stop_for_status(resp)
+  res <- make_requests(
+    inputs = bin_inputs,
+    operation = "bin",
+    creds = creds
+  )
 
-  parsed <- content_as_json_UTF8(resp)[["bin"]]
-
-  tibble::as_tibble(parsed)
+  res
 }
