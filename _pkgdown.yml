@@ -2,6 +2,14 @@ template:
   params:
     bootswatch: spacelab
 
+reference:
+- title: All Functions
+  contents:
+    - geoclient_api_keys
+    - geoclient_address
+    - geoclient_bbl
+    - geoclient_bin
+
 navbar:
   right:
   - text: Source
