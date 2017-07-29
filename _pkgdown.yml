@@ -6,12 +6,17 @@ reference:
 - title: Package Documentation
   contents:
     - geoclient
-- title: All Functions
+- title: Setup
   contents:
     - geoclient_api_keys
+- title: Six Location Type Functions
+  contents:
     - geoclient_address
     - geoclient_bbl
     - geoclient_bin
+- title: Single-Input Search
+  contents:
+    - geoclient_search
 
 navbar:
   left:
