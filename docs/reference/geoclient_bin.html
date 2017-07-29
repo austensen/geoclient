@@ -58,14 +58,13 @@
       
       <ul class="nav navbar-nav navbar-right">
         <li>
+  <a href="../reference/index.html">Reference</a>
+</li>
+<li>
   <a href="http://github.com/austensen/geoclient">
     <span class="fa fa-github fa-lg"></span>
      
-    Source
   </a>
-</li>
-<li>
-  <a href="../reference/index.html">Reference</a>
 </li>
       </ul>
     </div><!--/.nav-collapse -->
@@ -90,7 +89,8 @@ or you can first use <code><a href='geoclient_api_keys.html'>geoclient_api_keys(
 file so they can be called securely without being stored in your code.</p>
     
 
-    <pre class="usage"><span class='fu'>geoclient_bin</span>(<span class='kw'>df</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='no'>bin</span>, <span class='kw'>id</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>key</span> <span class='kw'>=</span> <span class='kw'>NULL</span>)</pre>
+    <pre class="usage"><span class='fu'>geoclient_bin</span>(<span class='kw'>df</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='no'>bin</span>, <span class='kw'>id</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>key</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>rate_limit</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
+  <span class='kw'>cap_daily_requests</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a> Arguments</h2>
     <table class="ref-arguments">
@@ -111,6 +111,18 @@ formated in quotes. Defaults to <code>NULL</code> and the id is accessed from yo
       <td><p>The API app key provided to you from the NYC Developer Portal
 formated in quotes. Defaults to <code>NULL</code> and the key is accessed from your
 <code>.Renviron</code>.</p></td>
+    </tr>
+    <tr>
+      <th>rate_limit</th>
+      <td><p>Wether you would like to limit the rate of API requests in
+adherence to Geoclient's Service Usage Guidelines. See <code><a href='geoclient.html'>?geoclient</a></code> for
+more information.</p></td>
+    </tr>
+    <tr>
+      <th>cap_daily_requests</th>
+      <td><p>Wether you would like to cap the daily number of
+API requests in adherence to Geoclient's Service Usage Guidelines. See
+<code><a href='geoclient.html'>?geoclient</a></code> for more information.</p></td>
     </tr>
     <tr>
       <th>bbl</th>

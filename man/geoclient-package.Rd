@@ -4,9 +4,10 @@
 \name{geoclient-package}
 \alias{geoclient}
 \alias{geoclient-package}
-\title{Geoclient}
+\title{Tools to work with NYC's Geoclient REST API.}
 \description{
-Tools to work with NYC's Geoclient REST API.
+This packages uses NYC's Geoclient API but is neither endorsed nor supported
+by the the City of New York.
 }
 \details{
 To learn more about usig this package, visit

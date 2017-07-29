@@ -3,6 +3,9 @@ template:
     bootswatch: spacelab
 
 reference:
+- title: Package Documentation
+  contents:
+    - geoclient
 - title: All Functions
   contents:
     - geoclient_api_keys
@@ -14,8 +17,8 @@ navbar:
   left:
   - text:
   right:
-  - text: Source
-    href: http://github.com/austensen/geoclient
-    icon: fa-github fa-lg
   - text: Reference
     href: reference/index.html
+  - text:
+    href: http://github.com/austensen/geoclient
+    icon: fa-github fa-lg

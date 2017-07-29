@@ -1,6 +1,7 @@
-#' Geoclient
-#'
 #' Tools to work with NYC's Geoclient REST API.
+#'
+#' This packages uses NYC's Geoclient API but is neither endorsed nor supported
+#' by the the City of New York.
 #'
 #' To learn more about usig this package, visit
 #' https://austensen.github.io/geoclient/ or `browseVignettes(package =
