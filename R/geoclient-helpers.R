@@ -1,4 +1,143 @@
 
+# Depending on value of `rate_limit` uses appropriate function to make API
+# requests, passing on the arguments `operation`, `creds`,
+# `cap_daily_requests`, and `pb` to the limited/unlimited functions
+make_requests <- function(inputs, ...) {
+
+  rate_limit <- list(...)[["rate_limit"]]
+
+  if (rate_limit == TRUE) {
+    ret <- make_rate_limited_requests(inputs, ...)
+  } else if (rate_limit == FALSE) {
+    ret <- make_unlimited_requests(inputs, ...)
+  }
+
+  ret
+}
+
+# Limits API requests to 2,500 per minute in adherence to Geoclient's Service
+# Usage Guidelines. The arguments  `operation`, `creds`,
+# `cap_daily_requests`, and `pb` are passed on to make_unlimited_requests()
+make_rate_limited_requests <- function(inputs, ..., chunk_size = 2500, duration_hms = "00:01:00") {
+
+  # Transform the single dataframe into a list of dataframes each with no more than 2500 rows
+  chunked_inputs <- split(inputs, ceiling(seq_len(nrow(inputs)) / chunk_size))
+  chunked_inputs <- set_names(chunked_inputs, NULL)
+
+  n_chunks <- length(chunked_inputs)
+
+  duration_hms <- hms::as.hms(duration_hms)
+
+  # TODO: change to imap_dfr() when new purrr released
+  purrr::map2_df(chunked_inputs, seq_along(chunked_inputs), function(.x, .y) {
+
+    start_time <- lubridate::now()
+
+    ret <- make_unlimited_requests(.x, ...)
+
+    if (.y == n_chunks) {
+      return(ret)
+    }
+
+    time_passed <- hms::as.hms(lubridate::now() - start_time)
+
+    time_to_wait <- duration_hms - time_passed
+
+    if (time_to_wait > 0) {
+      Sys.sleep(time_to_wait)
+    }
+
+    ret
+  })
+}
+
+
+# Makes API requests without rate limiting, passing the arguments `operation`,
+# `creds`, `cap_daily_requests`, and `pb` to make_single_request(). The main
+# purpose of this funciton is to vectorize make_single_request() by interating
+# over each row of the input dataframe.
+
+# Inputs: a dataframe wherein each column corresponds to a API query parameter
+# Returns: a dataframe containing the API response
+
+make_unlimited_requests <- function(inputs, ...) {
+
+  # To avoid sending multiple requests for the same address, preserve original
+  # inputs, use deduplicated version for request, then join the respone back to
+  # original inputs before returning final result
+
+  var_names <- names(inputs)
+
+  inputs_dedup <- dplyr::distinct(inputs)
+
+  n_requests <- nrow(inputs_dedup)
+
+  cap_daily_requests <- list(...)[["cap_daily_requests"]]
+
+  if (n_requests > 500000 && cap_daily_requests == TRUE) {
+    stop_glue(
+      "The required number of API requests exxceed Geoclient's Service Usage Guidelines of maximum 500,000 per day.
+      To ignore this daily maximum set `cap_daily_requests = FALSE`.
+      See ?geoclient for more information."
+    )
+  }
+
+  pb <- dplyr::progress_estimated(n_requests)
+
+  ret <- purrr::pmap_df(
+    inputs_dedup,
+    make_single_request,
+    ...,
+    pb = pb
+  )
+
+  ret <- dplyr::bind_cols(inputs_dedup, ret)
+
+  ret <- dplyr::left_join(inputs, ret, by = var_names)
+
+  ret
+}
+
+
+# Makes a single API request (Geoclient does not support a single request for multiple addres/bbls/bins/etc.).
+
+# Inputs: takes a length-1 vector for each of the API query parameters
+# Returns: API response as a dataframe
+make_single_request <- function(..., operation, creds, pb = NULL) {
+
+  # Build the list of query elements
+  params <- purrr::splice(..., app_id = creds[["id"]], app_key = creds[["key"]])
+
+  # If an element is NA, remove it entirely (eg. for address borough/zip)
+  params <- purrr::discard(params, is.na)
+
+  # For creating a progress bar
+  # Thanks to Bob Rudis' post: https://rud.is/b/2017/05/05/scrapeover-friday-a-k-a-another-r-scraping-makeover/
+  if (!is_null(pb) && (pb$n > 10)) pb$tick()$print()
+
+  resp <- rGET(
+    glue::glue("https://api.cityofnewyork.us/geoclient/v1/{operation}.json?"),
+    httr::accept_json(),
+    query = params
+  )
+
+  httr::stop_for_status(resp)
+
+  parsed <- content_as_json_UTF8(resp)[[operation]]
+
+  # TODO: may want to move this to an earlier point in the process, since a fair
+  # amount of manipulation occurs before this step
+  if (parsed[[1]] == "Authentication failed") {
+    stop_glue(
+      "Authentication failed: Geoclient API app ID and/or Key are invalid.
+      See ?geoclient_api_keys for details on how to aquire valid credentials."
+    )
+  }
+
+  tibble::as_tibble(parsed)
+}
+
+
 
 get_credentials <- function(id = NULL, key = NULL) {
 
@@ -10,6 +149,7 @@ get_credentials <- function(id = NULL, key = NULL) {
 
   # TODO: is it too annoying to remind the user about stores api keys every time?
   #       is there a way to only do it once per session?
+  #       maybe just make a startup-message?
 
   if (!is_null(id) && !is_null(key)) {
 
@@ -38,69 +178,5 @@ get_credentials <- function(id = NULL, key = NULL) {
 
   creds
 }
-
-
-make_requests <- function(inputs, operation, creds) {
-
-  # To avoid sending multiple requests for the same address, preserve original
-  # inputs, use deduplicated version for request, then join the respone back to
-  # original inputs before returning final result
-
-  var_names <- names(inputs)
-
-  inputs_dedup <- dplyr::distinct(inputs)
-
-  pb <- dplyr::progress_estimated(nrow(inputs_dedup))
-
-  # TODO: incorporate rate limiting, 2500/min
-  res <- purrr::pmap_df(
-    inputs_dedup,
-    make_request,
-    operation = operation,
-    creds = creds,
-    pb = pb
-  )
-
-  res <- dplyr::bind_cols(inputs_dedup, res)
-
-  res <- dplyr::left_join(inputs, res, by = var_names)
-
-  res
-}
-
-
-make_request <- function(..., operation, creds, pb = NULL) {
-
-  # Build the list of query elements
-  params <- purrr::splice(..., app_id = creds[["id"]], app_key = creds[["key"]])
-
-  # If an element is NA, remove it entirely (eg. for address borough/zip)
-  params <- purrr::discard(params, is.na)
-
-  # For creating a progress bar
-  # Thanks to Bob Rudis' post: https://rud.is/b/2017/05/05/scrapeover-friday-a-k-a-another-r-scraping-makeover/
-  if (!is_null(pb) && (pb$n > 10)) pb$tick()$print()
-
-  resp <- rGET(
-    glue::glue("https://api.cityofnewyork.us/geoclient/v1/{operation}.json?"),
-    httr::accept_json(),
-    query = params
-  )
-
-  httr::stop_for_status(resp)
-
-  parsed <- content_as_json_UTF8(resp)[[operation]]
-
-  if (parsed[[1]] == "Authentication failed") {
-    stop_glue(
-      "Authentication failed: Geoclient API app ID and/or Key are invalid.
-      See ?geoclient_api_keys for details on how to aquire valid credentials."
-    )
-  }
-
-  tibble::as_tibble(parsed)
-}
-
-
 
 

@@ -4,9 +4,9 @@ Title: Tools to work with NYC's _Geoclient_ REST API
 Version: 0.0.0.9000
 Authors@R: person("Maxwell", "Austensen", email = "maxwell.austensen@nyu.edu", role = c("aut", "cre"))
 Date: 2017-07-16
-URL: https://github.com/austensen/geoclient
+URL: https://austensen.github.io/geoclient/, https://github.com/austensen/geoclient
 BugReports: https://github.com/austensen/geoclient/issues
-Description: Tools to work with NYC's _Geoclient_ REST API.
+Description: Tools to work with NYC's Geoclient REST API.
 License: MIT + file LICENSE
 Encoding: UTF-8
 LazyData: true
@@ -15,15 +15,17 @@ Imports:
     httr,
     jsonlite,
     purrr,
-    sf,
     glue,
     dplyr,
     rlang,
     magrittr,
-    utils
+    utils,
+    tidyr,
+    lubridate,
+    hms
 RoxygenNote: 6.0.1
 Roxygen: list(markdown = TRUE)
-Suggests: 
+Suggests:
     testthat,
     secret
 Remotes:
