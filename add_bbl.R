@@ -72,5 +72,13 @@ add_bbl <- function(df, number, street, borough = NULL, zip = NULL, bbl = "bbl",
 # library(tigris)
 # nyc <- tigris::places(36, class = "sf") %>% filter(GEOID == "3651000")
 #
+# addr_df %>% add_bbl(num, st, boro, zip)
+#
+# addr_df %>% add_bbl(num, st, boro, zip, geometry = TRUE) -> foo
+#
+# library(sf)
+# library(tigris)
+# nyc <- tigris::places(36, class = "sf") %>% filter(GEOID == "3651000")
+#
 # plot(nyc[0])
 # plot(foo[0], add = TRUE)
