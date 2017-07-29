@@ -84,10 +84,14 @@ make_unlimited_requests <- function(inputs, ...) {
 
   pb <- dplyr::progress_estimated(n_requests)
 
+  operation <- list(...)[["operation"]]
+  creds <- list(...)[["creds"]]
+
   ret <- purrr::pmap_df(
     inputs_dedup,
     make_single_request,
-    ...,
+    operation = operation,
+    creds = creds,
     pb = pb
   )
 
@@ -121,17 +125,19 @@ make_single_request <- function(..., operation, creds, pb = NULL) {
     query = params
   )
 
-  httr::stop_for_status(resp)
-
-  parsed <- content_as_json_UTF8(resp)[[operation]]
-
-  # TODO: may want to move this to an earlier point in the process, since a fair
-  # amount of manipulation occurs before this step
-  if (parsed[[1]] == "Authentication failed") {
+  if (httr::content(resp)[[1]] == "Authentication failed") {
     stop_glue(
       "Authentication failed: Geoclient API app ID and/or Key are invalid.
       See ?geoclient_api_keys for details on how to aquire valid credentials."
     )
+  }
+
+  httr::stop_for_status(resp)
+
+  if (operation == "search") {
+    parsed <- content_as_json_UTF8(resp)[["results"]][["response"]]
+  } else {
+    parsed <- content_as_json_UTF8(resp)[[operation]]
   }
 
   tibble::as_tibble(parsed)
