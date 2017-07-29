@@ -40,6 +40,13 @@ can either be provided directly as arguments, or you can first use
 \code{\link[=geoclient_api_keys]{geoclient_api_keys()}} to add them to your \code{.Renviron} file so they can be
 called securely without being stored in your code.
 }
+\details{
+For more details see the Geoclient Documentation's guide to \href{https://api.cityofnewyork.us/geoclient/v1/doc#section-1.2.1}{makingadressrequests},
+interpreting the \href{https://api.cityofnewyork.us/geoclient/v1/doc#section-2.2}{Geosupport returncodes}, the
+\href{https://api.cityofnewyork.us/geoclient/v1/doc#section-3.1}{data returned bygeoclient_address},
+and a \href{https://api.cityofnewyork.us/geoclient/v1/doc#section-4.0}{complete datadictionary} for
+all possible data elemets returned by any geoclient function.
+}
 \examples{
 
 \dontrun{

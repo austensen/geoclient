@@ -26,6 +26,17 @@
 #'   API requests in adherence to Geoclient's Service Usage Guidelines. See
 #'   `?geoclient` for more information.
 #'
+#' @details For more details see the Geoclient Documentation's guide to [making
+#'   adress
+#'   requests](https://api.cityofnewyork.us/geoclient/v1/doc#section-1.2.1),
+#'   interpreting the [Geosupport return
+#'   codes](https://api.cityofnewyork.us/geoclient/v1/doc#section-2.2), the
+#'   [data returned by
+#'   `geoclient_address`](https://api.cityofnewyork.us/geoclient/v1/doc#section-3.1),
+#'    and a [complete data
+#'   dictionary](https://api.cityofnewyork.us/geoclient/v1/doc#section-4.0) for
+#'   all possible data elemets returned by any geoclient function.
+#'
 #' @examples
 #'
 #' \dontrun{

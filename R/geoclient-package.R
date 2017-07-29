@@ -56,6 +56,14 @@
 #'   However, both restrictions can be overriden by setting the arguments
 #'   `rate_limit` and `cap_daily_requests` to `FALSE`.
 #'
+#' @details For more details see the Geoclient Documentation's guide to [calling
+#'   the API](https://api.cityofnewyork.us/geoclient/v1/doc#section-1.0),
+#'   interpreting the [Geosupport return
+#'   codes](https://api.cityofnewyork.us/geoclient/v1/doc#section-2.2), and a
+#'   [complete data
+#'   dictionary](https://api.cityofnewyork.us/geoclient/v1/doc#section-4.0) for
+#'   all possible data elemets returned by any geoclient function.
+#'
 #' @import rlang
 #' @importFrom dplyr %>%
 "_PACKAGE"

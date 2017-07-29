@@ -20,6 +20,11 @@ You can acquire your Geoclient app ID and Key by first registering with the
 then \href{https://developer.cityofnewyork.us/create/project}{create a newproject}, selecting
 "Geoclient v1" from available APIs. For more information on using these
 credentials with this package see \code{\link[=geoclient_api_keys]{geoclient_api_keys()}}
+
+For more details see the Geoclient Documentation's guide to \href{https://api.cityofnewyork.us/geoclient/v1/doc#section-1.0}{callingthe API},
+interpreting the \href{https://api.cityofnewyork.us/geoclient/v1/doc#section-2.2}{Geosupport returncodes}, and a
+\href{https://api.cityofnewyork.us/geoclient/v1/doc#section-4.0}{complete datadictionary} for
+all possible data elemets returned by any geoclient function.
 }
 \section{Geoclient Description}{
 
