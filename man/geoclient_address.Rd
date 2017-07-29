@@ -5,7 +5,7 @@
 \title{Retrieve Dataframe Response from Geoclient for Addresses}
 \usage{
 geoclient_address(df = NULL, number, street, borough = NULL, zip = NULL,
-  id = NULL, key = NULL)
+  id = NULL, key = NULL, rate_limit = TRUE, cap_daily_requests = TRUE)
 }
 \arguments{
 \item{df}{Dataframe that contains a column of BBLs. Defaults to \code{NULL} and
@@ -18,6 +18,14 @@ formated in quotes. Defaults to \code{NULL} and your key is accessed from your
 \item{key}{The API app key provided to you from the NYC Developer Portal
 formated in quotes. Defaults to \code{NULL} and your key is accessed from your
 \code{.Renviron}.}
+
+\item{rate_limit}{Wether you would like to limit the rate of API requests in
+adherence to Geoclient's Service Usage Guidelines. See \code{?geoclient} for
+more information.}
+
+\item{cap_daily_requests}{Wether you would like to cap the daily number of
+API requests in adherence to Geoclient's Service Usage Guidelines. See
+\code{?geoclient} for more information.}
 
 \item{bbl}{Either a vector of BBLs (numeric or character is accepted), or a
 bare column name of the bbl field if a dataframe is provided.}

@@ -4,13 +4,69 @@
 \name{geoclient-package}
 \alias{geoclient}
 \alias{geoclient-package}
-\title{geoclient: Tools to work with NYC's _Geoclient_ REST API}
+\title{Geoclient}
 \description{
-Tools to work with NYC's _Geoclient_ REST API.
+Tools to work with NYC's Geoclient REST API.
 }
+\details{
+To learn more about usig this package, visit
+https://austensen.github.io/geoclient/ or \code{browseVignettes(package = "geoclient")}
+
+For information about the Geoclient API visit \href{https://developer.cityofnewyork.us/api/geoclient-api}{NYC's DevelopersPortal}.
+
+You can acquire your Geoclient app ID and Key by first registering with the
+\href{https://developer.cityofnewyork.us/user/register?destination=api}{NYC's DeveloperPortal} at,
+then \href{https://developer.cityofnewyork.us/create/project}{create a newproject}, selecting
+"Geoclient v1" from available APIs. For more information on using these
+credentials with this package see \code{\link[=geoclient_api_keys]{geoclient_api_keys()}}
+}
+\section{Geoclient Description}{
+
+
+The Geoclient API is a RESTful web service interface to the NYC Department
+of City Planning’s Geosupport system developed by the Department of
+Information Technology and Telecommunications GIS/Mapping unit. Geosupport
+is a mainframe-based geocoding system used by NYC government. Geosupport
+provides coordinate and geographic attributes for supported input locations
+(address, intersection, blockface). Geoclient exposes the most widely used
+Geosupport functions through simple and easy to use REST representations.
+}
+
+\section{Geoclient Service Usage Guidelines}{
+
+
+The Geoclient API is a free geocoding service offered by the City of New
+York for use by the general public. Access to the service requires
+registering for a free account on this website and requesting an access
+key. Due to rapidly increasing usage of Geoclient, we are seeing a
+commensurate decline in overall application availability based our current
+contractual resource allowance from third party platform services. While we
+work towards increasing this capacity, we are forced to set service usage
+guidelines.
+
+From this point forward, the following service usage guidelines apply:
+\itemize{
+\item Maximum of 2,500 requests per minute;
+\item Maximum of 500,000 requests per day.
+}
+
+Note that these are guidelines and not hard limits. However, if we see
+applications continually exceeding these limits, we will attempt to notify
+the account administrator based on contact information provided in the
+sign-up forms. If corrective action is not taken, we will then set whatever
+limits we deem necessary to provide equal resources averaged by all active
+accounts. Moving forward, as we increase capacity, we may adjust the usage
+guidelines.
+
+By default all functions in this package adhere to these guidelines.
+However, both restrictions can be overriden by setting the arguments
+\code{rate_limit} and \code{cap_daily_requests} to \code{FALSE}.
+}
+
 \seealso{
 Useful links:
 \itemize{
+  \item \url{https://austensen.github.io/geoclient/}
   \item \url{https://github.com/austensen/geoclient}
   \item Report bugs at \url{https://github.com/austensen/geoclient/issues}
 }
@@ -20,4 +76,3 @@ Useful links:
 \strong{Maintainer}: Maxwell Austensen \email{maxwell.austensen@nyu.edu}
 
 }
-\keyword{internal}

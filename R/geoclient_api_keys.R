@@ -9,11 +9,11 @@
 #' create on for you. If you already have an `.Renviron` file, the function will
 #' append the ID and key to your existing file, while making a backup of your
 #' original file for disaster recovery purposes. You can acquire your Geoclient
-#' app ID and Key by first registering with the
-#' [https://developer.cityofnewyork.us/user/register?destination=api](NYC
-#' Developer Portal) at, then
-#' [https://developer.cityofnewyork.us/create/project](create a new project),
-#' selecting "Geoclient v1" from available APIs.
+#' app ID and Key by first registering with the [NYC's Developer
+#' Portal](https://developer.cityofnewyork.us/user/register?destination=api) at,
+#' then [create a new
+#' project](https://developer.cityofnewyork.us/create/project), selecting
+#' "Geoclient v1" from available APIs.
 #'
 #' @param id The API app ID provided to you from the NYC Developer Portal
 #'   formated in quotes.

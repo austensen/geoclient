@@ -17,6 +17,13 @@
 #' @param key The API app key provided to you from the NYC Developer Portal
 #'   formated in quotes. Defaults to `NULL` and the key is accessed from your
 #'   `.Renviron`.
+#' @param rate_limit Wether you would like to limit the rate of API requests in
+#'   adherence to Geoclient's Service Usage Guidelines. See `?geoclient` for
+#'   more information.
+#' @param cap_daily_requests Wether you would like to cap the daily number of
+#'   API requests in adherence to Geoclient's Service Usage Guidelines. See
+#'   `?geoclient` for more information.
+#'
 #' @examples
 #'
 #' \dontrun{
@@ -35,7 +42,12 @@
 #'
 #' @export
 
-geoclient_bin <- function(df = NULL, bin, id = NULL, key = NULL) {
+geoclient_bin <- function(df = NULL,
+                          bin,
+                          id = NULL,
+                          key = NULL,
+                          rate_limit = TRUE,
+                          cap_daily_requests = TRUE) {
 
   # Temporarily change option to prevent scientific notation when coercing double to character
   op <- options(scipen = 999)
@@ -67,7 +79,9 @@ geoclient_bin <- function(df = NULL, bin, id = NULL, key = NULL) {
   res <- make_requests(
     inputs = bin_inputs,
     operation = "bin",
-    creds = creds
+    creds = creds,
+    rate_limit = rate_limit,
+    cap_daily_requests = cap_daily_requests
   )
 
   res

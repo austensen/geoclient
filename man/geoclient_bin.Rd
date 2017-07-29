@@ -4,7 +4,8 @@
 \alias{geoclient_bin}
 \title{Retrieve Dataframe Response from Geoclient for BINs}
 \usage{
-geoclient_bin(df = NULL, bin, id = NULL, key = NULL)
+geoclient_bin(df = NULL, bin, id = NULL, key = NULL, rate_limit = TRUE,
+  cap_daily_requests = TRUE)
 }
 \arguments{
 \item{df}{Dataframe that contains a column of BINs. Defaults to \code{NULL} and
@@ -17,6 +18,14 @@ formated in quotes. Defaults to \code{NULL} and the id is accessed from your
 \item{key}{The API app key provided to you from the NYC Developer Portal
 formated in quotes. Defaults to \code{NULL} and the key is accessed from your
 \code{.Renviron}.}
+
+\item{rate_limit}{Wether you would like to limit the rate of API requests in
+adherence to Geoclient's Service Usage Guidelines. See \code{?geoclient} for
+more information.}
+
+\item{cap_daily_requests}{Wether you would like to cap the daily number of
+API requests in adherence to Geoclient's Service Usage Guidelines. See
+\code{?geoclient} for more information.}
 
 \item{bbl}{Either a vector of BINs (numeric or character is accepted), or a
 bare column name of the bin field if a dataframe is provided.}
