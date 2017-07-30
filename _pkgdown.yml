@@ -15,6 +15,7 @@ reference:
     - geoclient_bbl
     - geoclient_bin
     - geoclient_blockface
+    - geoclient_intersection
     - geoclient_place
 - title: Single-Input Search
   contents:

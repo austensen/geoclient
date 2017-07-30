@@ -17,16 +17,14 @@
 #' of street names, or a bare column name of the field if a dataframe is provided.
 #' @param cross_street_2 The second cross street of the blockface, as either a vector
 #' of street names, or a bare column name of the field if a dataframe is provided.
-#' @param borough The name of the borough of the "on street", as either a vector
-#'   or a bare column name of the borough field if a dataframe is provided.
-#' @param cross_street_1_borough Optionally, the name of the borough of the first
-#' cross street, as either a vector or a bare column name of the borough field if
-#' a dataframe is provided. By default this is `NULL` and the "on street" borough is used.
+#' @param borough The name of the borough of the the first cross street, or the entire
+#' intersection if `cross_street_2_borough` is not provided. The argument can be provided
+#' as either a vector or a bare column name of the borough field if a dataframe is provided.
 #' @param cross_street_2_borough Optionally, the name of the borough of the second
-#' cross street, as either a vector or a bare column name of the borough field if a
-#' dataframe is provided. By default this is `NULL` and the "on street" borough is used.
-#' @param compass_direction Optionally, the direction indicating a side of the street
-#' to request information about only one side of the street. The argument can be provided
+#' cross street if it differs from the first cross street. The argument can be provided
+#' as either a vector or a bare column name of the borough field if a dataframe is provided.
+#' @param compass_direction Optionally, the direction indicating which intersection is desired
+#' when the two street intersect in multiple locations. The argument can be provided
 #' as either a vector or a bare column name of the field if a dataframe is provided.
 #' The valid values of are `"N"`, `"E"`, `"S"`, or `"W"`
 #' @param id The API app ID provided to you from the NYC Developer Portal
@@ -55,49 +53,46 @@
 #'
 #' geoclient_api_keys("1a2b3c4", "9d8f7b6wh4jfgud67s89jfyw68vj38fh")
 #'
-#' geoclient_blockface(
-#'   on_street = "cypress ave",
-#'   cross_street_1 = "dekalb ave",
-#'   cross_street_2 = "hart st",
-#'   borough = "qn"
+#' geoclient_intersection(
+#'   cross_street_1 = "macdougal st",
+#'   cross_street_2 = "w 3rd st",
+#'   borough = "mn"
 #' )
+#'
 #'
 #' library(tibble)
 #' library(dplyr)
 #'
 #' df <- tribble(
-#'   ~street,        ~cross1,           ~cross2,    ~boro,
-#'   "macdougal st", "washington sq s", "w 3rd st", "mn",
-#'   "Cypress Ave",  "DeKalb Ave",      "Hart St",  "Brooklyn"
+#'   ~cross1,         ~cross2,       ~boro,
+#'   "macdougal st",  "w 3rd st",    "mn",
+#'   "Lexington Ave", "125th Steet", "Manhattan"
 #' )
 #'
-#' geoclient_blockface(df, street, cross1, cross2, boro)
+#' geoclient_intersection(df, cross1, cross2, boro)
 #'
 #' df %>%
 #'   mutate(
-#'     traffic_direction = geoclient_blockface(
-#'       street = street,
+#'     lion_node_number = geoclient_intersection(
 #'       cross_street_1 = cross1,
 #'       cross_street_2 = cross2,
 #'       borough = boro
-#'       )[["trafficDirection"]]
+#'       )[["lionNodeNumber"]]
 #'   )
 #' }
 #'
 #' @export
 
-geoclient_blockface <- function(df = NULL,
-                                on_street,
-                                cross_street_1,
-                                cross_street_2,
-                                borough,
-                                cross_street_1_borough = NULL,
-                                cross_street_2_borough = NULL,
-                                compass_direction = NULL,
-                                id = NULL,
-                                key = NULL,
-                                rate_limit = TRUE,
-                                cap_daily_requests = TRUE) {
+geoclient_intersection <- function(df = NULL,
+                                   cross_street_1,
+                                   cross_street_2,
+                                   borough,
+                                   cross_street_2_borough = NULL,
+                                   compass_direction = NULL,
+                                   id = NULL,
+                                   key = NULL,
+                                   rate_limit = TRUE,
+                                   cap_daily_requests = TRUE) {
 
   # Get Geoclient App ID and Key (either from .Renviron or arguments)
   creds <- get_credentials(id, key)
@@ -110,26 +105,17 @@ geoclient_blockface <- function(df = NULL,
       stop_glue("If a dataframe is not given as the first argument, the other arguments must be named")
     }
 
-    on_street <- enquo(on_street)
     cross_street_1 <- enquo(cross_street_1)
     cross_street_2 <- enquo(cross_street_2)
     borough <- enquo(borough)
-    cross_street_1_borough <- enquo(cross_street_1_borough)
     cross_street_2_borough <- enquo(cross_street_2_borough)
     compass_direction <- enquo(compass_direction)
 
-    on_street <- dplyr::pull(df, !!on_street)
     cross_street_1 <- dplyr::pull(df, !!cross_street_1)
     cross_street_2 <- dplyr::pull(df, !!cross_street_2)
     borough <- dplyr::pull(df, !!borough)
 
-    len <- length(on_street)
-
-    if (quo_is_null(cross_street_1_borough)) {
-      cross_street_1_borough <- borough
-    } else {
-      cross_street_1_borough <- dplyr::pull(df, !!cross_street_1_borough)
-    }
+    len <- length(cross_street_1)
 
     if (quo_is_null(cross_street_2_borough)) {
       cross_street_2_borough <- borough
@@ -145,11 +131,7 @@ geoclient_blockface <- function(df = NULL,
 
   } else {
 
-    len <- length(on_street)
-
-    if (is_null(cross_street_1_borough)) {
-      cross_street_1_borough <- borough
-    }
+    len <- length(cross_street_1)
 
     if (is_null(cross_street_2_borough)) {
       cross_street_2_borough <- borough
@@ -161,22 +143,19 @@ geoclient_blockface <- function(df = NULL,
   }
 
   borough <- clean_borough(borough)
-  cross_street_1_borough <- clean_borough(cross_street_1_borough)
   cross_street_2_borough <- clean_borough(cross_street_2_borough)
 
-  blockface_inputs <- tibble::tibble(
-    onStreet = on_street,
+  intersection_inputs <- tibble::tibble(
     crossStreetOne = cross_street_1,
     crossStreetTwo = cross_street_2,
     borough = borough,
-    boroughCrossStreetOne = cross_street_1_borough,
     boroughCrossStreetTwo = cross_street_2_borough,
     compassDirection = compass_direction
   )
 
   res <- make_requests(
-    inputs = blockface_inputs,
-    operation = "blockface",
+    inputs = intersection_inputs,
+    operation = "intersection",
     creds = creds,
     rate_limit = rate_limit,
     cap_daily_requests = cap_daily_requests
