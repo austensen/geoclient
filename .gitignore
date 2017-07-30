@@ -25,5 +25,4 @@ vignettes/*.pdf
 *.knit.md
 .Rproj.user
 # igore testing files
-dev.R
-geoclient_testing.R
+ignored_files/
