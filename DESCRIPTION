@@ -21,7 +21,9 @@ Imports:
     magrittr,
     utils,
     lubridate,
-    hms
+    hms,
+    stringr,
+    tibble
 RoxygenNote: 6.0.1
 Roxygen: list(markdown = TRUE)
 Suggests:
