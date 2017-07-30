@@ -2,7 +2,7 @@
 % Please edit documentation in R/geoclient_search.R
 \name{geoclient_search}
 \alias{geoclient_search}
-\title{Retrieve Dataframe Response from Geoclient for Any Location Type}
+\title{Retrieve Geoclient Response for Any Location Type as a Dataframe}
 \usage{
 geoclient_search(df = NULL, location, id = NULL, key = NULL,
   rate_limit = TRUE, cap_daily_requests = TRUE)
@@ -51,7 +51,7 @@ For more details see the Geoclient Documentation's guide to
 \href{https://api.cityofnewyork.us/geoclient/v1/doc#section-1.3}{single-input requests},
 interpreting the \href{https://api.cityofnewyork.us/geoclient/v1/doc#section-2.2}{Geosupport return codes}, and a
 \href{https://api.cityofnewyork.us/geoclient/v1/doc#section-4.0}{complete data dictionary} for
-all possible data elemets returned by any geoclient function.
+all possible data elements returned by any geoclient function.
 }
 \examples{
 

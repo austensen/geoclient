@@ -1,4 +1,4 @@
-#' Retrieve Dataframe Response from Geoclient for Any Location Type
+#' Retrieve Geoclient Response for Any Location Type as a Dataframe
 #'
 #' This function takes any of the 6 location types as a single input and returns
 #' the Geoclient response as a tibble. The locations are provided either in a
@@ -36,7 +36,7 @@
 #'   [single-input requests](https://api.cityofnewyork.us/geoclient/v1/doc#section-1.3),
 #'   interpreting the [Geosupport return codes](https://api.cityofnewyork.us/geoclient/v1/doc#section-2.2), and a
 #'   [complete data dictionary](https://api.cityofnewyork.us/geoclient/v1/doc#section-4.0) for
-#'   all possible data elemets returned by any geoclient function.
+#'   all possible data elements returned by any geoclient function.
 #'
 #' @examples
 #'

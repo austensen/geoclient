@@ -72,7 +72,7 @@ For more details see the Geoclient Documentation's guide to
 \href{https://api.cityofnewyork.us/geoclient/v1/doc#section-1.0}{calling the API},
 interpreting the \href{https://api.cityofnewyork.us/geoclient/v1/doc#section-2.2}{Geosupport return codes},
 and a \href{https://api.cityofnewyork.us/geoclient/v1/doc#section-4.0}{complete data dictionary}
-for all possible data elemets returned by any geoclient function.
+for all possible data elements returned by any geoclient function.
 }
 
 \seealso{

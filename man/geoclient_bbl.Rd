@@ -2,7 +2,7 @@
 % Please edit documentation in R/geoclient_bbl.R
 \name{geoclient_bbl}
 \alias{geoclient_bbl}
-\title{Retrieve Dataframe Response from Geoclient for BBLs}
+\title{Retrieve Geoclient Response for BBLs as a Dataframe}
 \usage{
 geoclient_bbl(df = NULL, bbl, id = NULL, key = NULL, rate_limit = TRUE,
   cap_daily_requests = TRUE)
@@ -44,7 +44,7 @@ For more details see the Geoclient Documentation's guide to
 interpreting the \href{https://api.cityofnewyork.us/geoclient/v1/doc#section-2.2}{Geosupport return codes}, the
 \href{https://api.cityofnewyork.us/geoclient/v1/doc#section-3.2}{data returned by geoclient_bbl},
 and a \href{https://api.cityofnewyork.us/geoclient/v1/doc#section-4.0}{complete data dictionary} for
-all possible data elemets returned by any geoclient function.
+all possible data elements returned by any geoclient function.
 }
 \examples{
 

@@ -2,7 +2,7 @@
 % Please edit documentation in R/geoclient_address.R
 \name{geoclient_address}
 \alias{geoclient_address}
-\title{Retrieve Dataframe Response from Geoclient for Addresses}
+\title{Retrieve Geoclient Response for Addresses as a Dataframe}
 \usage{
 geoclient_address(df = NULL, number, street, borough = NULL, zip = NULL,
   id = NULL, key = NULL, rate_limit = TRUE, cap_daily_requests = TRUE)
@@ -10,6 +10,21 @@ geoclient_address(df = NULL, number, street, borough = NULL, zip = NULL,
 \arguments{
 \item{df}{Dataframe that contains a column of BBLs. Defaults to \code{NULL} and
 \code{bbl} is taken as a vector.}
+
+\item{number}{The house number of the address, as either a vector of numbers
+(numeric or character is accepted), or a bare column name of the number
+field if a dataframe is provided.}
+
+\item{street}{The street name of the address, as either a vector of names,
+or a bare column name of the number field if a dataframe is provided.}
+
+\item{borough}{The name of the borough of the address, as either a vector
+or a bare column name of the borough field if a dataframe is provided.
+The borough is only required if Zip code is not provided.}
+
+\item{zip}{The Zip code of the address, as either a vector (numeric or character
+is accepted) or a bare column name of the borough field if a dataframe
+is provided. The Zip code is only required if borough is not provided.}
 
 \item{id}{The API app ID provided to you from the NYC Developer Portal
 formated in quotes. Defaults to \code{NULL} and your key is accessed from your
@@ -26,15 +41,12 @@ more information.}
 \item{cap_daily_requests}{Whether you would like to cap the daily number of
 API requests in adherence to Geoclient's Service Usage Guidelines. See
 \code{?geoclient} for more information.}
-
-\item{bbl}{Either a vector of BBLs (numeric or character is accepted), or a
-bare column name of the bbl field if a dataframe is provided.}
 }
 \description{
 This function takes components of addresses and returns the Geoclient
 response as a tibble. The house number, street name, and one of either
-borough or zipcode are required. The address components can be provided
-either in separate vectors as a named arguments or with a dataframe and
+borough or Zip code are required. The address components can be provided
+either in separate vectors as named arguments or with a dataframe and
 column names containing each component. The Geoclient API's app ID and key
 can either be provided directly as arguments, or you can first use
 \code{\link[=geoclient_api_keys]{geoclient_api_keys()}} to add them to your \code{.Renviron} file so they can be
@@ -46,7 +58,7 @@ For more details see the Geoclient Documentation's guide to
 interpreting the \href{https://api.cityofnewyork.us/geoclient/v1/doc#section-2.2}{Geosupport return codes}, the
 \href{https://api.cityofnewyork.us/geoclient/v1/doc#section-3.1}{data returned by geoclient_address},
 and a \href{https://api.cityofnewyork.us/geoclient/v1/doc#section-4.0}{complete data dictionary} for
-all possible data elemets returned by any geoclient function.
+all possible data elements returned by any geoclient function.
 }
 \examples{
 

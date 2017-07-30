@@ -1,4 +1,4 @@
-#' Retrieve Dataframe Response from Geoclient for BINs
+#' Retrieve Geoclient Response for BINs as a Dataframe
 #'
 #' This function takes BINs (Building Identification Number) and returns the
 #' Geoclient response as a tibble. The BINs can be provided either in a vector
@@ -29,7 +29,7 @@
 #'   interpreting the [Geosupport return codes](https://api.cityofnewyork.us/geoclient/v1/doc#section-2.2), the
 #'   [data returned by `geoclient_bin`](https://api.cityofnewyork.us/geoclient/v1/doc#section-3.3),
 #'   and a [complete data dictionary](https://api.cityofnewyork.us/geoclient/v1/doc#section-4.0) for
-#'   all possible data elemets returned by any geoclient function.
+#'   all possible data elements returned by any geoclient function.
 #'
 #' @examples
 #'

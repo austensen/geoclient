@@ -125,7 +125,9 @@ make_single_request <- function(..., operation, creds, pb = NULL) {
     query = params
   )
 
-  if (httr::content(resp)[[1]] == "Authentication failed") {
+  auth_failed <- suppressWarnings(httr::content(resp)[[1]] == "Authentication failed")
+
+  if (is_true(auth_failed)) {
     stop_glue(
       "Authentication failed: Geoclient API app ID and/or Key are invalid.
       See ?geoclient_api_keys for details on how to aquire valid credentials."

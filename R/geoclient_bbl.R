@@ -1,4 +1,4 @@
-#' Retrieve Dataframe Response from Geoclient for BBLs
+#' Retrieve Geoclient Response for BBLs as a Dataframe
 #'
 #' This function takes BBLs (borough-block-lot) and returns the Geoclient
 #' response as a tibble. The BBLs can be provided either in a vector as a named
@@ -29,7 +29,7 @@
 #'   interpreting the [Geosupport return codes](https://api.cityofnewyork.us/geoclient/v1/doc#section-2.2), the
 #'   [data returned by `geoclient_bbl`](https://api.cityofnewyork.us/geoclient/v1/doc#section-3.2),
 #'   and a [complete data dictionary](https://api.cityofnewyork.us/geoclient/v1/doc#section-4.0) for
-#'   all possible data elemets returned by any geoclient function.
+#'   all possible data elements returned by any geoclient function.
 #'
 #' @examples
 #'

@@ -2,7 +2,7 @@
 % Please edit documentation in R/geoclient_api_keys.R
 \name{geoclient_api_keys}
 \alias{geoclient_api_keys}
-\title{Install Geoclient API ID and Key in Your \code{.Renviron} File for Repeated Use}
+\title{Install Geoclient API ID and Key in \code{.Renviron} File for Repeated Use}
 \usage{
 geoclient_api_keys(id, key, overwrite = FALSE, install = FALSE)
 }
