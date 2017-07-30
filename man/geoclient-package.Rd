@@ -10,21 +10,17 @@ This packages uses NYC's Geoclient API but is neither endorsed nor supported
 by the the City of New York.
 }
 \details{
-To learn more about usig this package, visit
+To learn more about using this package, visit
 https://austensen.github.io/geoclient/ or \code{browseVignettes(package = "geoclient")}
 
-For information about the Geoclient API visit \href{https://developer.cityofnewyork.us/api/geoclient-api}{NYC's DevelopersPortal}.
+For information about the Geoclient API visit
+\href{https://developer.cityofnewyork.us/api/geoclient-api}{NYC's Developers Portal}.
 
 You can acquire your Geoclient app ID and Key by first registering with the
-\href{https://developer.cityofnewyork.us/user/register?destination=api}{NYC's DeveloperPortal} at,
-then \href{https://developer.cityofnewyork.us/create/project}{create a newproject}, selecting
-"Geoclient v1" from available APIs. For more information on using these
+\href{https://developer.cityofnewyork.us/user/register?destination=api}{NYC's Developer Portal}
+at, then \href{https://developer.cityofnewyork.us/create/project}{create a new project},
+selecting "Geoclient v1" from available APIs. For more information on using these
 credentials with this package see \code{\link[=geoclient_api_keys]{geoclient_api_keys()}}
-
-For more details see the Geoclient Documentation's guide to \href{https://api.cityofnewyork.us/geoclient/v1/doc#section-1.0}{callingthe API},
-interpreting the \href{https://api.cityofnewyork.us/geoclient/v1/doc#section-2.2}{Geosupport returncodes}, and a
-\href{https://api.cityofnewyork.us/geoclient/v1/doc#section-4.0}{complete datadictionary} for
-all possible data elemets returned by any geoclient function.
 }
 \section{Geoclient Description}{
 
@@ -52,8 +48,8 @@ guidelines.
 
 From this point forward, the following service usage guidelines apply:
 \itemize{
-\item Maximum of 2,500 requests per minute;
-\item Maximum of 500,000 requests per day.
+\item Maximum of 2,500 requests per minute; * Maximum of 500,000 requests per
+day.
 }
 
 Note that these are guidelines and not hard limits. However, if we see
@@ -65,8 +61,18 @@ accounts. Moving forward, as we increase capacity, we may adjust the usage
 guidelines.
 
 By default all functions in this package adhere to these guidelines.
-However, both restrictions can be overriden by setting the arguments
+However, both restrictions can be overridden by setting the arguments
 \code{rate_limit} and \code{cap_daily_requests} to \code{FALSE}.
+}
+
+\section{Geoclient Documentation}{
+
+
+For more details see the Geoclient Documentation's guide to
+\href{https://api.cityofnewyork.us/geoclient/v1/doc#section-1.0}{calling the API},
+interpreting the \href{https://api.cityofnewyork.us/geoclient/v1/doc#section-2.2}{Geosupport return codes},
+and a \href{https://api.cityofnewyork.us/geoclient/v1/doc#section-4.0}{complete data dictionary}
+for all possible data elemets returned by any geoclient function.
 }
 
 \seealso{

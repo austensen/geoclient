@@ -3,19 +3,16 @@
 #' This packages uses NYC's Geoclient API but is neither endorsed nor supported
 #' by the the City of New York.
 #'
-#' To learn more about usig this package, visit
-#' https://austensen.github.io/geoclient/ or `browseVignettes(package =
-#' "geoclient")`
+#' To learn more about using this package, visit
+#' https://austensen.github.io/geoclient/ or `browseVignettes(package = "geoclient")`
 #'
-#' For information about the Geoclient API visit [NYC's Developers
-#' Portal](https://developer.cityofnewyork.us/api/geoclient-api).
+#' For information about the Geoclient API visit
+#' [NYC's Developers Portal](https://developer.cityofnewyork.us/api/geoclient-api).
 #'
 #' You can acquire your Geoclient app ID and Key by first registering with the
-#' [NYC's Developer
-#' Portal](https://developer.cityofnewyork.us/user/register?destination=api) at,
-#' then [create a new
-#' project](https://developer.cityofnewyork.us/create/project), selecting
-#' "Geoclient v1" from available APIs. For more information on using these
+#' [NYC's Developer Portal](https://developer.cityofnewyork.us/user/register?destination=api)
+#' at, then [create a new project](https://developer.cityofnewyork.us/create/project),
+#' selecting "Geoclient v1" from available APIs. For more information on using these
 #' credentials with this package see [geoclient_api_keys()]
 #'
 #' @section Geoclient Description:
@@ -41,8 +38,8 @@
 #'
 #'   From this point forward, the following service usage guidelines apply:
 #'
-#'   * Maximum of 2,500 requests per minute;
-#'   * Maximum of 500,000 requests per day.
+#'   * Maximum of 2,500 requests per minute; * Maximum of 500,000 requests per
+#'   day.
 #'
 #'   Note that these are guidelines and not hard limits. However, if we see
 #'   applications continually exceeding these limits, we will attempt to notify
@@ -53,16 +50,16 @@
 #'   guidelines.
 #'
 #'   By default all functions in this package adhere to these guidelines.
-#'   However, both restrictions can be overriden by setting the arguments
+#'   However, both restrictions can be overridden by setting the arguments
 #'   `rate_limit` and `cap_daily_requests` to `FALSE`.
 #'
-#' @details For more details see the Geoclient Documentation's guide to [calling
-#'   the API](https://api.cityofnewyork.us/geoclient/v1/doc#section-1.0),
-#'   interpreting the [Geosupport return
-#'   codes](https://api.cityofnewyork.us/geoclient/v1/doc#section-2.2), and a
-#'   [complete data
-#'   dictionary](https://api.cityofnewyork.us/geoclient/v1/doc#section-4.0) for
-#'   all possible data elemets returned by any geoclient function.
+#' @section Geoclient Documentation:
+#'
+#'   For more details see the Geoclient Documentation's guide to
+#'   [calling the API](https://api.cityofnewyork.us/geoclient/v1/doc#section-1.0),
+#'   interpreting the [Geosupport return codes](https://api.cityofnewyork.us/geoclient/v1/doc#section-2.2),
+#'   and a [complete data dictionary](https://api.cityofnewyork.us/geoclient/v1/doc#section-4.0)
+#'   for all possible data elemets returned by any geoclient function.
 #'
 #' @import rlang
 #' @importFrom dplyr %>%

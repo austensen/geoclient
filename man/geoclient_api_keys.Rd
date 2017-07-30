@@ -30,9 +30,10 @@ GEOCLIENT_APPKEY. If you do not have an \code{.Renviron} file, the function will
 create on for you. If you already have an \code{.Renviron} file, the function will
 append the ID and key to your existing file, while making a backup of your
 original file for disaster recovery purposes. You can acquire your Geoclient
-app ID and Key by first registering with the \href{https://developer.cityofnewyork.us/user/register?destination=api}{NYC's DeveloperPortal} at,
-then \href{https://developer.cityofnewyork.us/create/project}{create a newproject}, selecting
-"Geoclient v1" from available APIs.
+app ID and Key by first registering with the
+\href{https://developer.cityofnewyork.us/user/register?destination=api}{NYC's Developer Portal}
+at, then \href{https://developer.cityofnewyork.us/create/project}{create a new project},
+selecting "Geoclient v1" from available APIs.
 }
 \examples{
 

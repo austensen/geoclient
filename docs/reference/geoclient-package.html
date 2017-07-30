@@ -88,18 +88,15 @@ by the the City of New York.</p>
         
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
-    <p>To learn more about usig this package, visit
+    <p>To learn more about using this package, visit
 https://austensen.github.io/geoclient/ or <code>browseVignettes(package = "geoclient")</code></p>
-<p>For information about the Geoclient API visit <a href='https://developer.cityofnewyork.us/api/geoclient-api'>NYC's DevelopersPortal</a>.</p>
+<p>For information about the Geoclient API visit
+<a href='https://developer.cityofnewyork.us/api/geoclient-api'>NYC's Developers Portal</a>.</p>
 <p>You can acquire your Geoclient app ID and Key by first registering with the
-<a href='https://developer.cityofnewyork.us/user/register?destination=api'>NYC's DeveloperPortal</a> at,
-then <a href='https://developer.cityofnewyork.us/create/project'>create a newproject</a>, selecting
-"Geoclient v1" from available APIs. For more information on using these
+<a href='https://developer.cityofnewyork.us/user/register?destination=api'>NYC's Developer Portal</a>
+at, then <a href='https://developer.cityofnewyork.us/create/project'>create a new project</a>,
+selecting "Geoclient v1" from available APIs. For more information on using these
 credentials with this package see <code><a href='geoclient_api_keys.html'>geoclient_api_keys()</a></code></p>
-<p>For more details see the Geoclient Documentation's guide to <a href='https://api.cityofnewyork.us/geoclient/v1/doc#section-1.0'>callingthe API</a>,
-interpreting the <a href='https://api.cityofnewyork.us/geoclient/v1/doc#section-2.2'>Geosupport returncodes</a>, and a
-<a href='https://api.cityofnewyork.us/geoclient/v1/doc#section-4.0'>complete datadictionary</a> for
-all possible data elemets returned by any geoclient function.</p>
     
     <h2 class="hasAnchor" id="geoclient-description"><a class="anchor" href="#geoclient-description"></a>Geoclient Description</h2>
 
@@ -124,8 +121,8 @@ contractual resource allowance from third party platform services. While we
 work towards increasing this capacity, we are forced to set service usage
 guidelines.</p>
 <p>From this point forward, the following service usage guidelines apply:</p><ul>
-<li><p>Maximum of 2,500 requests per minute;</p></li>
-<li><p>Maximum of 500,000 requests per day.</p></li>
+<li><p>Maximum of 2,500 requests per minute; * Maximum of 500,000 requests per
+day.</p></li>
 </ul>
     <p>Note that these are guidelines and not hard limits. However, if we see
 applications continually exceeding these limits, we will attempt to notify
@@ -135,8 +132,17 @@ limits we deem necessary to provide equal resources averaged by all active
 accounts. Moving forward, as we increase capacity, we may adjust the usage
 guidelines.</p>
 <p>By default all functions in this package adhere to these guidelines.
-However, both restrictions can be overriden by setting the arguments
+However, both restrictions can be overridden by setting the arguments
 <code>rate_limit</code> and <code>cap_daily_requests</code> to <code>FALSE</code>.</p>
+    
+    <h2 class="hasAnchor" id="geoclient-documentation"><a class="anchor" href="#geoclient-documentation"></a>Geoclient Documentation</h2>
+
+    
+    <p>For more details see the Geoclient Documentation's guide to
+<a href='https://api.cityofnewyork.us/geoclient/v1/doc#section-1.0'>calling the API</a>,
+interpreting the <a href='https://api.cityofnewyork.us/geoclient/v1/doc#section-2.2'>Geosupport return codes</a>,
+and a <a href='https://api.cityofnewyork.us/geoclient/v1/doc#section-4.0'>complete data dictionary</a>
+for all possible data elemets returned by any geoclient function.</p>
     
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
@@ -157,6 +163,8 @@ However, both restrictions can be overriden by setting the arguments
       <li><a href="#geoclient-description">Geoclient Description</a></li>
 
       <li><a href="#geoclient-service-usage-guidelines">Geoclient Service Usage Guidelines</a></li>
+
+      <li><a href="#geoclient-documentation">Geoclient Documentation</a></li>
 
       <li><a href="#see-also">See also</a></li>
           </ul>

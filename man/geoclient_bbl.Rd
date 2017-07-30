@@ -22,11 +22,11 @@ formated in quotes. Defaults to \code{NULL} and your key is accessed from your
 formated in quotes. Defaults to \code{NULL} and your key is accessed from your
 \code{.Renviron}.}
 
-\item{rate_limit}{Wether you would like to limit the rate of API requests in
+\item{rate_limit}{Whether you would like to limit the rate of API requests in
 adherence to Geoclient's Service Usage Guidelines. See \code{?geoclient} for
 more information.}
 
-\item{cap_daily_requests}{Wether you would like to cap the daily number of
+\item{cap_daily_requests}{Whether you would like to cap the daily number of
 API requests in adherence to Geoclient's Service Usage Guidelines. See
 \code{?geoclient} for more information.}
 }
@@ -39,10 +39,11 @@ first use \code{\link[=geoclient_api_keys]{geoclient_api_keys()}} to add them to
 can be called securely without being stored in your code.
 }
 \details{
-For more details see the Geoclient Documentation's guide to \href{https://api.cityofnewyork.us/geoclient/v1/doc#section-1.2.2}{makingBBL requests},
-interpreting the \href{https://api.cityofnewyork.us/geoclient/v1/doc#section-2.2}{Geosupport returncodes}, the
-\href{https://api.cityofnewyork.us/geoclient/v1/doc#section-3.2}{data returned bygeoclient_bbl},
-and a \href{https://api.cityofnewyork.us/geoclient/v1/doc#section-4.0}{complete datadictionary} for
+For more details see the Geoclient Documentation's guide to
+\href{https://api.cityofnewyork.us/geoclient/v1/doc#section-1.2.2}{making BBL requests},
+interpreting the \href{https://api.cityofnewyork.us/geoclient/v1/doc#section-2.2}{Geosupport return codes}, the
+\href{https://api.cityofnewyork.us/geoclient/v1/doc#section-3.2}{data returned by geoclient_bbl},
+and a \href{https://api.cityofnewyork.us/geoclient/v1/doc#section-4.0}{complete data dictionary} for
 all possible data elemets returned by any geoclient function.
 }
 \examples{

@@ -19,22 +19,18 @@
 #' @param key The API app key provided to you from the NYC Developer Portal
 #'   formated in quotes. Defaults to `NULL` and your key is accessed from your
 #'   `.Renviron`.
-#' @param rate_limit Wether you would like to limit the rate of API requests in
+#' @param rate_limit Whether you would like to limit the rate of API requests in
 #'   adherence to Geoclient's Service Usage Guidelines. See `?geoclient` for
 #'   more information.
-#' @param cap_daily_requests Wether you would like to cap the daily number of
+#' @param cap_daily_requests Whether you would like to cap the daily number of
 #'   API requests in adherence to Geoclient's Service Usage Guidelines. See
 #'   `?geoclient` for more information.
 #'
-#' @details For more details see the Geoclient Documentation's guide to [making
-#'   adress
-#'   requests](https://api.cityofnewyork.us/geoclient/v1/doc#section-1.2.1),
-#'   interpreting the [Geosupport return
-#'   codes](https://api.cityofnewyork.us/geoclient/v1/doc#section-2.2), the
-#'   [data returned by
-#'   `geoclient_address`](https://api.cityofnewyork.us/geoclient/v1/doc#section-3.1),
-#'    and a [complete data
-#'   dictionary](https://api.cityofnewyork.us/geoclient/v1/doc#section-4.0) for
+#' @details For more details see the Geoclient Documentation's guide to
+#'   [making address requests](https://api.cityofnewyork.us/geoclient/v1/doc#section-1.2.1),
+#'   interpreting the [Geosupport return codes](https://api.cityofnewyork.us/geoclient/v1/doc#section-2.2), the
+#'   [data returned by `geoclient_address`](https://api.cityofnewyork.us/geoclient/v1/doc#section-3.1),
+#'   and a [complete data dictionary](https://api.cityofnewyork.us/geoclient/v1/doc#section-4.0) for
 #'   all possible data elemets returned by any geoclient function.
 #'
 #' @examples

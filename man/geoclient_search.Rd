@@ -24,11 +24,11 @@ formated in quotes. Defaults to \code{NULL} and your key is accessed from your
 formated in quotes. Defaults to \code{NULL} and your key is accessed from your
 \code{.Renviron}.}
 
-\item{rate_limit}{Wether you would like to limit the rate of API requests in
+\item{rate_limit}{Whether you would like to limit the rate of API requests in
 adherence to Geoclient's Service Usage Guidelines. See \code{?geoclient} for
 more information.}
 
-\item{cap_daily_requests}{Wether you would like to cap the daily number of
+\item{cap_daily_requests}{Whether you would like to cap the daily number of
 API requests in adherence to Geoclient's Service Usage Guidelines. See
 \code{?geoclient} for more information.}
 }
@@ -47,9 +47,10 @@ provided as a single input for this function, however the results may be
 slower than the more restrictive \code{\link[=geoclient_address]{geoclient_address()}} because Geoclient
 make have to make multiple requests to narrow in on the correct location.
 
-For more details see the Geoclient Documentation's guide to \href{https://api.cityofnewyork.us/geoclient/v1/doc#section-1.3}{single-inputrequests},
-interpreting the \href{https://api.cityofnewyork.us/geoclient/v1/doc#section-2.2}{Geosupport returncodes}, and a
-\href{https://api.cityofnewyork.us/geoclient/v1/doc#section-4.0}{complete datadictionary} for
+For more details see the Geoclient Documentation's guide to
+\href{https://api.cityofnewyork.us/geoclient/v1/doc#section-1.3}{single-input requests},
+interpreting the \href{https://api.cityofnewyork.us/geoclient/v1/doc#section-2.2}{Geosupport return codes}, and a
+\href{https://api.cityofnewyork.us/geoclient/v1/doc#section-4.0}{complete data dictionary} for
 all possible data elemets returned by any geoclient function.
 }
 \examples{
