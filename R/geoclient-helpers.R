@@ -188,3 +188,14 @@ get_credentials <- function(id = NULL, key = NULL) {
 }
 
 
+clean_borough <- function(borough) {
+  dplyr::case_when(
+    stringr::str_detect(borough, "^(?i)(mn)|(new york)") ~ "manhattan",
+    stringr::str_detect(borough, "^(?i)(bx)")            ~ "bronx",
+    stringr::str_detect(borough, "^(?i)(bk)|(kings)")    ~ "brooklyn",
+    stringr::str_detect(borough, "^(?i)(qn)")            ~ "queens",
+    stringr::str_detect(borough, "^(?i)(si)(richmond)")  ~ "staten island",
+    TRUE ~ borough
+  )
+}
+
