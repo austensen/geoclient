@@ -22,12 +22,8 @@ Imports:
     utils,
     lubridate,
     hms,
-    stringr,
-    tibble
+    stringr
 RoxygenNote: 6.0.1
 Roxygen: list(markdown = TRUE)
 Suggests:
-    testthat,
-    secret
-Remotes:
-  gaborcsardi/secret
+    testthat
