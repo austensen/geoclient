@@ -28,5 +28,5 @@ navbar:
   - text: Reference
     href: reference/index.html
   - text:
-    href: http://github.com/austensen/geoclient
+    href: https://github.com/austensen/geoclient
     icon: fa-github fa-lg

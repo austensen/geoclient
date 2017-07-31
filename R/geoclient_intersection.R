@@ -11,8 +11,6 @@
 #'
 #' @param df Dataframe that contains a column of BBLs. Defaults to `NULL` and
 #'   `bbl` is taken as a vector.
-#' @param on_street The street of the target blockface, as either a vector of
-#' street names, or a bare column name of the field if a dataframe is provided.
 #' @param cross_street_1 The first cross street of the blockface, as either a vector
 #' of street names, or a bare column name of the field if a dataframe is provided.
 #' @param cross_street_2 The second cross street of the blockface, as either a vector

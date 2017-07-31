@@ -155,7 +155,7 @@ geoclient_place <- function(df = NULL,
     cap_daily_requests = cap_daily_requests
   )
 
-  res <- dplyr::rename(res, place = name)
+  res <- dplyr::rename(res, "place" = "name")
 
   res
 }

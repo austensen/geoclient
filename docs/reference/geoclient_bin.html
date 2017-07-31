@@ -61,7 +61,7 @@
   <a href="../reference/index.html">Reference</a>
 </li>
 <li>
-  <a href="http://github.com/austensen/geoclient">
+  <a href="https://github.com/austensen/geoclient">
     <span class="fa fa-github fa-lg"></span>
      
   </a>
@@ -101,6 +101,11 @@ file so they can be called securely without being stored in your code.</p>
 <code>bin</code> is taken as a vector.</p></td>
     </tr>
     <tr>
+      <th>bin</th>
+      <td><p>Either a vector of BINs (numeric or character is accepted), or a
+bare column name of the bin field if a dataframe is provided.</p></td>
+    </tr>
+    <tr>
       <th>id</th>
       <td><p>The API app ID provided to you from the NYC Developer Portal
 formated in quotes. Defaults to <code>NULL</code> and the id is accessed from your
@@ -123,11 +128,6 @@ more information.</p></td>
       <td><p>Whether you would like to cap the daily number of
 API requests in adherence to Geoclient's Service Usage Guidelines. See
 <code><a href='geoclient-package.html'>?geoclient</a></code> for more information.</p></td>
-    </tr>
-    <tr>
-      <th>bbl</th>
-      <td><p>Either a vector of BINs (numeric or character is accepted), or a
-bare column name of the bin field if a dataframe is provided.</p></td>
     </tr>
     </table>
     

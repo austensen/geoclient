@@ -75,7 +75,7 @@ geoclient_bbl <- function(df = NULL,
 
   bbl <- as.character(bbl)
 
-  all_bbls_correct <- bbl %>% stringr::str_length() %>% all(. == 10)
+  all_bbls_correct <- all(stringr::str_length(bbl) == 10)
 
   if (is_false(all_bbls_correct)) {
     stop_glue("BBL must be formatted as a 10-digit code, with 1-digit borough, 5-digit block, 4-digit lot")

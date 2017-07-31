@@ -11,6 +11,9 @@ geoclient_bin(df = NULL, bin, id = NULL, key = NULL, rate_limit = TRUE,
 \item{df}{Dataframe that contains a column of BINs. Defaults to \code{NULL} and
 \code{bin} is taken as a vector.}
 
+\item{bin}{Either a vector of BINs (numeric or character is accepted), or a
+bare column name of the bin field if a dataframe is provided.}
+
 \item{id}{The API app ID provided to you from the NYC Developer Portal
 formated in quotes. Defaults to \code{NULL} and the id is accessed from your
 \code{.Renviron}.}
@@ -26,9 +29,6 @@ more information.}
 \item{cap_daily_requests}{Whether you would like to cap the daily number of
 API requests in adherence to Geoclient's Service Usage Guidelines. See
 \code{?geoclient} for more information.}
-
-\item{bbl}{Either a vector of BINs (numeric or character is accepted), or a
-bare column name of the bin field if a dataframe is provided.}
 }
 \description{
 This function takes BINs (Building Identification Number) and returns the

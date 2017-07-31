@@ -9,7 +9,7 @@
 #'
 #' @param df Dataframe that contains a column of BINs. Defaults to `NULL` and
 #'   `bin` is taken as a vector.
-#' @param bbl Either a vector of BINs (numeric or character is accepted), or a
+#' @param bin Either a vector of BINs (numeric or character is accepted), or a
 #'   bare column name of the bin field if a dataframe is provided.
 #' @param id The API app ID provided to you from the NYC Developer Portal
 #'   formated in quotes. Defaults to `NULL` and the id is accessed from your

@@ -46,9 +46,6 @@ more information.}
 \item{cap_daily_requests}{Whether you would like to cap the daily number of
 API requests in adherence to Geoclient's Service Usage Guidelines. See
 \code{?geoclient} for more information.}
-
-\item{on_street}{The street of the target blockface, as either a vector of
-street names, or a bare column name of the field if a dataframe is provided.}
 }
 \description{
 This function takes components of addresses and returns the Geoclient

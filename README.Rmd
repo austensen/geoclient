@@ -15,6 +15,10 @@ knitr::opts_chunk$set(
 options(tibble.print_min = 5, tibble.print_max = 5)
 ```
 
+# geoclient
+
+[![Travis-CI Build Status](https://travis-ci.org/austensen/geoclient.svg?branch=master)](https://travis-ci.org/austensen/geoclient)
+
 ### geoclient: Tools to work with NYC's _Geoclient_ REST API
 
 #### _This package is a very early work-in-progress_
