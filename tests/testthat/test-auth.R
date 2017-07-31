@@ -11,22 +11,12 @@ id <- creds$id
 key <- creds$key
 
 # make prespecified functions for readability in tests
-set_creds <- function(id = id, key = key) {
-  geoclient_api_keys(id = id, key = key)
-}
-
-install_creds <- function(id = id, key = key) {
-  geoclient_api_keys(id = id, key = key, install = TRUE)
-}
-
-remove_creds <- function() {
-  geoclient_api_keys(id = NULL, key = NULL, install = TRUE, overwrite = TRUE)
-}
-
-overwrite_creds <- function(id = id, key = key) {
-  geoclient_api_keys(id = id, key = key, install = TRUE, overwrite = TRUE)
-}
-
+# nolinst start
+set_creds <- function() geoclient_api_keys(id = id, key = key)
+install_creds <- function() geoclient_api_keys(id = id, key = key, install = TRUE)
+remove_creds <- function() geoclient_api_keys(id = NULL, key = NULL, install = TRUE, overwrite = TRUE)
+overwrite_creds <- function() geoclient_api_keys(id = id, key = key, install = TRUE, overwrite = TRUE)
+# nolint end
 
 test_that("setting api credentials works with defaults", {
 

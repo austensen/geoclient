@@ -1,4 +1,5 @@
-# These functions were borrowed fron Jenny Bryan's googlesheets package after reading her great post:
+# These functions were borrowed fron Jenny Bryan's googlesheets package
+# after reading her great post:
 # http://stat545.com/bit007_draw-the-rest-of-the-owl.html
 
 stop_for_content_type <- function(req, expected) {
@@ -15,13 +16,13 @@ stop_for_content_type <- function(req, expected) {
   invisible(NULL)
 }
 
-content_as_json_UTF8 <- function(req) {
+content_as_json_UTF8 <- function(req) { # nolint
   stop_for_content_type(req, expected = "application/json;charset=UTF-8")
   jsonlite::fromJSON(httr::content(req, as = "text", encoding = "UTF-8"))
 }
 
 
-VERB_n <- function(VERB, n = 3) {
+VERB_n <- function(VERB, n = 3) { # nolint
   force(VERB)
   force(n)
   function(...) {
@@ -40,4 +41,4 @@ VERB_n <- function(VERB, n = 3) {
   }
 }
 
-rGET <- VERB_n(httr::GET)
+rGET <- VERB_n(httr::GET) # nolint

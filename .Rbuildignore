@@ -5,5 +5,6 @@
 ^data-raw$
 ^ignored_files$
 ^\.travis\.yml$
-^README.RMD$
-^tests/testthat/geoclient_app_creds.rds.enc$
+^wercker\.yml$
+^README\.RMD$
+^tests/testthat/geoclient_app_creds\.rds\.enc$
