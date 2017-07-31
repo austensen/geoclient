@@ -8,3 +8,4 @@
 ^wercker\.yml$
 ^README\.RMD$
 ^tests/testthat/geoclient_app_creds\.rds\.enc$
+^codecov\.yml$
