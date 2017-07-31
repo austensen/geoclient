@@ -22,8 +22,8 @@
 #'   in future sessions.  Defaults to FALSE.
 #' @param overwrite If this is set to TRUE, it will overwrite the existing
 #'   GEOCLIENT_APP_ID and GEOCLIENT_APP_KEY that you already have in your
-#'   `.Renviron` file. And if `id` and `key` are set to `NULL` it will completely
-#'   remove these lines.
+#'   `.Renviron` file. And if `id` and `key` are set to `NULL` it will
+#'   completely remove these lines.
 #'
 #' @examples
 #'
@@ -32,7 +32,11 @@
 #' geoclient_api_keys(id = "1a2b3c4", key = "9d8f7b6wh4jfgud67s89jfyw68vj38fh")
 #'
 #' # To save the keys in your R.environ file for use in future sessions:
-#' geoclient_api_keys(id = "1a2b3c4", key = "9d8f7b6wh4jfgud67s89jfyw68vj38fh", install = TRUE)
+#' geoclient_api_keys(
+#'   id = "1a2b3c4",
+#'   key = "9d8f7b6wh4jfgud67s89jfyw68vj38fh",
+#'   install = TRUE
+#'  )
 #'
 #' # If you need to overwrite existing keys:
 #' geoclient_api_keys("1a2b3c4", "9d8f7b6wh4jfgud67s89jfyw68vj38fh", overwrite = TRUE, install = TRUE)
@@ -61,7 +65,7 @@ geoclient_api_keys <- function(id, key, overwrite = FALSE, install = FALSE){
       # Backup original .Renviron before doing anything else here.
       file.copy(".Renviron", ".Renviron_backup")
     }
-    if(!file.exists(".Renviron")) {
+    if (!file.exists(".Renviron")) {
       file.create(".Renviron")
     } else {
       if (is_true(overwrite)) {
@@ -87,12 +91,14 @@ geoclient_api_keys <- function(id, key, overwrite = FALSE, install = FALSE){
       )
 
       # Append API key to .Renviron file
+      # nolint start
       write(new_keys, ".Renviron", sep = "\n", append = TRUE)
       msg_glue(
-        'Your API ID and key have been stored in your .Renviron and can be accessed by ',
+        "Your API ID and key have been stored in your .Renviron and can be accessed by ",
         'Sys.getenv("GEOCLIENT_APP_ID") and Sys.getenv("GEOCLIENT_APP_KEY").
           To use now, restart R or run `readRenviron("~/.Renviron")`'
       )
+      # nolint end
     } else {
       message("Your API ID and key have been removed from your .Renviron")
     }

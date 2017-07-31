@@ -15,8 +15,8 @@ formated in quotes.}
 
 \item{overwrite}{If this is set to TRUE, it will overwrite the existing
 GEOCLIENT_APP_ID and GEOCLIENT_APP_KEY that you already have in your
-\code{.Renviron} file. And if \code{id} and \code{key} are set to \code{NULL} it will completely
-remove these lines.}
+\code{.Renviron} file. And if \code{id} and \code{key} are set to \code{NULL} it will
+completely remove these lines.}
 
 \item{install}{if TRUE, will install the key in your \code{.Renviron} file for use
 in future sessions.  Defaults to FALSE.}
@@ -43,7 +43,11 @@ selecting "Geoclient v1" from available APIs.
 geoclient_api_keys(id = "1a2b3c4", key = "9d8f7b6wh4jfgud67s89jfyw68vj38fh")
 
 # To save the keys in your R.environ file for use in future sessions:
-geoclient_api_keys(id = "1a2b3c4", key = "9d8f7b6wh4jfgud67s89jfyw68vj38fh", install = TRUE)
+geoclient_api_keys(
+  id = "1a2b3c4",
+  key = "9d8f7b6wh4jfgud67s89jfyw68vj38fh",
+  install = TRUE
+ )
 
 # If you need to overwrite existing keys:
 geoclient_api_keys("1a2b3c4", "9d8f7b6wh4jfgud67s89jfyw68vj38fh", overwrite = TRUE, install = TRUE)

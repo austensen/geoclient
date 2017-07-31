@@ -98,10 +98,9 @@ geoclient_search <- function(df = NULL,
   # TODO: add step renaming columns from geoclient api parameter names to either:
     # the argument names as defined in function, or
     # the names from the input dataset if provided (eg. with `quo_name`)
-      # capture all names within the if/else blocks that create vectors, 
+      # capture all names within the if/else blocks that create vectors,
       # and then can define function to take names + df and use set_names()
   res <- dplyr::rename(res, "location" = "input")
 
   res
 }
-

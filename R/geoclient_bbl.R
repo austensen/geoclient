@@ -3,9 +3,9 @@
 #' This function takes BBLs (borough-block-lot) and returns the Geoclient
 #' response as a tibble. The BBLs can be provided either in a vector as a named
 #' argument or with a dataframe and column name of the BBL field. The Geoclient
-#' API's app ID and key can either be provided directly as arguments, or you can
-#' first use [geoclient_api_keys()] to add them to your `.Renviron` file so they
-#' can be called securely without being stored in your code.
+#' API's app ID and key can either be provided directly as arguments, or you
+#' can first use [geoclient_api_keys()] to add them to your `.Renviron` file
+#' so they can be called securely without being stored in your code.
 #'
 #' @param df Dataframe that contains a column of BBLs. Defaults to `NULL` and
 #'   `bbl` is taken as a vector.
@@ -17,8 +17,8 @@
 #' @param key The API app key provided to you from the NYC Developer Portal
 #'   formated in quotes. Defaults to `NULL` and your key is accessed from your
 #'   `.Renviron`.
-#' @param rate_limit Whether you would like to limit the rate of API requests in
-#'   adherence to Geoclient's Service Usage Guidelines. See `?geoclient` for
+#' @param rate_limit Whether you would like to limit the rate of API request
+#'   in adherence to Geoclient's Service Usage Guidelines. See `?geoclient` for
 #'   more information.
 #' @param cap_daily_requests Whether you would like to cap the daily number of
 #'   API requests in adherence to Geoclient's Service Usage Guidelines. See
@@ -109,4 +109,3 @@ geoclient_bbl <- function(df = NULL,
 
   res
 }
-

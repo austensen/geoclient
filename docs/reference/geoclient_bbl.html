@@ -84,9 +84,9 @@
     <p>This function takes BBLs (borough-block-lot) and returns the Geoclient
 response as a tibble. The BBLs can be provided either in a vector as a named
 argument or with a dataframe and column name of the BBL field. The Geoclient
-API's app ID and key can either be provided directly as arguments, or you can
-first use <code><a href='geoclient_api_keys.html'>geoclient_api_keys()</a></code> to add them to your <code>.Renviron</code> file so they
-can be called securely without being stored in your code.</p>
+API's app ID and key can either be provided directly as arguments, or you
+can first use <code><a href='geoclient_api_keys.html'>geoclient_api_keys()</a></code> to add them to your <code>.Renviron</code> file
+so they can be called securely without being stored in your code.</p>
     
 
     <pre class="usage"><span class='fu'>geoclient_bbl</span>(<span class='kw'>df</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='no'>bbl</span>, <span class='kw'>id</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>key</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>rate_limit</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
@@ -119,8 +119,8 @@ formated in quotes. Defaults to <code>NULL</code> and your key is accessed from 
     </tr>
     <tr>
       <th>rate_limit</th>
-      <td><p>Whether you would like to limit the rate of API requests in
-adherence to Geoclient's Service Usage Guidelines. See <code><a href='geoclient-package.html'>?geoclient</a></code> for
+      <td><p>Whether you would like to limit the rate of API request
+in adherence to Geoclient's Service Usage Guidelines. See <code><a href='geoclient-package.html'>?geoclient</a></code> for
 more information.</p></td>
     </tr>
     <tr>

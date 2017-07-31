@@ -161,4 +161,3 @@ geoclient_intersection <- function(df = NULL,
 
   res
 }
-

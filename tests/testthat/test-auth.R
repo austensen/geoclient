@@ -6,16 +6,27 @@ test_that("api credentials are not set", {
 })
 
 # access encrypted api credentials
-# creds <- readRDS("tests/testthat/geoclient_app_creds.rds")
 creds <- readRDS("geoclient_app_creds.rds")
 id <- creds$id
 key <- creds$key
 
 # make prespecified functions for readability in tests
-set_creds <- function() geoclient_api_keys(id = id, key = key)
-install_creds <- function() geoclient_api_keys(id = id, key = key, install = TRUE)
-remove_creds <- function() geoclient_api_keys(id = NULL, key = NULL, install = TRUE, overwrite = TRUE)
-overwrite_creds <- function() geoclient_api_keys(id = id, key = key, install = TRUE, overwrite = TRUE)
+set_creds <- function(id = id, key = key) {
+  geoclient_api_keys(id = id, key = key)
+}
+
+install_creds <- function(id = id, key = key) {
+  geoclient_api_keys(id = id, key = key, install = TRUE)
+}
+
+remove_creds <- function() {
+  geoclient_api_keys(id = NULL, key = NULL, install = TRUE, overwrite = TRUE)
+}
+
+overwrite_creds <- function(id = id, key = key) {
+  geoclient_api_keys(id = id, key = key, install = TRUE, overwrite = TRUE)
+}
+
 
 test_that("setting api credentials works with defaults", {
 
@@ -35,7 +46,7 @@ test_that("setting api credentials works with defaults", {
 test_that("installing/overwriting api credentials in `.Renviron` works", {
 
   expect_message(install_creds(), "have been stored")
-  readRenviron("~/.Renviron")
+  readRenviron("~/.Renviron") # nolint
 
   expect_equal(Sys.getenv("GEOCLIENT_APP_ID"), id)
   expect_equal(Sys.getenv("GEOCLIENT_APP_KEY"), key)
@@ -50,7 +61,7 @@ test_that("removing api credentials from `.Renviron` works", {
   Sys.unsetenv("GEOCLIENT_APP_ID")
   Sys.unsetenv("GEOCLIENT_APP_KEY")
 
-  readRenviron("~/.Renviron")
+  readRenviron("~/.Renviron") # nolint
 
   expect_equal(Sys.getenv("GEOCLIENT_APP_ID"), "")
   expect_equal(Sys.getenv("GEOCLIENT_APP_KEY"), "")
@@ -64,7 +75,7 @@ test_that("overwriting api credentials in `.Renviron` works", {
 
   expect_message(overwrite_creds(), "backed up")
   expect_message(overwrite_creds(), "have been stored")
-  readRenviron("~/.Renviron")
+  readRenviron("~/.Renviron") # nolint
 
   expect_equal(Sys.getenv("GEOCLIENT_APP_ID"), id)
   expect_equal(Sys.getenv("GEOCLIENT_APP_KEY"), key)

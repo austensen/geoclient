@@ -115,8 +115,8 @@ formated in quotes.</p></td>
       <th>overwrite</th>
       <td><p>If this is set to TRUE, it will overwrite the existing
 GEOCLIENT_APP_ID and GEOCLIENT_APP_KEY that you already have in your
-<code>.Renviron</code> file. And if <code>id</code> and <code>key</code> are set to <code>NULL</code> it will completely
-remove these lines.</p></td>
+<code>.Renviron</code> file. And if <code>id</code> and <code>key</code> are set to <code>NULL</code> it will
+completely remove these lines.</p></td>
     </tr>
     <tr>
       <th>install</th>
@@ -133,7 +133,11 @@ in future sessions.  Defaults to FALSE.</p></td>
 <span class='fu'>geoclient_api_keys</span>(<span class='kw'>id</span> <span class='kw'>=</span> <span class='st'>"1a2b3c4"</span>, <span class='kw'>key</span> <span class='kw'>=</span> <span class='st'>"9d8f7b6wh4jfgud67s89jfyw68vj38fh"</span>)
 
 <span class='co'># To save the keys in your R.environ file for use in future sessions:</span>
-<span class='fu'>geoclient_api_keys</span>(<span class='kw'>id</span> <span class='kw'>=</span> <span class='st'>"1a2b3c4"</span>, <span class='kw'>key</span> <span class='kw'>=</span> <span class='st'>"9d8f7b6wh4jfgud67s89jfyw68vj38fh"</span>, <span class='kw'>install</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)
+<span class='fu'>geoclient_api_keys</span>(
+  <span class='kw'>id</span> <span class='kw'>=</span> <span class='st'>"1a2b3c4"</span>,
+  <span class='kw'>key</span> <span class='kw'>=</span> <span class='st'>"9d8f7b6wh4jfgud67s89jfyw68vj38fh"</span>,
+  <span class='kw'>install</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>
+ )
 
 <span class='co'># If you need to overwrite existing keys:</span>
 <span class='fu'>geoclient_api_keys</span>(<span class='st'>"1a2b3c4"</span>, <span class='st'>"9d8f7b6wh4jfgud67s89jfyw68vj38fh"</span>, <span class='kw'>overwrite</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>install</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)

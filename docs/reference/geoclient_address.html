@@ -84,9 +84,9 @@
     <p>This function takes components of addresses and returns the Geoclient
 response as a tibble. The house number, street name, and one of either
 borough or Zip code are required. The address components can be provided
-either in separate vectors as named arguments or with a dataframe and
-column names containing each component. The Geoclient API's app ID and key
-can either be provided directly as arguments, or you can first use
+either in separate vectors as named arguments or with a dataframe and column
+names containing each component. The Geoclient API's app ID and key can
+either be provided directly as arguments, or you can first use
 <code><a href='geoclient_api_keys.html'>geoclient_api_keys()</a></code> to add them to your <code>.Renviron</code> file so they can be
 called securely without being stored in your code.</p>
     
@@ -110,20 +110,21 @@ field if a dataframe is provided.</p></td>
     </tr>
     <tr>
       <th>street</th>
-      <td><p>The street name of the address, as either a vector of names,
-or a bare column name of the number field if a dataframe is provided.</p></td>
+      <td><p>The street name of the address, as either a vector of names, or
+a bare column name of the number field if a dataframe is provided.</p></td>
     </tr>
     <tr>
       <th>borough</th>
-      <td><p>The name of the borough of the address, as either a vector
-or a bare column name of the borough field if a dataframe is provided.
-The borough is only required if Zip code is not provided.</p></td>
+      <td><p>The name of the borough of the address, as either a vector or
+a bare column name of the borough field if a dataframe is provided. The
+borough is only required if Zip code is not provided.</p></td>
     </tr>
     <tr>
       <th>zip</th>
-      <td><p>The Zip code of the address, as either a vector (numeric or character
-is accepted) or a bare column name of the borough field if a dataframe
-is provided. The Zip code is only required if borough is not provided.</p></td>
+      <td><p>The Zip code of the address, as either a vector (numeric or
+character is accepted) or a bare column name of the borough field if a
+dataframe is provided. The Zip code is only required if borough is not
+provided.</p></td>
     </tr>
     <tr>
       <th>id</th>
@@ -155,10 +156,11 @@ API requests in adherence to Geoclient's Service Usage Guidelines. See
 
     <p>For more details see the Geoclient Documentation's guide to
 <a href='https://api.cityofnewyork.us/geoclient/v1/doc#section-1.2.1'>making address requests</a>,
-interpreting the <a href='https://api.cityofnewyork.us/geoclient/v1/doc#section-2.2'>Geosupport return codes</a>, the
-<a href='https://api.cityofnewyork.us/geoclient/v1/doc#section-3.1'>data returned by geoclient_address</a>,
-and a <a href='https://api.cityofnewyork.us/geoclient/v1/doc#section-4.0'>complete data dictionary</a> for
-all possible data elements returned by any geoclient function.</p>
+interpreting the
+<a href='https://api.cityofnewyork.us/geoclient/v1/doc#section-2.2'>Geosupport return codes</a>,
+the <a href='https://api.cityofnewyork.us/geoclient/v1/doc#section-3.1'>data returned by geoclient_address</a>,
+and a <a href='https://api.cityofnewyork.us/geoclient/v1/doc#section-4.0'>complete data dictionary</a>
+for all possible data elements returned by any geoclient function.</p>
     
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>

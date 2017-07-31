@@ -14,29 +14,35 @@ geoclient_blockface(df = NULL, on_street, cross_street_1, cross_street_2,
 \code{bbl} is taken as a vector.}
 
 \item{on_street}{The street of the target blockface, as either a vector of
-street names, or a bare column name of the field if a dataframe is provided.}
+street names, or a bare column name of the field if a dataframe is
+provided.}
 
-\item{cross_street_1}{The first cross street of the blockface, as either a vector
-of street names, or a bare column name of the field if a dataframe is provided.}
+\item{cross_street_1}{The first cross street of the blockface, as either a
+vector of street names, or a bare column name of the field if a dataframe
+is provided.}
 
-\item{cross_street_2}{The second cross street of the blockface, as either a vector
-of street names, or a bare column name of the field if a dataframe is provided.}
+\item{cross_street_2}{The second cross street of the blockface, as either a
+vector of street names, or a bare column name of the field if a dataframe
+is provided.}
 
 \item{borough}{The name of the borough of the "on street", as either a vector
 or a bare column name of the borough field if a dataframe is provided.}
 
-\item{cross_street_1_borough}{Optionally, the name of the borough of the first
-cross street, as either a vector or a bare column name of the borough field if
-a dataframe is provided. By default this is \code{NULL} and the "on street" borough is used.}
+\item{cross_street_1_borough}{Optionally, the name of the borough of the
+first cross street, as either a vector or a bare column name of the borough
+field if a dataframe is provided. By default this is \code{NULL} and the "on
+street" borough is used.}
 
-\item{cross_street_2_borough}{Optionally, the name of the borough of the second
-cross street, as either a vector or a bare column name of the borough field if a
-dataframe is provided. By default this is \code{NULL} and the "on street" borough is used.}
+\item{cross_street_2_borough}{Optionally, the name of the borough of the
+second cross street, as either a vector or a bare column name of the
+borough field if a dataframe is provided. By default this is \code{NULL} and the
+"on street" borough is used.}
 
-\item{compass_direction}{Optionally, the direction indicating a side of the street
-to request information about only one side of the street. The argument can be provided
-as either a vector or a bare column name of the field if a dataframe is provided.
-The valid values of are \code{"N"}, \code{"E"}, \code{"S"}, or \code{"W"}}
+\item{compass_direction}{Optionally, the direction indicating a side of the
+street to request information about only one side of the street. The
+argument can be provided as either a vector or a bare column name of the
+field if a dataframe is provided. The valid values of are \code{"N"}, \code{"E"},
+\code{"S"}, or \code{"W"}}
 
 \item{id}{The API app ID provided to you from the NYC Developer Portal
 formated in quotes. Defaults to \code{NULL} and your key is accessed from your
@@ -58,19 +64,20 @@ API requests in adherence to Geoclient's Service Usage Guidelines. See
 This function takes components of addresses and returns the Geoclient
 response as a tibble. The house number, street name, and one of either
 borough or Zip code are required. The address components can be provided
-either in separate vectors as named arguments or with a dataframe and
-column names containing each component. The Geoclient API's app ID and key
-can either be provided directly as arguments, or you can first use
+either in separate vectors as named arguments or with a dataframe and column
+names containing each component. The Geoclient API's app ID and key can
+either be provided directly as arguments, or you can first use
 \code{\link[=geoclient_api_keys]{geoclient_api_keys()}} to add them to your \code{.Renviron} file so they can be
 called securely without being stored in your code.
 }
 \details{
 For more details see the Geoclient Documentation's guide to
 \href{https://api.cityofnewyork.us/geoclient/v1/doc#section-1.2.1}{making address requests},
-interpreting the \href{https://api.cityofnewyork.us/geoclient/v1/doc#section-2.2}{Geosupport return codes}, the
-\href{https://api.cityofnewyork.us/geoclient/v1/doc#section-3.1}{data returned by geoclient_address},
-and a \href{https://api.cityofnewyork.us/geoclient/v1/doc#section-4.0}{complete data dictionary} for
-all possible data elements returned by any geoclient function.
+interpreting the
+\href{https://api.cityofnewyork.us/geoclient/v1/doc#section-2.2}{Geosupport return codes},
+the \href{https://api.cityofnewyork.us/geoclient/v1/doc#section-3.1}{data returned by geoclient_address},
+and a \href{https://api.cityofnewyork.us/geoclient/v1/doc#section-4.0}{complete data dictionary}
+for all possible data elements returned by any geoclient function.
 }
 \examples{
 

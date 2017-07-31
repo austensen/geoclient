@@ -167,10 +167,10 @@ get_credentials <- function(id = NULL, key = NULL) {
       See ?geoclient_api_keys for details."
     )
 
-  } else if (Sys.getenv('GEOCLIENT_APP_ID') != '' || Sys.getenv('GEOCLIENT_APP_KEY') != '') {
+  } else if (Sys.getenv("GEOCLIENT_APP_ID") != "" || Sys.getenv("GEOCLIENT_APP_KEY") != "") {
 
-    id <- Sys.getenv('GEOCLIENT_APP_ID')
-    key <- Sys.getenv('GEOCLIENT_APP_KEY')
+    id <- Sys.getenv("GEOCLIENT_APP_ID")
+    key <- Sys.getenv("GEOCLIENT_APP_KEY")
 
   } else {
 
@@ -198,4 +198,3 @@ clean_borough <- function(borough) {
     TRUE ~ borough
   )
 }
-

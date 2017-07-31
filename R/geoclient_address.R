@@ -3,9 +3,9 @@
 #' This function takes components of addresses and returns the Geoclient
 #' response as a tibble. The house number, street name, and one of either
 #' borough or Zip code are required. The address components can be provided
-#' either in separate vectors as named arguments or with a dataframe and
-#' column names containing each component. The Geoclient API's app ID and key
-#' can either be provided directly as arguments, or you can first use
+#' either in separate vectors as named arguments or with a dataframe and column
+#' names containing each component. The Geoclient API's app ID and key can
+#' either be provided directly as arguments, or you can first use
 #' [geoclient_api_keys()] to add them to your `.Renviron` file so they can be
 #' called securely without being stored in your code.
 #'
@@ -14,14 +14,15 @@
 #' @param number The house number of the address, as either a vector of numbers
 #'   (numeric or character is accepted), or a bare column name of the number
 #'   field if a dataframe is provided.
-#' @param street The street name of the address, as either a vector of names,
-#'   or a bare column name of the number field if a dataframe is provided.
-#' @param borough The name of the borough of the address, as either a vector
-#'   or a bare column name of the borough field if a dataframe is provided.
-#'   The borough is only required if Zip code is not provided.
-#' @param zip The Zip code of the address, as either a vector (numeric or character
-#'   is accepted) or a bare column name of the borough field if a dataframe
-#'   is provided. The Zip code is only required if borough is not provided.
+#' @param street The street name of the address, as either a vector of names, or
+#'   a bare column name of the number field if a dataframe is provided.
+#' @param borough The name of the borough of the address, as either a vector or
+#'   a bare column name of the borough field if a dataframe is provided. The
+#'   borough is only required if Zip code is not provided.
+#' @param zip The Zip code of the address, as either a vector (numeric or
+#'   character is accepted) or a bare column name of the borough field if a
+#'   dataframe is provided. The Zip code is only required if borough is not
+#'   provided.
 #' @param id The API app ID provided to you from the NYC Developer Portal
 #'   formated in quotes. Defaults to `NULL` and your key is accessed from your
 #'   `.Renviron`.
@@ -37,10 +38,11 @@
 #'
 #' @details For more details see the Geoclient Documentation's guide to
 #'   [making address requests](https://api.cityofnewyork.us/geoclient/v1/doc#section-1.2.1),
-#'   interpreting the [Geosupport return codes](https://api.cityofnewyork.us/geoclient/v1/doc#section-2.2), the
-#'   [data returned by `geoclient_address`](https://api.cityofnewyork.us/geoclient/v1/doc#section-3.1),
-#'   and a [complete data dictionary](https://api.cityofnewyork.us/geoclient/v1/doc#section-4.0) for
-#'   all possible data elements returned by any geoclient function.
+#'   interpreting the
+#'   [Geosupport return codes](https://api.cityofnewyork.us/geoclient/v1/doc#section-2.2),
+#'   the [data returned by `geoclient_address`](https://api.cityofnewyork.us/geoclient/v1/doc#section-3.1),
+#'   and a [complete data dictionary](https://api.cityofnewyork.us/geoclient/v1/doc#section-4.0)
+#'   for all possible data elements returned by any geoclient function.
 #'
 #' @examples
 #'
@@ -168,4 +170,3 @@ geoclient_address <- function(df = NULL,
 
   res
 }
-
