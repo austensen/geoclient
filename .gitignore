@@ -26,3 +26,5 @@ vignettes/*.pdf
 .Rproj.user
 # igore testing files
 ignored_files/
+# ignore unencrypted geoclient api creds
+tests/testthat/geoclient_app_creds.rds

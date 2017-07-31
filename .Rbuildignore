@@ -4,3 +4,5 @@
 ^_pkgdown\.yml$
 ^data-raw$
 ^ignored_files$
+^\.travis\.yml$
+^README.RMD$
