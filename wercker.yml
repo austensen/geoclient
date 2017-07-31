@@ -1,0 +1,7 @@
+box: rocker/hadleyverse
+build:
+  steps:
+  - austensen/r-dependencies
+  - austensen/r-check
+  - austensen/r-lint
+  - austensen/r-coverage
