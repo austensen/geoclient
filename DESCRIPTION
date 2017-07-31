@@ -15,15 +15,13 @@ Imports:
     rlang,
     httr,
     jsonlite,
-    purrr,
     glue,
     dplyr,
-    magrittr,
-    utils,
-    lubridate,
-    hms,
+    purrr,
     stringr,
-    tibble
+    tibble,
+    lubridate,
+    hms
 RoxygenNote: 6.0.1
 Roxygen: list(markdown = TRUE)
 Suggests:

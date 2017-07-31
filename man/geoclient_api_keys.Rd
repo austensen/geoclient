@@ -2,7 +2,7 @@
 % Please edit documentation in R/geoclient_api_keys.R
 \name{geoclient_api_keys}
 \alias{geoclient_api_keys}
-\title{Install Geoclient API ID and Key in \code{.Renviron} File for Repeated Use}
+\title{Install Geoclient API ID and Key for Repeated Use}
 \usage{
 geoclient_api_keys(id, key, overwrite = FALSE, install = FALSE)
 }
@@ -15,7 +15,8 @@ formated in quotes.}
 
 \item{overwrite}{If this is set to TRUE, it will overwrite the existing
 GEOCLIENT_APP_ID and GEOCLIENT_APP_KEY that you already have in your
-\code{.Renviron} file.}
+\code{.Renviron} file. And if \code{id} and \code{key} are set to \code{NULL} it will completely
+remove these lines.}
 
 \item{install}{if TRUE, will install the key in your \code{.Renviron} file for use
 in future sessions.  Defaults to FALSE.}
@@ -38,21 +39,22 @@ selecting "Geoclient v1" from available APIs.
 \examples{
 
 \dontrun{
-geoclient_api_keys("1a2b3c4", "9d8f7b6wh4jfgud67s89jfyw68vj38fh", install = TRUE)
-# First time, reload your environment so you can use the keys without restarting R.
-readRenviron("~/.Renviron")
-# You can check them with:
-Sys.getenv("GEOCLIENT_APP_ID")
-Sys.getenv("GEOCLIENT_APP_KEY")
-}
+# To set the keys for use in this session only:
+geoclient_api_keys(id = "1a2b3c4", key = "9d8f7b6wh4jfgud67s89jfyw68vj38fh")
 
-\dontrun{
+# To save the keys in your R.environ file for use in future sessions:
+geoclient_api_keys(id = "1a2b3c4", key = "9d8f7b6wh4jfgud67s89jfyw68vj38fh", install = TRUE)
+
 # If you need to overwrite existing keys:
 geoclient_api_keys("1a2b3c4", "9d8f7b6wh4jfgud67s89jfyw68vj38fh", overwrite = TRUE, install = TRUE)
+
 # First time, reload your environment so you can use the keys without restarting R.
 readRenviron("~/.Renviron")
+
 # You can check them with:
 Sys.getenv("GEOCLIENT_APP_ID")
 Sys.getenv("GEOCLIENT_APP_KEY")
+
 }
+
 }

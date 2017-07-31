@@ -1,4 +1,4 @@
-#' Install Geoclient API ID and Key in `.Renviron` File for Repeated Use
+#' Install Geoclient API ID and Key for Repeated Use
 #'
 #' This function will add your Geoclient app ID and key to your `.Renviron` file
 #' so they can be called securely without being stored in your code. After you
@@ -22,28 +22,30 @@
 #'   in future sessions.  Defaults to FALSE.
 #' @param overwrite If this is set to TRUE, it will overwrite the existing
 #'   GEOCLIENT_APP_ID and GEOCLIENT_APP_KEY that you already have in your
-#'   `.Renviron` file.
+#'   `.Renviron` file. And if `id` and `key` are set to `NULL` it will completely
+#'   remove these lines.
 #'
 #' @examples
 #'
 #' \dontrun{
-#' geoclient_api_keys("1a2b3c4", "9d8f7b6wh4jfgud67s89jfyw68vj38fh", install = TRUE)
-#' # First time, reload your environment so you can use the keys without restarting R.
-#' readRenviron("~/.Renviron")
-#' # You can check them with:
-#' Sys.getenv("GEOCLIENT_APP_ID")
-#' Sys.getenv("GEOCLIENT_APP_KEY")
-#' }
+#' # To set the keys for use in this session only:
+#' geoclient_api_keys(id = "1a2b3c4", key = "9d8f7b6wh4jfgud67s89jfyw68vj38fh")
 #'
-#' \dontrun{
+#' # To save the keys in your R.environ file for use in future sessions:
+#' geoclient_api_keys(id = "1a2b3c4", key = "9d8f7b6wh4jfgud67s89jfyw68vj38fh", install = TRUE)
+#'
 #' # If you need to overwrite existing keys:
 #' geoclient_api_keys("1a2b3c4", "9d8f7b6wh4jfgud67s89jfyw68vj38fh", overwrite = TRUE, install = TRUE)
+#'
 #' # First time, reload your environment so you can use the keys without restarting R.
 #' readRenviron("~/.Renviron")
+#'
 #' # You can check them with:
 #' Sys.getenv("GEOCLIENT_APP_ID")
 #' Sys.getenv("GEOCLIENT_APP_KEY")
+#'
 #' }
+#'
 #' @export
 
 
@@ -52,25 +54,24 @@
 geoclient_api_keys <- function(id, key, overwrite = FALSE, install = FALSE){
 
   if (install == TRUE) {
+    wd <- getwd()
+    on.exit(setwd(wd))
     setwd(Sys.getenv("HOME"))
-    if(file.exists(".Renviron")){
+    if (file.exists(".Renviron")) {
       # Backup original .Renviron before doing anything else here.
       file.copy(".Renviron", ".Renviron_backup")
     }
-    if(!file.exists(".Renviron")){
+    if(!file.exists(".Renviron")) {
       file.create(".Renviron")
-    }
-    else{
-      if(isTRUE(overwrite)){
+    } else {
+      if (is_true(overwrite)) {
         message("Your original .Renviron will be backed up and stored in your R HOME directory if needed.")
-        oldenv <- utils::read.table(".Renviron", stringsAsFactors = FALSE)
-        newenv <- oldenv[-grep("GEOCLIENT_APP_ID|GEOCLIENT_APP_KEY", oldenv), ]
-        utils::write.table(newenv, ".Renviron", quote = FALSE, sep = "\n",
-                           col.names = FALSE, row.names = FALSE)
-      }
-      else{
+        old_env <- readLines(".Renviron")
+        new_env <- purrr::discard(old_env, ~stringr::str_detect(.x, "GEOCLIENT_APP_ID|GEOCLIENT_APP_KEY"))
+        writeLines(new_env, ".Renviron", sep = "\n")
+      } else {
         tv <- readLines(".Renviron")
-        if(isTRUE(any(grepl("GEOCLIENT_APP_ID|GEOCLIENT_APP_KEY", tv)))){
+        if (is_true(any(stringr::str_detect(tv, "GEOCLIENT_APP_ID|GEOCLIENT_APP_KEY")))){
           stop_glue(
             "A GEOCLIENT_APP_ID or GEOCLIENT_APP_KEY already exists.
             You can overwrite them with the argument `overwrite = TRUE`"
@@ -79,18 +80,23 @@ geoclient_api_keys <- function(id, key, overwrite = FALSE, install = FALSE){
       }
     }
 
-    keyconcat <- glue::glue(
-      "GEOCLIENT_APP_ID='{id}'
-      GEOCLIENT_APP_KEY='{key}'"
-    )
+    if (!is_null(id) && !is_null(key)) {
+      new_keys <- glue::glue(
+        "GEOCLIENT_APP_ID='{id}'
+        GEOCLIENT_APP_KEY='{key}'"
+      )
 
-    # Append API key to .Renviron file
-    write(keyconcat, ".Renviron", sep = "\n", append = TRUE)
-    msg_glue(
-      'Your API ID and key have been stored in your .Renviron and can be accessed by ',
-      'Sys.getenv("GEOCLIENT_APP_ID") and Sys.getenv("GEOCLIENT_APP_KEY").
-        To use now, restart R or run `readRenviron("~/.Renviron")`'
-    )
+      # Append API key to .Renviron file
+      write(new_keys, ".Renviron", sep = "\n", append = TRUE)
+      msg_glue(
+        'Your API ID and key have been stored in your .Renviron and can be accessed by ',
+        'Sys.getenv("GEOCLIENT_APP_ID") and Sys.getenv("GEOCLIENT_APP_KEY").
+          To use now, restart R or run `readRenviron("~/.Renviron")`'
+      )
+    } else {
+      message("Your API ID and key have been removed from your .Renviron")
+    }
+
   } else {
     message("To install your API keys for use in future sessions, run this function with `install = TRUE`.")
     Sys.setenv(GEOCLIENT_APP_ID = id)

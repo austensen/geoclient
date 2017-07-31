@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Install Geoclient API ID and Key in <code>.Renviron</code> File for Repeated Use — geoclient_api_keys • geoclient</title>
+<title>Install Geoclient API ID and Key for Repeated Use — geoclient_api_keys • geoclient</title>
 
 <!-- jquery -->
 <script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script>
@@ -77,7 +77,7 @@
       <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Install Geoclient API ID and Key in <code>.Renviron</code> File for Repeated Use</h1>
+    <h1>Install Geoclient API ID and Key for Repeated Use</h1>
     </div>
 
     
@@ -115,7 +115,8 @@ formated in quotes.</p></td>
       <th>overwrite</th>
       <td><p>If this is set to TRUE, it will overwrite the existing
 GEOCLIENT_APP_ID and GEOCLIENT_APP_KEY that you already have in your
-<code>.Renviron</code> file.</p></td>
+<code>.Renviron</code> file. And if <code>id</code> and <code>key</code> are set to <code>NULL</code> it will completely
+remove these lines.</p></td>
     </tr>
     <tr>
       <th>install</th>
@@ -128,22 +129,24 @@ in future sessions.  Defaults to FALSE.</p></td>
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'>
 </div><span class='co'># NOT RUN {</span>
-<span class='fu'>geoclient_api_keys</span>(<span class='st'>"1a2b3c4"</span>, <span class='st'>"9d8f7b6wh4jfgud67s89jfyw68vj38fh"</span>, <span class='kw'>install</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)
-<span class='co'># First time, reload your environment so you can use the keys without restarting R.</span>
-<span class='fu'>readRenviron</span>(<span class='st'>"~/.Renviron"</span>)
-<span class='co'># You can check them with:</span>
-<span class='fu'>Sys.getenv</span>(<span class='st'>"GEOCLIENT_APP_ID"</span>)
-<span class='fu'>Sys.getenv</span>(<span class='st'>"GEOCLIENT_APP_KEY"</span>)
-<span class='co'># }</span><div class='input'>
-</div><span class='co'># NOT RUN {</span>
+<span class='co'># To set the keys for use in this session only:</span>
+<span class='fu'>geoclient_api_keys</span>(<span class='kw'>id</span> <span class='kw'>=</span> <span class='st'>"1a2b3c4"</span>, <span class='kw'>key</span> <span class='kw'>=</span> <span class='st'>"9d8f7b6wh4jfgud67s89jfyw68vj38fh"</span>)
+
+<span class='co'># To save the keys in your R.environ file for use in future sessions:</span>
+<span class='fu'>geoclient_api_keys</span>(<span class='kw'>id</span> <span class='kw'>=</span> <span class='st'>"1a2b3c4"</span>, <span class='kw'>key</span> <span class='kw'>=</span> <span class='st'>"9d8f7b6wh4jfgud67s89jfyw68vj38fh"</span>, <span class='kw'>install</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)
+
 <span class='co'># If you need to overwrite existing keys:</span>
 <span class='fu'>geoclient_api_keys</span>(<span class='st'>"1a2b3c4"</span>, <span class='st'>"9d8f7b6wh4jfgud67s89jfyw68vj38fh"</span>, <span class='kw'>overwrite</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>install</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)
+
 <span class='co'># First time, reload your environment so you can use the keys without restarting R.</span>
 <span class='fu'>readRenviron</span>(<span class='st'>"~/.Renviron"</span>)
+
 <span class='co'># You can check them with:</span>
 <span class='fu'>Sys.getenv</span>(<span class='st'>"GEOCLIENT_APP_ID"</span>)
 <span class='fu'>Sys.getenv</span>(<span class='st'>"GEOCLIENT_APP_KEY"</span>)
-<span class='co'># }</span></pre>
+
+<span class='co'># }</span><div class='input'>
+</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
