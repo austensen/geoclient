@@ -3,7 +3,7 @@
 geoclient
 =========
 
-[![Travis-CI Build Status](https://travis-ci.org/austensen/geoclient.svg?branch=master)](https://travis-ci.org/austensen/geoclient)
+[![Travis-CI Build Status](https://travis-ci.org/austensen/geoclient.svg?branch=master)](https://travis-ci.org/austensen/geoclient) [![codecov](https://codecov.io/gh/austensen/geoclient/branch/master/graph/badge.svg)](https://codecov.io/gh/austensen/geoclient)
 
 ### geoclient: Tools to work with NYC's *Geoclient* REST API
 

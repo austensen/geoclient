@@ -18,6 +18,7 @@ options(tibble.print_min = 5, tibble.print_max = 5)
 # geoclient
 
 [![Travis-CI Build Status](https://travis-ci.org/austensen/geoclient.svg?branch=master)](https://travis-ci.org/austensen/geoclient)
+[![codecov](https://codecov.io/gh/austensen/geoclient/branch/master/graph/badge.svg)](https://codecov.io/gh/austensen/geoclient)
 
 ### geoclient: Tools to work with NYC's _Geoclient_ REST API
 
