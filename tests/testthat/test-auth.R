@@ -11,7 +11,7 @@ id <- creds$id
 key <- creds$key
 
 # make prespecified functions for readability in tests
-# nolinst start
+# nolint start
 set_creds <- function() geoclient_api_keys(id = id, key = key)
 install_creds <- function() geoclient_api_keys(id = id, key = key, install = TRUE)
 remove_creds <- function() geoclient_api_keys(id = NULL, key = NULL, install = TRUE, overwrite = TRUE)

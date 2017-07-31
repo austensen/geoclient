@@ -91,8 +91,8 @@ geoclient_api_keys <- function(id, key, overwrite = FALSE, install = FALSE){
       )
 
       # Append API key to .Renviron file
-      # nolint start
       write(new_keys, ".Renviron", sep = "\n", append = TRUE)
+      # nolint start
       msg_glue(
         "Your API ID and key have been stored in your .Renviron and can be accessed by ",
         'Sys.getenv("GEOCLIENT_APP_ID") and Sys.getenv("GEOCLIENT_APP_KEY").

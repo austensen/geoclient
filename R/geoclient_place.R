@@ -159,4 +159,3 @@ geoclient_place <- function(df = NULL,
 
   res
 }
-
