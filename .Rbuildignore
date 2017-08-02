@@ -7,5 +7,8 @@
 ^\.travis\.yml$
 ^wercker\.yml$
 ^README\.RMD$
-^tests/testthat/geoclient_app_creds\.rds\.enc$
+^tests/testthat/travis_app_creds\.rds\.enc$
+^tests/testthat/appveyor_app_creds\.rds\.enc$
+^secure-file/*$
 ^codecov\.yml$
+^appveyor\.yml$

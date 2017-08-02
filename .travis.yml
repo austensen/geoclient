@@ -3,7 +3,7 @@ sudo: false
 cache: packages
 before_install:
 - openssl aes-256-cbc -K $encrypted_833b803026d5_key -iv $encrypted_833b803026d5_iv
-  -in tests/testthat/geoclient_app_creds.rds.enc -out tests/testthat/geoclient_app_creds.rds -d
+  -in tests/testthat/travis_app_creds.rds.enc -out tests/testthat/geoclient_app_creds.rds -d
 r_packages:
   - covr
 after_success:
