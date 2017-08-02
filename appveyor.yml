@@ -8,10 +8,9 @@ init:
         Import-Module '..\appveyor-tool.ps1'
 
 install:
-
   - nuget install secure-file -ExcludeVersion
   - secure-file\tools\secure-file -decrypt tests/testthat/appveyor_app_creds.rds.enc -secret %my_secret% -out tests/testthat/geoclient_app_creds.rds
-  ps: Bootstrap
+  - ps: Bootstrap
 
 # Adapt as necessary starting from here
 
