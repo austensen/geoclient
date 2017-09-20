@@ -54,7 +54,7 @@ make_rate_limited_requests <- function(inputs, ..., chunk_size = 2500, duration_
 
 # Makes API requests without rate limiting, passing the arguments `operation`,
 # `creds`, `cap_daily_requests`, and `pb` to make_single_request(). The main
-# purpose of this funciton is to vectorize make_single_request() by interating
+# purpose of this function is to vectorize make_single_request() by iterating
 # over each row of the input dataframe.
 
 # Inputs: a dataframe wherein each column corresponds to a API query parameter
@@ -63,7 +63,7 @@ make_rate_limited_requests <- function(inputs, ..., chunk_size = 2500, duration_
 make_unlimited_requests <- function(inputs, ...) {
 
   # To avoid sending multiple requests for the same address, preserve original
-  # inputs, use deduplicated version for request, then join the respone back to
+  # inputs, use deduplicated version for request, then join the response back to
   # original inputs before returning final result
 
   var_names <- names(inputs)
@@ -76,7 +76,7 @@ make_unlimited_requests <- function(inputs, ...) {
 
   if (n_requests > 500000 && cap_daily_requests == TRUE) {
     stop_glue(
-      "The required number of API requests exxceed Geoclient's Service Usage Guidelines of maximum 500,000 per day.
+      "The required number of API requests exceeds Geoclient's Service Usage Guidelines of maximum 500,000 per day.
       To ignore this daily maximum set `cap_daily_requests = FALSE`.
       See ?geoclient for more information."
     )
@@ -103,7 +103,7 @@ make_unlimited_requests <- function(inputs, ...) {
 }
 
 
-# Makes a single API request (Geoclient does not support a single request for multiple addres/bbls/bins/etc.).
+# Makes a single API request (Geoclient does not support a single request for multiple address/bbls/bins/etc.).
 
 # Inputs: takes a length-1 vector for each of the API query parameters
 # Returns: API response as a dataframe
@@ -142,7 +142,13 @@ make_single_request <- function(..., operation, creds, pb = NULL) {
     parsed <- content_as_json_UTF8(resp)[[operation]]
   }
 
-  tibble::as_tibble(parsed)
+  # if these is no response (bad inputs, but connection execupted normally)
+  # return a 1-row tibble with column indicating the issue
+  if (is_null(parsed)) {
+    return(tibble::tibble(no_results = TRUE))
+  } else {
+    return(tibble::as_tibble(parsed))
+  }
 }
 
 
