@@ -125,7 +125,7 @@ make_single_request <- function(..., operation, creds, pb = NULL) {
     query = params
   )
 
-  auth_failed <- suppressWarnings(httr::content(resp)[[1]] == "Authentication failed")
+  auth_failed <- try(httr::content(resp)[[1]] == "Authentication failed", silent = TRUE)
 
   if (is_true(auth_failed)) {
     stop_glue(
