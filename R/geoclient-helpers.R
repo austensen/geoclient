@@ -87,7 +87,7 @@ make_unlimited_requests <- function(inputs, ...) {
   operation <- list(...)[["operation"]]
   creds <- list(...)[["creds"]]
 
-  ret <- purrr::pmap_df(
+  ret <- purrr::pmap_dfr(
     inputs_dedup,
     make_single_request,
     operation = operation,
@@ -136,10 +136,13 @@ make_single_request <- function(..., operation, creds, pb = NULL) {
 
   httr::stop_for_status(resp)
 
+  # sometimes (for no clear reason) it will return two rows for one request with
+  # no important differences, so use [1, ] to slice one row
+  # TODO: look into this more
   if (operation == "search") {
-    parsed <- content_as_json_UTF8(resp)[["results"]][["response"]]
+    parsed <- content_as_json_UTF8(resp)[["results"]][["response"]][1, ]
   } else {
-    parsed <- content_as_json_UTF8(resp)[[operation]]
+    parsed <- content_as_json_UTF8(resp)[[operation]][1, ]
   }
 
   # if these is no response (bad inputs, but connection execupted normally)
