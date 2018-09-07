@@ -19,11 +19,10 @@ Imports:
     dplyr,
     purrr,
     stringr,
-    tibble,
-    lubridate,
-    hms
-RoxygenNote: 6.0.1
+    ratelimitr
+RoxygenNote: 6.1.0
 Roxygen: list(markdown = TRUE)
 Suggests:
     testthat,
-    covr
+    covr,
+    tibble

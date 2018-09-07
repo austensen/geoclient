@@ -11,15 +11,15 @@ reference:
     - geoclient_api_keys
 - title: Six Location Type Functions
   contents:
-    - geoclient_address
-    - geoclient_bbl
-    - geoclient_bin
-    - geoclient_blockface
-    - geoclient_intersection
-    - geoclient_place
+    - geo_address
+    - geo_bbl
+    - geo_bin
+    - geo_blockface
+    - geo_intersection
+    - geo_place
 - title: Single-Input Search
   contents:
-    - geoclient_search
+    - geo_search
 
 navbar:
   left:

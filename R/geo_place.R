@@ -13,10 +13,10 @@
 #'   `bbl` is taken as a vector.
 #' @param place Either a vector of BBLs (numeric or character is accepted), or a
 #'   bare column name of the bbl field if a dataframe is provided.
-#' @param borough The name of the borough of the address, as either a vector
+#' @param borough The name of the borough of the place, as either a vector
 #'   or a bare column name of the borough field if a dataframe is provided.
 #'   The borough is only required if Zip code is not provided.
-#' @param zip The Zip code of the address, as either a vector (numeric or character
+#' @param zip The Zip code of the place, as either a vector (numeric or character
 #'   is accepted) or a bare column name of the borough field if a dataframe
 #'   is provided. Five- and seven-digit Zip codes are accepted. The Zip code is
 #'   only required if borough is not provided.
@@ -34,9 +34,9 @@
 #'   `?geoclient` for more information.
 #'
 #' @details For more details see the Geoclient Documentation's guide to
-#'   [making address requests](https://api.cityofnewyork.us/geoclient/v1/doc#section-1.2.1),
+#'   [making place requests](https://api.cityofnewyork.us/geoclient/v1/doc#section-1.2.6),
 #'   interpreting the [Geosupport return codes](https://api.cityofnewyork.us/geoclient/v1/doc#section-2.2),
-#'   the [data returned by `geoclient_address`](https://api.cityofnewyork.us/geoclient/v1/doc#section-3.1),
+#'   the [data returned by `geo_place`](https://api.cityofnewyork.us/geoclient/v1/doc#section-3.6),
 #'   and a [complete data dictionary](https://api.cityofnewyork.us/geoclient/v1/doc#section-4.0)
 #'   for all possible data elements returned by any geoclient function.
 #'
@@ -66,96 +66,55 @@
 #'   )
 #' }
 #'
+#' @name geo_place
 #' @export
+geo_place_data <- function(.data,
+                           place,
+                           borough = NULL,
+                           zip = NULL,
+                           id = NULL,
+                           key = NULL,
+                           rate_limit = TRUE) {
 
-geoclient_place <- function(df = NULL,
-                            place,
-                            borough = NULL,
-                            zip = NULL,
-                            id = NULL,
-                            key = NULL,
-                            rate_limit = TRUE,
-                            cap_daily_requests = TRUE) {
+  creds <- get_creds(id, key)
 
-  # Get Geoclient App ID and Key (either from .Renviron or arguments)
-  creds <- get_credentials(id, key)
+  place_inputs <- validate_place_inputs(
+    place = pull_or_null(.data, enquo(place)),
+    borough = pull_or_null(.data, enquo(borough)),
+    zip = pull_or_null(.data, enquo(zip))
+  )
 
-  # If a dataframe is provided, get the vectors from there, otherwise just use input vectors
-  # If borough or zip are not provided, fill with NAs
-  if (!is_null(df)) {
+  geoclient_reqs(place_inputs, "place", creds, rate_limit)
+}
 
-    if (!is.data.frame(df)) {
-      stop_glue("If a dataframe is not given as the first argument, the other arguments must be named")
-    }
+#' @rdname geo_place
+#' @export
+geo_place <- function(place,
+                      borough = NULL,
+                      zip = NULL,
+                      id = NULL,
+                      key = NULL,
+                      rate_limit = TRUE) {
 
-    place <- enquo(place)
-    borough <- enquo(borough)
-    zip <- enquo(zip)
+  creds <- get_creds(id, key)
 
-    place <- dplyr::pull(df, !!place)
+  place_inputs <- validate_place_inputs(place, borough, zip)
 
-    len <- length(place)
+  geoclient_reqs(place_inputs, "place", creds, rate_limit)
+}
 
-    missing_borough <- quo_is_null(borough)
-    missing_zip <- quo_is_null(zip)
+validate_place_inputs <- function(place, borough, zip) {
 
-    if (missing_borough && missing_zip) {
-      stop_glue("One of either borough or zip must be provided")
-    }
+  len <- length(place)
 
-    if (missing_borough) {
-      borough <- rep(NA_character_, len)
-    } else {
-      borough <- dplyr::pull(df, !!borough)
-    }
-
-    if (missing_zip) {
-      zip <- rep(NA_character_, len)
-    } else {
-      zip <- dplyr::pull(df, !!zip)
-    }
-
-  } else {
-
-    len <- length(place)
-
-    if (is_null(borough) && is_null(zip)) {
-      stop_glue("One of either borough or zip must be provided")
-    }
-
-    if (is_null(borough)) {
-      borough <- rep(NA_character_, len)
-    }
-
-    if (is_null(zip)) {
-      zip <- rep(NA_character_, len)
-    }
+  if (is_null(borough) && is_null(zip)) {
+    stop_glue("One of either borough or zip must be provided")
   }
 
-  borough <- dplyr::case_when(
-    stringr::str_detect(borough, "^(?i)(mn)|(new york)") ~ "manhattan",
-    stringr::str_detect(borough, "^(?i)(bx)")            ~ "bronx",
-    stringr::str_detect(borough, "^(?i)(bk)|(kings)")    ~ "brooklyn",
-    stringr::str_detect(borough, "^(?i)(qn)")            ~ "queens",
-    stringr::str_detect(borough, "^(?i)(si)(richmond)")  ~ "staten island",
-    TRUE ~ borough
-  )
+  borough <- if_null_fill_na(borough, len) %>% clean_borough()
+  zip <- if_null_fill_na(zip, len)
 
-  place_inputs <- tibble::tibble(
-    name = place,
-    borough = borough,
-    zip = zip
-  )
-
-  res <- make_requests(
-    inputs = place_inputs,
-    operation = "place",
-    creds = creds,
-    rate_limit = rate_limit,
-    cap_daily_requests = cap_daily_requests
-  )
-
-  res <- dplyr::rename(res, "place" = "name")
-
-  res
+  # If unequal lengths tibble raises error with column names so change for API after
+  dplyr::tibble(place, borough, zip) %>%
+    rlang::set_names("name", "borough", "zip")
 }

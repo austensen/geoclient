@@ -16,13 +16,23 @@ stop_for_content_type <- function(req, expected) {
   invisible(NULL)
 }
 
-content_as_json_UTF8 <- function(req) { # nolint
+content_as_json_UTF8 <- function(req) {
   stop_for_content_type(req, expected = "application/json;charset=UTF-8")
   jsonlite::fromJSON(httr::content(req, as = "text", encoding = "UTF-8"))
 }
 
+# Addapted from httr::stop_for_status(). For this package http:500 shouldn't
+# raise an error here, because these cases are handled to return a placeholder
+geoclient_stop_for_status <- function(x, task = NULL) {
+  if (httr::status_code(x) < 300 || httr::status_code(x) %in% c(400, 500)) {
+    return(invisible(x))
+  }
 
-VERB_n <- function(VERB, n = 3) { # nolint
+  call <- sys.call(-1)
+  stop(httr::http_condition(x, "error", task = task, call = call))
+}
+
+VERB_n <- function(VERB, n = 3) {
   force(VERB)
   force(n)
   function(...) {
@@ -41,4 +51,4 @@ VERB_n <- function(VERB, n = 3) { # nolint
   }
 }
 
-rGET <- VERB_n(httr::GET) # nolint
+rGET <- VERB_n(httr::GET)
