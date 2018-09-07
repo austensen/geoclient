@@ -12,7 +12,7 @@ knitr::opts_chunk$set(
   comment = "#>",
   fig.path = "README-"
 )
-options(tibble.print_min = 5, tibble.print_max = 5)
+options(tibble.print_min = 5, tibble.print_max = 5, tibble.max_extra_cols = 5)
 
 
 library(geoclient)
