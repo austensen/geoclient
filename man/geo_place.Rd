@@ -12,6 +12,8 @@ geo_place(place, borough = NULL, zip = NULL, id = NULL, key = NULL,
   rate_limit = TRUE)
 }
 \arguments{
+\item{.data}{Dataframe containing columns to be used for other arguments.}
+
 \item{place}{Either a vector of BBLs (numeric or character is accepted), or a
 bare column name of the bbl field if a dataframe is provided.}
 
@@ -35,13 +37,6 @@ formated in quotes. Defaults to \code{NULL} and your key is accessed from your
 \item{rate_limit}{Whether you would like to limit the rate of API requests in
 adherence to Geoclient's Service Usage Guidelines. See \code{?geoclient} for
 more information.}
-
-\item{df}{Dataframe that contains a column of BBLs. Defaults to \code{NULL} and
-\code{bbl} is taken as a vector.}
-
-\item{cap_daily_requests}{Whether you would like to cap the daily number of
-API requests in adherence to Geoclient's Service Usage Guidelines. See
-\code{?geoclient} for more information.}
 }
 \description{
 This function takes the name of a well-known NYC place and returns the
