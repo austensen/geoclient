@@ -33,7 +33,7 @@ To avoid having to provide the ID and Key with each function call you can use `g
 
 ### Basic Usage
 
-There are 6 main location types that can be sed with *Geoclient*: Address, BBL (Borugh-Block-Lot), BIN (Building Identification Number), Blockface, Intersection, and Place ("well-known NYC place name"). All of these functions return the results of the *Geoclient* API call as a dataframe, with additional columns for the arguments provided to the function.
+There are 6 main location types that can be set with *Geoclient*: Address, BBL (Borough-Block-Lot), BIN (Building Identification Number), Blockface, Intersection, and Place ("well-known NYC place name"). All of these functions return the results of the *Geoclient* API call as a dataframe, with additional columns for the arguments provided to the function.
 
 ``` r
 geo_address(
