@@ -4,15 +4,18 @@
 #' by the the City of New York.
 #'
 #' To learn more about using this package, visit
-#' https://austensen.github.io/geoclient/ or `browseVignettes(package = "geoclient")`
+#' https://austensen.github.io/geoclient/ or `browseVignettes(package =
+#' "geoclient")`
 #'
-#' For information about the Geoclient API visit
-#' [NYC's Developers Portal](https://developer.cityofnewyork.us/api/geoclient-api).
+#' For information about the Geoclient API visit [NYC's Developers
+#' Portal](https://developer.cityofnewyork.us/api/geoclient-api).
 #'
 #' You can acquire your Geoclient app ID and Key by first registering with the
-#' [NYC's Developer Portal](https://developer.cityofnewyork.us/user/register?destination=api)
-#' at, then [create a new project](https://developer.cityofnewyork.us/create/project),
-#' selecting "Geoclient v1" from available APIs. For more information on using these
+#' [NYC's Developer
+#' Portal](https://developer.cityofnewyork.us/user/register?destination=api) at,
+#' then [create a new
+#' project](https://developer.cityofnewyork.us/create/project), selecting
+#' "Geoclient v1" from available APIs. For more information on using these
 #' credentials with this package see [geoclient_api_keys()]
 #'
 #' @section Geoclient Description:
@@ -49,17 +52,19 @@
 #'   accounts. Moving forward, as we increase capacity, we may adjust the usage
 #'   guidelines.
 #'
-#'   By default all functions in this package adhere to these guidelines.
-#'   However, both restrictions can be overridden by setting the arguments
-#'   `rate_limit` and `cap_daily_requests` to `FALSE`.
+#'   By default all functions in this package adhere to these rate limiting
+#'   guidelines. However, this restrictions can be overridden by setting
+#'   `rate_limit` to `FALSE`.
 #'
 #' @section Geoclient Documentation:
 #'
-#'   For more details see the Geoclient Documentation's guide to
-#'   [calling the API](https://api.cityofnewyork.us/geoclient/v1/doc#section-1.0),
-#'   interpreting the [Geosupport return codes](https://api.cityofnewyork.us/geoclient/v1/doc#section-2.2),
-#'   and a [complete data dictionary](https://api.cityofnewyork.us/geoclient/v1/doc#section-4.0)
-#'   for all possible data elements returned by any geoclient function.
+#'   For more details see the Geoclient Documentation's guide to [calling the
+#'   API](https://api.cityofnewyork.us/geoclient/v1/doc#section-1.0),
+#'   interpreting the [Geosupport return
+#'   codes](https://api.cityofnewyork.us/geoclient/v1/doc#section-2.2), and a
+#'   [complete data
+#'   dictionary](https://api.cityofnewyork.us/geoclient/v1/doc#section-4.0) for
+#'   all possible data elements returned by any geoclient function.
 #'
 #' @import rlang
 #' @importFrom dplyr %>%

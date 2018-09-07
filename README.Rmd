@@ -13,29 +13,104 @@ knitr::opts_chunk$set(
   fig.path = "README-"
 )
 options(tibble.print_min = 5, tibble.print_max = 5)
+
+
+library(geoclient)
 ```
 
 # geoclient
 
-[![Travis-CI Build Status](https://travis-ci.org/austensen/geoclient.svg?branch=master)](https://travis-ci.org/austensen/geoclient)
-[![AppVeyor Build Status](https://ci.appveyor.com/api/projects/status/github/austensen/geoclient?branch=master&svg=true)](https://ci.appveyor.com/project/austensen/geoclient)
-[![Coverage Status](https://img.shields.io/codecov/c/github/austensen/geoclient/master.svg)](https://codecov.io/github/austensen/geoclient?branch=master)
-[![stability-experimental](https://img.shields.io/badge/stability-experimental-orange.svg)](https://github.com/joethorley/stability-badges#experimental)
+[![Travis-CI Build Status](https://travis-ci.org/austensen/geoclient.svg?branch=refactor)](https://travis-ci.org/austensen/geoclient)
+[![AppVeyor Build Status](https://ci.appveyor.com/api/projects/status/github/austensen/geoclient?branch=refactor&svg=true)](https://ci.appveyor.com/project/austensen/geoclient)
+[![Coverage Status](https://img.shields.io/codecov/c/github/austensen/geoclient/refactor.svg)](https://codecov.io/github/austensen/geoclient?branch=master)
+[![lifecycle](https://img.shields.io/badge/lifecycle-maturing-blue.svg)](https://www.tidyverse.org/lifecycle/#maturing)
 
 
 Tools to work with NYC's _Geoclient_ REST API.
 
 
+This packages uses NYC's Geoclient API but is neither endorsed nor supported
+by the the City of New York.
+
+For information about the Geoclient API visit
+[NYC's Developers Portal](https://developer.cityofnewyork.us/api/geoclient-api).
+
+
 ### Installation
 
-Install from Github with [devtools](https://github.com/hadley/devtools):
+Install from Github with [remotes](https://github.com/r-lib/remotes):
 
-```{r, eval = FALSE}
-# install.packages("devtools")
-devtools::install_github("austensen/geoclient")
+```{r eval=FALSE, include=TRUE}
+# install.packages("remotes")
+remotes::install_github("austensen/geoclient@refactor")
 ```
 
 
+### Set up _Geoclient_ API keys
+
+You can acquire your Geoclient app ID and Key by first registering with the
+[NYC's Developer Portal](https://developer.cityofnewyork.us/user/register?destination=api)
+at, then [create a new project](https://developer.cityofnewyork.us/create/project),
+selecting "Geoclient v1" from available APIs. 
+
+To avoid having to provide the ID and Key with each function call you can use `geoclient_api_keys()` to add your Geoclient app ID and Key to your `.Renviron` file
+so they can be called securely without being stored in your code. 
+
+```{r eval=FALSE, include=FALSE}
+library(geoclient)
+
+geoclient_api_keys("xxx", "xxx")
+```
 
 
+### Basic Usage
+
+There are 6 main location types that can be sed with _Geoclient_: Address, BBL (Borugh-Block-Lot), BIN (Building Identification Number), Blockface, Intersection, and Place ("well-known NYC place name"). All of these functions return the results of the _Geoclient_ API call as a dataframe, with additional columns for the arguments provided to the function.
+
+```{r}
+geo_address(
+  house_number = "139", 
+  street = "MacDougal St", 
+  borough = "MN",
+  zip = "10012"
+)
+```
+
+You can also pull out just a single column if that is all you need.
+
+```{r}
+df <- tibble::tribble(
+  ~num,  ~st,                ~boro,         ~zip,
+  "139", "MacDougal St",     "manhattan",   "11231",
+  "295", "Lafayette street", NA,            "10012-2722",
+  "40",  "WASHINGTON SQ S",  "MN",          NA
+)
+
+dplyr::mutate(df, bbl = geo_address(num, st, boro, zip)[["bbl"]])
+```
+
+For each of these location types there are two functions in this package that allow the arguments to be supplied either as individual vector, or with a dataframe and bare column names.
+
+```{r}
+geo_address_data(df, num, st, boro, zip)
+```
+
+The return dataframe will always be the same length and in the same order, so you can easily add all the return columns to your existing dataframe.
+
+```{r}
+dplyr::bind_cols(df, geo_address_data(df, num, st, boro, zip))
+```
+
+In addition to the 6 location types, _Geoclient_ also provides a single-field search option, which will guess the location type. This can be particularly helpful when you have address data that is not easily separated for use with `geo_address()`.
+
+```{r}
+df <- tibble::tribble(
+  ~address,
+  "139 MacDougal St manhattan, 11231",
+  "295 Lafayette street, 10012-2722",
+  "40 WASHINGTON SQ S MN"
+)
+
+geo_search_data(df, address)
+```
 
