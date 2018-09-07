@@ -10,7 +10,7 @@ Description: Tools to work with NYC's Geoclient REST API.
 License: MIT + file LICENSE
 Encoding: UTF-8
 LazyData: true
-Depends: R (>= 3.3.2)
+Depends: R (>= 3.4)
 Imports:
     rlang,
     httr,

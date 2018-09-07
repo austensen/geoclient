@@ -9,8 +9,7 @@
 #' [geoclient_api_keys()] to add them to your `.Renviron` file so they can be
 #' called securely without being stored in your code.
 #'
-#' @param df Dataframe that contains a column of BBLs. Defaults to `NULL` and
-#'   `bbl` is taken as a vector.
+#' @inheritParams geo_address
 #' @param place Either a vector of BBLs (numeric or character is accepted), or a
 #'   bare column name of the bbl field if a dataframe is provided.
 #' @param borough The name of the borough of the place, as either a vector
@@ -20,18 +19,6 @@
 #'   is accepted) or a bare column name of the borough field if a dataframe
 #'   is provided. Five- and seven-digit Zip codes are accepted. The Zip code is
 #'   only required if borough is not provided.
-#' @param id The API app ID provided to you from the NYC Developer Portal
-#'   formated in quotes. Defaults to `NULL` and your key is accessed from your
-#'   `.Renviron`.
-#' @param key The API app key provided to you from the NYC Developer Portal
-#'   formated in quotes. Defaults to `NULL` and your key is accessed from your
-#'   `.Renviron`.
-#' @param rate_limit Whether you would like to limit the rate of API requests in
-#'   adherence to Geoclient's Service Usage Guidelines. See `?geoclient` for
-#'   more information.
-#' @param cap_daily_requests Whether you would like to cap the daily number of
-#'   API requests in adherence to Geoclient's Service Usage Guidelines. See
-#'   `?geoclient` for more information.
 #'
 #' @details For more details see the Geoclient Documentation's guide to
 #'   [making place requests](https://api.cityofnewyork.us/geoclient/v1/doc#section-1.2.6),

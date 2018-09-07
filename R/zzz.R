@@ -7,3 +7,5 @@
     )
   )
 }
+
+utils::globalVariables(".")
