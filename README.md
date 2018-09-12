@@ -3,7 +3,7 @@
 geoclient
 =========
 
-[![Travis-CI Build Status](https://travis-ci.org/austensen/geoclient.svg?branch=refactor)](https://travis-ci.org/austensen/geoclient) [![AppVeyor Build Status](https://ci.appveyor.com/api/projects/status/github/austensen/geoclient?branch=refactor&svg=true)](https://ci.appveyor.com/project/austensen/geoclient) [![Coverage Status](https://img.shields.io/codecov/c/github/austensen/geoclient/refactor.svg)](https://codecov.io/github/austensen/geoclient?branch=master) [![lifecycle](https://img.shields.io/badge/lifecycle-maturing-blue.svg)](https://www.tidyverse.org/lifecycle/#maturing)
+[![Travis-CI Build Status](https://travis-ci.org/austensen/geoclient.svg?branch=master)](https://travis-ci.org/austensen/geoclient) [![AppVeyor Build Status](https://ci.appveyor.com/api/projects/status/github/austensen/geoclient?branch=master&svg=true)](https://ci.appveyor.com/project/austensen/geoclient) [![Coverage Status](https://img.shields.io/codecov/c/github/austensen/geoclient/master.svg)](https://codecov.io/github/austensen/geoclient?branch=master) [![lifecycle](https://img.shields.io/badge/lifecycle-maturing-blue.svg)](https://www.tidyverse.org/lifecycle/#maturing)
 
 Tools to work with NYC's *Geoclient* REST API.
 
@@ -17,7 +17,7 @@ Install from Github with [remotes](https://github.com/r-lib/remotes):
 
 ``` r
 # install.packages("remotes")
-remotes::install_github("austensen/geoclient@refactor")
+remotes::install_github("austensen/geoclient")
 ```
 
 ### Set up *Geoclient* API keys
