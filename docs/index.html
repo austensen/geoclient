@@ -70,12 +70,90 @@
 <a href="#geoclient" class="anchor"></a>geoclient</h1></div>
 
 <p>Tools to work with NYC’s <em>Geoclient</em> REST API.</p>
+<p>This packages uses NYC’s Geoclient API but is neither endorsed nor supported by the the City of New York.</p>
+<p>For information about the Geoclient API visit <a href="https://developer.cityofnewyork.us/api/geoclient-api">NYC’s Developers Portal</a>.</p>
 <div id="installation" class="section level3">
 <h3 class="hasAnchor">
 <a href="#installation" class="anchor"></a>Installation</h3>
-<p>Install from Github with <a href="https://github.com/hadley/devtools">devtools</a>:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># install.packages("devtools")</span>
-devtools<span class="op">::</span><span class="kw"><a href="http://www.rdocumentation.org/packages/devtools/topics/install_github">install_github</a></span>(<span class="st">"austensen/geoclient"</span>)</code></pre></div>
+<p>Install from Github with <a href="https://github.com/r-lib/remotes">remotes</a>:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># install.packages("remotes")</span>
+remotes<span class="op">::</span><span class="kw"><a href="http://www.rdocumentation.org/packages/remotes/topics/install_github">install_github</a></span>(<span class="st">"austensen/geoclient"</span>)</code></pre></div>
+</div>
+<div id="set-up-geoclient-api-keys" class="section level3">
+<h3 class="hasAnchor">
+<a href="#set-up-geoclient-api-keys" class="anchor"></a>Set up <em>Geoclient</em> API keys</h3>
+<p>You can acquire your Geoclient app ID and Key by first registering with the <a href="https://developer.cityofnewyork.us/user/register?destination=api">NYC’s Developer Portal</a> at, then <a href="https://developer.cityofnewyork.us/create/project">create a new project</a>, selecting “Geoclient v1” from available APIs.</p>
+<p>To avoid having to provide the ID and Key with each function call you can use <code><a href="reference/geoclient_api_keys.html">geoclient_api_keys()</a></code> to add your Geoclient app ID and Key to your <code>.Renviron</code> file so they can be called securely without being stored in your code.</p>
+</div>
+<div id="basic-usage" class="section level3">
+<h3 class="hasAnchor">
+<a href="#basic-usage" class="anchor"></a>Basic Usage</h3>
+<p>There are 6 main location types that can be set with <em>Geoclient</em>: Address, BBL (Borough-Block-Lot), BIN (Building Identification Number), Blockface, Intersection, and Place (“well-known NYC place name”). All of these functions return the results of the <em>Geoclient</em> API call as a dataframe, with additional columns for the arguments provided to the function.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="reference/geo_address.html">geo_address</a></span>(
+  <span class="dt">house_number =</span> <span class="st">"139"</span>, 
+  <span class="dt">street =</span> <span class="st">"MacDougal St"</span>, 
+  <span class="dt">borough =</span> <span class="st">"MN"</span>,
+  <span class="dt">zip =</span> <span class="st">"10012"</span>
+)
+<span class="co">#&gt; # A tibble: 1 x 154</span>
+<span class="co">#&gt;   input_house_num… input_street input_borough input_zip no_results</span>
+<span class="co">#&gt;   &lt;chr&gt;            &lt;chr&gt;        &lt;chr&gt;         &lt;chr&gt;     &lt;lgl&gt;     </span>
+<span class="co">#&gt; 1 139              MacDougal St manhattan     10012     FALSE     </span>
+<span class="co">#&gt; # ... with 149 more variables: assemblyDistrict &lt;chr&gt;, bbl &lt;chr&gt;,</span>
+<span class="co">#&gt; #   bblBoroughCode &lt;chr&gt;, bblTaxBlock &lt;chr&gt;, bblTaxLot &lt;chr&gt;, …</span></code></pre></div>
+<p>You can also pull out just a single column if that is all you need.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">df &lt;-<span class="st"> </span>tibble<span class="op">::</span><span class="kw"><a href="http://www.rdocumentation.org/packages/tibble/topics/tribble">tribble</a></span>(
+  <span class="op">~</span>num,  <span class="op">~</span>st,                <span class="op">~</span>boro,         <span class="op">~</span>zip,
+  <span class="st">"139"</span>, <span class="st">"MacDougal St"</span>,     <span class="st">"manhattan"</span>,   <span class="st">"11231"</span>,
+  <span class="st">"295"</span>, <span class="st">"Lafayette street"</span>, <span class="ot">NA</span>,            <span class="st">"10012-2722"</span>,
+  <span class="st">"40"</span>,  <span class="st">"WASHINGTON SQ S"</span>,  <span class="st">"MN"</span>,          <span class="ot">NA</span>
+)
+
+dplyr<span class="op">::</span><span class="kw"><a href="http://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span>(df, <span class="dt">bbl =</span> <span class="kw"><a href="reference/geo_address.html">geo_address</a></span>(num, st, boro, zip)[[<span class="st">"bbl"</span>]])
+<span class="co">#&gt; # A tibble: 3 x 5</span>
+<span class="co">#&gt;   num   st               boro      zip        bbl       </span>
+<span class="co">#&gt;   &lt;chr&gt; &lt;chr&gt;            &lt;chr&gt;     &lt;chr&gt;      &lt;chr&gt;     </span>
+<span class="co">#&gt; 1 139   MacDougal St     manhattan 11231      1005430053</span>
+<span class="co">#&gt; 2 295   Lafayette street &lt;NA&gt;      10012-2722 1005107502</span>
+<span class="co">#&gt; 3 40    WASHINGTON SQ S  MN        &lt;NA&gt;       1005410001</span></code></pre></div>
+<p>For each of these location types there are two functions in this package that allow the arguments to be supplied either as individual vector, or with a dataframe and bare column names.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="reference/geo_address.html">geo_address_data</a></span>(df, num, st, boro, zip)
+<span class="co">#&gt; # A tibble: 3 x 241</span>
+<span class="co">#&gt;   input_house_num… input_street input_borough input_zip no_results</span>
+<span class="co">#&gt;   &lt;chr&gt;            &lt;chr&gt;        &lt;chr&gt;         &lt;chr&gt;     &lt;lgl&gt;     </span>
+<span class="co">#&gt; 1 139              MacDougal St manhattan     11231     FALSE     </span>
+<span class="co">#&gt; 2 295              Lafayette s… &lt;NA&gt;          10012-27… FALSE     </span>
+<span class="co">#&gt; 3 40               WASHINGTON … manhattan     &lt;NA&gt;      FALSE     </span>
+<span class="co">#&gt; # ... with 236 more variables: assemblyDistrict &lt;chr&gt;, bbl &lt;chr&gt;,</span>
+<span class="co">#&gt; #   bblBoroughCode &lt;chr&gt;, bblTaxBlock &lt;chr&gt;, bblTaxLot &lt;chr&gt;, …</span></code></pre></div>
+<p>The return dataframe will always be the same length and in the same order, so you can easily add all the return columns to your existing dataframe.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">dplyr<span class="op">::</span><span class="kw"><a href="http://dplyr.tidyverse.org/reference/bind.html">bind_cols</a></span>(df, <span class="kw"><a href="reference/geo_address.html">geo_address_data</a></span>(df, num, st, boro, zip))
+<span class="co">#&gt; # A tibble: 3 x 245</span>
+<span class="co">#&gt;   num   st    boro  zip   input_house_num… input_street input_borough</span>
+<span class="co">#&gt;   &lt;chr&gt; &lt;chr&gt; &lt;chr&gt; &lt;chr&gt; &lt;chr&gt;            &lt;chr&gt;        &lt;chr&gt;        </span>
+<span class="co">#&gt; 1 139   MacD… manh… 11231 139              MacDougal St manhattan    </span>
+<span class="co">#&gt; 2 295   Lafa… &lt;NA&gt;  1001… 295              Lafayette s… &lt;NA&gt;         </span>
+<span class="co">#&gt; 3 40    WASH… MN    &lt;NA&gt;  40               WASHINGTON … manhattan    </span>
+<span class="co">#&gt; # ... with 238 more variables: input_zip &lt;chr&gt;, no_results &lt;lgl&gt;,</span>
+<span class="co">#&gt; #   assemblyDistrict &lt;chr&gt;, bbl &lt;chr&gt;, bblBoroughCode &lt;chr&gt;, …</span></code></pre></div>
+<p>In addition to the 6 location types, <em>Geoclient</em> also provides a single-field search option, which will guess the location type. This can be particularly helpful when you have address data that is not easily separated for use with <code><a href="reference/geo_address.html">geo_address()</a></code>.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">df &lt;-<span class="st"> </span>tibble<span class="op">::</span><span class="kw"><a href="http://www.rdocumentation.org/packages/tibble/topics/tribble">tribble</a></span>(
+  <span class="op">~</span>address,
+  <span class="st">"139 MacDougal St manhattan, 11231"</span>,
+  <span class="st">"295 Lafayette street, 10012-2722"</span>,
+  <span class="st">"40 WASHINGTON SQ S MN"</span>
+)
+
+<span class="kw"><a href="reference/geo_search.html">geo_search_data</a></span>(df, address)
+<span class="co">#&gt; # A tibble: 3 x 233</span>
+<span class="co">#&gt;   input_location no_results alleyCrossStree… assemblyDistrict bbl  </span>
+<span class="co">#&gt;   &lt;chr&gt;          &lt;lgl&gt;      &lt;chr&gt;            &lt;chr&gt;            &lt;chr&gt;</span>
+<span class="co">#&gt; 1 139 MacDougal… FALSE      X                55               3015…</span>
+<span class="co">#&gt; 2 295 Lafayette… FALSE      X                66               1005…</span>
+<span class="co">#&gt; 3 40 WASHINGTON… FALSE      &lt;NA&gt;             66               1005…</span>
+<span class="co">#&gt; # ... with 228 more variables: bblBoroughCode &lt;chr&gt;, bblTaxBlock &lt;chr&gt;,</span>
+<span class="co">#&gt; #   bblTaxLot &lt;chr&gt;, boardOfElectionsPreferredLgc &lt;chr&gt;,</span>
+<span class="co">#&gt; #   boePreferredStreetName &lt;chr&gt;, …</span></code></pre></div>
 </div>
 </div>
   </div>
@@ -111,7 +189,7 @@ devtools<span class="op">::</span><span class="kw"><a href="http://www.rdocument
 <li><a href="https://travis-ci.org/austensen/geoclient"><img src="https://travis-ci.org/austensen/geoclient.svg?branch=master" alt="Travis-CI Build Status"></a></li>
 <li><a href="https://ci.appveyor.com/project/austensen/geoclient"><img src="https://ci.appveyor.com/api/projects/status/github/austensen/geoclient?branch=master&amp;svg=true" alt="AppVeyor Build Status"></a></li>
 <li><a href="https://codecov.io/github/austensen/geoclient?branch=master"><img src="https://img.shields.io/codecov/c/github/austensen/geoclient/master.svg" alt="Coverage Status"></a></li>
-<li><a href="https://github.com/joethorley/stability-badges#experimental"><img src="https://img.shields.io/badge/stability-experimental-orange.svg" alt="stability-experimental"></a></li>
+<li><a href="https://www.tidyverse.org/lifecycle/#maturing"><img src="https://img.shields.io/badge/lifecycle-maturing-blue.svg" alt="lifecycle"></a></li>
 </ul>
 </div>
 </div>

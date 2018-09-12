@@ -129,6 +129,10 @@ called securely without being stored in your code.</p>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
+      <th>.data</th>
+      <td><p>Dataframe containing columns to be used for other arguments.</p></td>
+    </tr>
+    <tr>
       <th>place</th>
       <td><p>Either a vector of BBLs (numeric or character is accepted), or a
 bare column name of the bbl field if a dataframe is provided.</p></td>
@@ -163,17 +167,6 @@ formated in quotes. Defaults to <code>NULL</code> and your key is accessed from 
       <td><p>Whether you would like to limit the rate of API requests in
 adherence to Geoclient's Service Usage Guidelines. See <code><a href='geoclient-package.html'>?geoclient</a></code> for
 more information.</p></td>
-    </tr>
-    <tr>
-      <th>df</th>
-      <td><p>Dataframe that contains a column of BBLs. Defaults to <code>NULL</code> and
-<code>bbl</code> is taken as a vector.</p></td>
-    </tr>
-    <tr>
-      <th>cap_daily_requests</th>
-      <td><p>Whether you would like to cap the daily number of
-API requests in adherence to Geoclient's Service Usage Guidelines. See
-<code><a href='geoclient-package.html'>?geoclient</a></code> for more information.</p></td>
     </tr>
     </table>
     

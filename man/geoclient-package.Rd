@@ -13,13 +13,12 @@ by the the City of New York.
 To learn more about using this package, visit
 https://austensen.github.io/geoclient/ or \code{browseVignettes(package = "geoclient")}
 
-For information about the Geoclient API visit
-\href{https://developer.cityofnewyork.us/api/geoclient-api}{NYC's Developers Portal}.
+For information about the Geoclient API visit \href{https://developer.cityofnewyork.us/api/geoclient-api}{NYC's Developers Portal}.
 
 You can acquire your Geoclient app ID and Key by first registering with the
-\href{https://developer.cityofnewyork.us/user/register?destination=api}{NYC's Developer Portal}
-at, then \href{https://developer.cityofnewyork.us/create/project}{create a new project},
-selecting "Geoclient v1" from available APIs. For more information on using these
+\href{https://developer.cityofnewyork.us/user/register?destination=api}{NYC's Developer Portal} at,
+then \href{https://developer.cityofnewyork.us/create/project}{create a new project}, selecting
+"Geoclient v1" from available APIs. For more information on using these
 credentials with this package see \code{\link[=geoclient_api_keys]{geoclient_api_keys()}}
 }
 \section{Geoclient Description}{
@@ -60,19 +59,18 @@ limits we deem necessary to provide equal resources averaged by all active
 accounts. Moving forward, as we increase capacity, we may adjust the usage
 guidelines.
 
-By default all functions in this package adhere to these guidelines.
-However, both restrictions can be overridden by setting the arguments
-\code{rate_limit} and \code{cap_daily_requests} to \code{FALSE}.
+By default all functions in this package adhere to these rate limiting
+guidelines. However, this restrictions can be overridden by setting
+\code{rate_limit} to \code{FALSE}.
 }
 
 \section{Geoclient Documentation}{
 
 
-For more details see the Geoclient Documentation's guide to
-\href{https://api.cityofnewyork.us/geoclient/v1/doc#section-1.0}{calling the API},
-interpreting the \href{https://api.cityofnewyork.us/geoclient/v1/doc#section-2.2}{Geosupport return codes},
-and a \href{https://api.cityofnewyork.us/geoclient/v1/doc#section-4.0}{complete data dictionary}
-for all possible data elements returned by any geoclient function.
+For more details see the Geoclient Documentation's guide to \href{https://api.cityofnewyork.us/geoclient/v1/doc#section-1.0}{calling the API},
+interpreting the \href{https://api.cityofnewyork.us/geoclient/v1/doc#section-2.2}{Geosupport return codes}, and a
+\href{https://api.cityofnewyork.us/geoclient/v1/doc#section-4.0}{complete data dictionary} for
+all possible data elements returned by any geoclient function.
 }
 
 \seealso{
