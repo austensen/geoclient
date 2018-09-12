@@ -10,7 +10,7 @@ Description: Tools to work with NYC's Geoclient REST API.
 License: MIT + file LICENSE
 Encoding: UTF-8
 LazyData: true
-Depends: R (>= 3.3.2)
+Depends: R (>= 3.4)
 Imports:
     rlang,
     httr,
@@ -19,11 +19,10 @@ Imports:
     dplyr,
     purrr,
     stringr,
-    tibble,
-    lubridate,
-    hms
-RoxygenNote: 6.0.1
+    ratelimitr
+RoxygenNote: 6.1.0
 Roxygen: list(markdown = TRUE)
 Suggests:
     testthat,
-    covr
+    covr,
+    tibble
