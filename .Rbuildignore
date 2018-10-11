@@ -12,3 +12,4 @@
 ^secure-file/*$
 ^codecov\.yml$
 ^appveyor\.yml$
+^\.github$
