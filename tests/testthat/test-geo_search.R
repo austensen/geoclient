@@ -1,10 +1,8 @@
 context("geo_search")
 
-library(dplyr)
-
 test_that("geo_search() works", {
 
-  df <- tibble::tibble(location = c("139 MacDougal Street, New York, 10012", "", NA_character_))
+  df <- tibble(location = c("139 MacDougal Street, New York, 10012", "", NA_character_))
 
   location <- df[["location"]]
 
@@ -19,4 +17,8 @@ test_that("geo_search() works", {
   expect_identical(vec_ret, df_ret)
   expect_identical(vec_ret[["input_location"]], location)
   expect_identical(vec_ret[["communityDistrict"]], c("102", NA, NA))
+})
+
+test_that("input validator handles factors", {
+  expect_all_cols_chr(validate_search_inputs(factor("139 MacDougal Street, New York, 10012")))
 })

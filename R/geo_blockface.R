@@ -162,6 +162,7 @@ validate_blockface_inputs <- function(on_street,
     cross_street_2_borough,
     compass_direction
   ) %>%
+    dplyr::mutate_if(is.factor, as.character) %>%
     rlang::set_names(
       "onStreet",
       "crossStreetOne",

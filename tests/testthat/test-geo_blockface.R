@@ -1,7 +1,5 @@
 context("geo_blockface")
 
-library(dplyr)
-
 test_that("geo_blockface() works", {
 
   df <- tibble::tribble(
@@ -27,10 +25,24 @@ test_that("geo_blockface() works", {
   expect_identical(vec_ret[["firstStreetNameNormalized"]], "MACDOUGAL STREET")
 })
 
-test_that("validate_blockface_inputs() works", {
+test_that("input validator works", {
 
   expect_error(
     validate_blockface_inputs("macdougal st", "washington sq s", "w 3rd st", "mn", NULL, NULL, "SW"),
     "Invalid values for Compass Direction"
+  )
+})
+
+test_that("input validator handles factors", {
+  expect_all_cols_chr(
+    validate_blockface_inputs(
+      factor("macdougal st"),
+      factor("washington sq s"),
+      factor("w 3rd st"),
+      factor("mn"),
+      factor("mh"),
+      factor("MN"),
+      factor("S")
+    )
   )
 })

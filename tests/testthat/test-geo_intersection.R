@@ -1,7 +1,5 @@
 context("geo_intersection")
 
-library(dplyr)
-
 test_that("geo_intersection() works", {
 
   df <- tibble::tribble(
@@ -26,10 +24,22 @@ test_that("geo_intersection() works", {
   expect_identical(vec_ret[["firstStreetNameNormalized"]], "MACDOUGAL STREET")
 })
 
-test_that("validate_intersection_inputs() works", {
+test_that("input validator works", {
 
   expect_error(
     validate_intersection_inputs("washington sq s", "w 3rd st", "mn", NULL, "SW"),
     "Invalid values for Compass Direction"
+  )
+})
+
+test_that("input validator handles factors", {
+  expect_all_cols_chr(
+    validate_intersection_inputs(
+      factor("washington sq s"),
+      factor("w 3rd st"),
+      factor("mn"),
+      factor("MH"),
+      factor("S")
+    )
   )
 })

@@ -70,15 +70,16 @@ validate_bin_inputs <- function(bin) {
   op <- options(scipen = 999)
   on.exit(options(op))
 
-  all_bins_valid <- all(stringr::str_detect(bin, "^[1-5][0-9]{6}$"), na.rm = TRUE)
+  all_bins_valid <- all(stringr::str_detect(bin, "^[1-5](?!0{6})\\d{6}$"), na.rm = TRUE)
 
   if (!all_bins_valid) {
     stop_glue("
     Invalid values for BIN (Building Identification Number).
       * Bins are 7 characters, containing only digits
       * The first digit must be a DCP borough code (1=MN, 2=BX, 3=BK, 4=QN, 5=SI)
+      * The last 6 digits can't be all 0s
     ")
   }
 
-  dplyr::tibble(bin = bin)
+  dplyr::tibble(bin = as.character(bin))
 }

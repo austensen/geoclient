@@ -1,10 +1,8 @@
 context("geo_bbl")
 
-library(dplyr)
-
 test_that("geo_bbl() works", {
 
-  df <- tibble::tibble(bbl = c("1005430053", "1005107502", NA_character_))
+  df <- tibble(bbl = c("1005430053", "1005107502", NA_character_))
 
   bbl <- df[["bbl"]]
 
@@ -21,10 +19,24 @@ test_that("geo_bbl() works", {
   expect_identical(vec_ret[["sanbornPageNumber"]], c("006", "075", NA))
 })
 
-test_that("validate_bbl_inputs() works", {
-  b_b_l <- tibble::tibble(borough = "1", block = "00543", lot = "0053")
+test_that("input validator splits BBLs correctly", {
+  b_b_l <- tibble(borough = "1", block = "00543", lot = "0053")
   expect_identical(validate_bbl_inputs("1005430053"), b_b_l)
+})
 
-  expect_error(validate_bbl_inputs("6005430053"), "Invalid values for BBL")
-  expect_error(validate_bbl_inputs("154353"), "Invalid values for BBL")
+test_that("input validator catches invalid BBLs", {
+  bad_bbls <- c(
+    "6005430053",
+    "1000001234",
+    "1000000000",
+    "1123450000",
+    "112345678",
+    "11234567890",
+    "1abcdefghi"
+  )
+  purrr::walk(bad_bbls, ~expect_error(validate_bbl_inputs(.x), "Invalid values for BBL"))
+})
+
+test_that("input validator handles factors", {
+  expect_all_cols_chr(validate_bbl_inputs(factor(1123451234)))
 })

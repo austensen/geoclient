@@ -129,6 +129,7 @@ validate_intersection_inputs <- function(cross_street_1,
     cross_street_2_borough,
     compass_direction
   ) %>%
+    dplyr::mutate_if(is.factor, as.character) %>%
     rlang::set_names(
       "crossStreetOne",
       "crossStreetTwo",

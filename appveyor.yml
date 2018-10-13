@@ -44,5 +44,6 @@ artifacts:
     name: Bits
 
 environment:
+  USE_RTOOLS: true
   my_secret:
     secure: RZuZ1hrPi+KT6M+sIEKY7Oo2v111YkamTPY30PWkqA0=

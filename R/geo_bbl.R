@@ -70,7 +70,7 @@ validate_bbl_inputs <- function(bbl) {
   op <- options(scipen = 999)
   on.exit(options(op))
 
-  all_bbls_valid <- all(stringr::str_detect(bbl, "^[1-5][0-9]{9}$"), na.rm = TRUE)
+  all_bbls_valid <- all(stringr::str_detect(bbl, "^[1-5](?!0{5})\\d{5}(?!0{4})\\d{4}$"), na.rm = TRUE)
 
   if (!all_bbls_valid) {
     stop_glue("
@@ -79,6 +79,7 @@ validate_bbl_inputs <- function(bbl) {
       * 1 (borough), 5 (block), and 4(lot)
       * The first digit must be a DCP borough code (1=MN, 2=BX, 3=BK, 4=QN, 5=SI)
       * Block and lot should use left-zero-padding were necessary
+      * Neither block nor lot can be all 0s
     ")
   }
 

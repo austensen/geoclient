@@ -13,11 +13,11 @@ clean_borough <- function(borough) {
   borough <- as.character(borough)
 
   dplyr::case_when(
-    detect(borough, "(1)|(mn)|(manhattan)|(new\\s*york)")     ~ "manhattan",
-    detect(borough, "(2)|(bx)|(bronx)")                       ~ "bronx",
-    detect(borough, "(3)|(bk)|(kings)|(brooklyn)")            ~ "brooklyn",
-    detect(borough, "(4)|(qn)|(qu)|(queens)")                 ~ "queens",
-    detect(borough, "(5)|(si)|(richmond)|(staten\\s*island)") ~ "staten island",
+    detect(borough, "(1)|(m[nh])|(ny)|(manhattan)|(new\\s*york)")  ~ "manhattan",
+    detect(borough, "(2)|(bx)|(bronx)|(the\\s*bronx)")             ~ "bronx",
+    detect(borough, "(3)|(bk)|(kings)|(brooklyn)|(bklyn)")         ~ "brooklyn",
+    detect(borough, "(4)|(q[nu])|(queens)")                        ~ "queens",
+    detect(borough, "(5)|(si)|(ri)|(richmond)|(staten\\s*island)") ~ "staten island",
     TRUE ~ borough
   )
 }
