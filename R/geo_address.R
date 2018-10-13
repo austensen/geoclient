@@ -120,5 +120,6 @@ validate_address_inputs <- function(house_number, street, borough, zip) {
 
   # If unequal lengths tibble raises error with column names so change for API after
   dplyr::tibble(house_number, street, borough, zip) %>%
+    dplyr::mutate_if(is.factor, as.character) %>%
     rlang::set_names("houseNumber", "street", "borough", "zip")
 }

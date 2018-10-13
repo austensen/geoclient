@@ -1,7 +1,5 @@
 context("geo_place")
 
-library(dplyr)
-
 test_that("geo_place() works", {
 
   df <- tibble::tribble(
@@ -15,22 +13,28 @@ test_that("geo_place() works", {
   boro <- df[["boro"]]
   zip <- df[["zip"]]
 
-  vec_ret <- geo_place(place, boro, zip) %>% select(-ends_with("InternalLabel"))
-  df_ret <- geo_place_data(df, place, boro, zip) %>% select(-ends_with("InternalLabel"))
 
-  # The values for these "InternalLabel" columns are inconsistently returned by
-  # the API (only off slightly far in the decimals). If you run the exact same
-  # call multiple times it can give different values. This is unrelated to
-  # problems with the dataframe vs vector approach.
+  # There are a few columns that are inconsistently returned by the API (only
+  # off slightly far in the decimals). If you run the exact same call multiple
+  # times it can give different values. This is unrelated to problems with the
+  # dataframe vs vector approach. So select only the first few columns for
+  # comparison
+
+  vec_ret <- geo_place(place, boro, zip) %>% select(1:9)
+  df_ret <- geo_place_data(df, place, boro, zip) %>% select(1:9)
 
   expect_identical(vec_ret, df_ret)
   expect_identical(vec_ret[["input_place"]], place)
-  expect_identical(vec_ret[["healthArea"]], c("5700", "7700", NA))
+  expect_identical(vec_ret[["bbl"]], c("1005350001", "1001220001", NA))
 })
 
-test_that("validate_place_inputs() works", {
-  expect_error(
-    validate_place_inputs("city hall", NULL, NULL),
-    "One of either borough or zip must be provided"
-  )
+test_that("input validator reqires borough or zip", {
+  expect_error(validate_place_inputs("city hall", NULL, NULL), "borough or zip must be provided")
+  expect_error_free(validate_place_inputs("city hall", "ny", NULL))
+  expect_error_free(validate_place_inputs("city hall", "Mn", NULL))
+  expect_error_free(validate_place_inputs("city hall", NULL, 10007))
+})
+
+test_that("input validator handles factors", {
+  expect_all_cols_chr(validate_place_inputs(factor("city hall"), factor("mn"), factor(10007)))
 })

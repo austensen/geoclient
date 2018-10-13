@@ -103,5 +103,6 @@ validate_place_inputs <- function(place, borough, zip) {
 
   # If unequal lengths tibble raises error with column names so change for API after
   dplyr::tibble(place, borough, zip) %>%
+    dplyr::mutate_if(is.factor, as.character) %>%
     rlang::set_names("name", "borough", "zip")
 }

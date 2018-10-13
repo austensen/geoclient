@@ -38,7 +38,7 @@ test_that("opertion=bbl works", {
 
 test_that("opertion=bin works", {
 
-  input <- tibble::tibble(bin = c("1008760", ""))
+  input <- tibble(bin = c("1008760", ""))
 
   res <- purrr::pmap(input, geoclient_req, operation = "bin", creds = creds)
 
@@ -96,7 +96,7 @@ test_that("opertion=place works", {
 
 test_that("opertion=search works", {
 
-  input <- tibble::tibble(input = c("139 MacDougal Street, New York, 10012", "", NA_character_))
+  input <- tibble(input = c("139 MacDougal Street, New York, 10012", "", NA_character_))
 
   res <- purrr::pmap(input, geoclient_req, operation = "search", creds = creds)
 
@@ -127,4 +127,20 @@ test_that("error for invalid api creds", {
   )
 
   expect_error(bad_creds_call(), "Authentication failed: Geoclient API app ID and/or Key are invalid")
+})
+
+
+test_that("placeholder returned if inputs are invalid", {
+
+  ret <- geoclient_req(
+    houseNumber = 139,
+    street = "macdougal st",
+    borough = NA, # either borough or zip required, so this invalid
+    zip = NA,
+    creds = get_creds(),
+    operation = "address"
+  )
+
+  expect_identical(ret, tibble(no_results = TRUE))
+
 })

@@ -1,10 +1,8 @@
 context("geo_bin")
 
-library(dplyr)
-
 test_that("geo_bin() works", {
 
-  df <- tibble::tibble(bin = c("1008760", "1007941", NA_character_))
+  df <- tibble(bin = c("1008760", "1007941", NA_character_))
 
   bin <- df[["bin"]]
 
@@ -21,7 +19,17 @@ test_that("geo_bin() works", {
   expect_identical(vec_ret[["sanbornPageNumber"]], c("006", "075", NA))
 })
 
-test_that("validate_bin_inputs() works", {
-  expect_error(validate_bin_inputs("6008760"), "Invalid values for BIN")
-  expect_error(validate_bin_inputs("100876"), "Invalid values for BIN")
+test_that("input validator catches invalid BINs", {
+  bad_bins <- c(
+    "6008760",
+    "1000000",
+    "12345678",
+    "123456",
+    "1abcdef"
+  )
+  purrr::walk(bad_bins, ~expect_error(validate_bin_inputs(.x), "Invalid values for BIN"))
+})
+
+test_that("input validator handles factors", {
+  expect_all_cols_chr(validate_bin_inputs(factor(1234567)))
 })

@@ -17,6 +17,14 @@ geoclient_reqs <- function(inputs, operation, creds, rate_limit) {
 
   inputs_dedup <- inputs %>% dplyr::distinct() %>% drop_invalid_rows(operation)
 
+  if (nrow(inputs_dedup) == 0) {
+    all_invalid <- inputs %>%
+      mutate(!!"no_results" := TRUE) %>%
+      fix_input_names(operation)
+
+    return(all_invalid)
+  }
+
   pb <- dplyr::progress_estimated(nrow(inputs_dedup))
 
   ret <- purrr::pmap_dfr(
@@ -30,7 +38,7 @@ geoclient_reqs <- function(inputs, operation, creds, rate_limit) {
   inputs_dedup %>%
     dplyr::bind_cols(ret) %>%
     dplyr::right_join(inputs, by = names(inputs)) %>%
-    dplyr::mutate(!!"no_results" := dplyr::if_else(are_na(!!sym("no_results")), TRUE, !!sym("no_results"))) %>%
+    dplyr::mutate(!!"no_results" := replace_na(!!sym("no_results"), TRUE)) %>% # Rows dropped by drop_invalid_rows()
     fix_input_names(operation)
 }
 
@@ -149,4 +157,8 @@ drop_invalid_rows <- function(.data, operation) {
   }
 
   ret
+}
+
+replace_na <- function(x, replace) {
+  dplyr::if_else(are_na(x), replace, x)
 }

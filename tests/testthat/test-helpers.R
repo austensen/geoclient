@@ -12,7 +12,7 @@ test_that("invalid rows are dropped", {
     "139",         NA_character_,  "mn",          "10012"
   )
 
-  valid_inputs <- all_inputs %>% dplyr::slice(1:3)
+  valid_inputs <- all_inputs %>% slice(1:3)
 
   expect_identical(drop_invalid_rows(all_inputs, "address"), valid_inputs)
 
@@ -23,14 +23,14 @@ test_that("fix_input_names() works", {
   output <- fix_input_names(mtcars, "address")
 
   expect_equal(class(input), class(output))
-  expect_match(dplyr::all_equal(input, output)[[1]], "Cols in y but not x")
+  expect_match(all_equal(input, output)[[1]], "Cols in y but not x")
 
   # bbl is special case where boro, block, and lot are concatenated to match
   # what the user provdides (versus what the api accepts)
-  bbl_ret <- tibble::tibble(borough = "1", block = "00543", lot = "0053") %>%
+  bbl_ret <- tibble(borough = "1", block = "00543", lot = "0053") %>%
     fix_input_names("bbl")
 
-  expect_identical(bbl_ret, tibble::tibble(input_bbl = "1005430053"))
+  expect_identical(bbl_ret, tibble(input_bbl = "1005430053"))
 })
 
 
@@ -52,6 +52,6 @@ test_that("if_null_fill_na() works", {
 
 test_that("pull_or_null() works", {
   test_call <- function(x) pull_or_null(mtcars, enquo(x))
-  expect_identical(test_call(mpg), dplyr::pull(mtcars, mpg))
+  expect_identical(test_call(mpg), pull(mtcars, mpg))
   expect_identical(test_call(NULL), NULL)
 })

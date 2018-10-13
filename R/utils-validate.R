@@ -1,5 +1,13 @@
 # util functions for validating user-provided arguments
 
+fac_to_chr <- function(x) {
+  if (is.factor(x)) {
+    as_character(x)
+  } else {
+    x
+  }
+}
+
 # Clean up borough inputs - both text and DCP boro codes.
 clean_borough <- function(borough) {
 
@@ -13,11 +21,11 @@ clean_borough <- function(borough) {
   borough <- as.character(borough)
 
   dplyr::case_when(
-    detect(borough, "(1)|(mn)|(manhattan)|(new\\s*york)")     ~ "manhattan",
-    detect(borough, "(2)|(bx)|(bronx)")                       ~ "bronx",
-    detect(borough, "(3)|(bk)|(kings)|(brooklyn)")            ~ "brooklyn",
-    detect(borough, "(4)|(qn)|(qu)|(queens)")                 ~ "queens",
-    detect(borough, "(5)|(si)|(richmond)|(staten\\s*island)") ~ "staten island",
+    detect(borough, "(1)|(m[nh])|(ny)|(manhattan)|(new\\s*york)")  ~ "manhattan",
+    detect(borough, "(2)|(bx)|(bronx)|(the\\s*bronx)")             ~ "bronx",
+    detect(borough, "(3)|(bk)|(kings)|(brooklyn)|(bklyn)")         ~ "brooklyn",
+    detect(borough, "(4)|(q[nu])|(queens)")                        ~ "queens",
+    detect(borough, "(5)|(si)|(ri)|(richmond)|(staten\\s*island)") ~ "staten island",
     TRUE ~ borough
   )
 }

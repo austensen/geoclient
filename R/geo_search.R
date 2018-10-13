@@ -77,5 +77,5 @@ geo_search <- function(location, id = NULL, key = NULL, rate_limit = TRUE) {
 }
 
 validate_search_inputs <- function(location) {
-  dplyr::tibble(input = location)
+  dplyr::tibble(input = as.character(location))
 }
