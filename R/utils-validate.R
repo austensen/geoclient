@@ -1,13 +1,5 @@
 # util functions for validating user-provided arguments
 
-fac_to_chr <- function(x) {
-  if (is.factor(x)) {
-    as_character(x)
-  } else {
-    x
-  }
-}
-
 # Clean up borough inputs - both text and DCP boro codes.
 clean_borough <- function(borough) {
 

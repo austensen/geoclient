@@ -55,3 +55,10 @@ test_that("pull_or_null() works", {
   expect_identical(test_call(mpg), pull(mtcars, mpg))
   expect_identical(test_call(NULL), NULL)
 })
+
+test_that("replace_na works", {
+  x <- c(T, F, NA, F, NA, T, F)
+  y <- c(T, F, T, F, T, T, F)
+
+  expect_identical(replace_na(x, T), y)
+})
