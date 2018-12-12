@@ -52,74 +52,77 @@
 #'
 #' @export
 
-
-# This function was borrowed from Kyle Walkerke's amazing tidycensus package
+# This function was adapted from Kyle Walkerke's amazing tidycensus package
 
 geoclient_api_keys <- function(id, key, overwrite = FALSE, install = FALSE){
 
-  if (install == TRUE) {
-    wd <- getwd()
-    on.exit(setwd(wd))
-    setwd(Sys.getenv("HOME"))
-    if (file.exists(".Renviron")) {
-      # Backup original .Renviron before doing anything else here.
-      file.copy(".Renviron", ".Renviron_backup")
-    }
-    if (!file.exists(".Renviron")) {
-      file.create(".Renviron")
-    } else {
-      if (is_true(overwrite)) {
-        message("Your original .Renviron will be backed up and stored in your R HOME directory if needed.")
-        old_env <- readLines(".Renviron")
-        new_env <- purrr::discard(old_env, ~stringr::str_detect(.x, "GEOCLIENT_APP_ID|GEOCLIENT_APP_KEY"))
-        writeLines(new_env, ".Renviron", sep = "\n")
-      } else {
-        tv <- readLines(".Renviron")
-        if (is_true(any(stringr::str_detect(tv, "GEOCLIENT_APP_ID|GEOCLIENT_APP_KEY")))){
-          stop_glue(
-            "A GEOCLIENT_APP_ID or GEOCLIENT_APP_KEY already exists.
-            You can overwrite them with the argument `overwrite = TRUE`"
-          )
-        }
-      }
-    }
+  if (!install) {
 
     if (!is_null(id) && !is_null(key)) {
-      new_keys <- glue::glue(
-        "GEOCLIENT_APP_ID='{id}'
-        GEOCLIENT_APP_KEY='{key}'"
-      )
+      message("To install your API keys for use in future sessions, run this function with `install = TRUE`.")
+      Sys.setenv(GEOCLIENT_APP_ID = id)
+      Sys.setenv(GEOCLIENT_APP_KEY = key)
+    }
 
-      # Append API key to .Renviron file
-      write(new_keys, ".Renviron", sep = "\n", append = TRUE)
-
-      msg_glue(
-        'Your API ID and key have been stored in your .Renviron and can be accessed by \\
-        Sys.getenv("GEOCLIENT_APP_ID") and Sys.getenv("GEOCLIENT_APP_KEY").
-          To use now, restart R or run `readRenviron("~/.Renviron")`'
-      )
-
-    } else {
-      message("Your API ID and key have been removed from your .Renviron")
+    if (is_null(id) && is_null(key)) {
+      message("Your API ID and key have been unset.")
       Sys.unsetenv("GEOCLIENT_APP_ID")
       Sys.unsetenv("GEOCLIENT_APP_KEY")
     }
 
-  } else {
-    message("To install your API keys for use in future sessions, run this function with `install = TRUE`.")
-    Sys.setenv(GEOCLIENT_APP_ID = id)
-    Sys.setenv(GEOCLIENT_APP_KEY = key)
+    return(invisible(NULL))
   }
 
+  wd <- getwd()
+  on.exit(setwd(wd))
+  setwd(Sys.getenv("HOME"))
+
+  if (!file.exists(".Renviron")) file.create(".Renviron")
+
+  message("Your original .Renviron will be backed up and stored in your R HOME directory if needed.")
+  file.copy(".Renviron", ".Renviron_backup")
+
+  old_env <- readLines(".Renviron")
+
+  already_set <- any(stringr::str_detect(old_env, "GEOCLIENT_APP_ID|GEOCLIENT_APP_KEY"))
+
+  if (already_set && !overwrite) {
+    stop_glue(
+      "A GEOCLIENT_APP_ID or GEOCLIENT_APP_KEY already exists.
+      You can overwrite them with the argument `overwrite = TRUE`"
+    )
+  }
+
+  env_no_keys <- purrr::discard(old_env, ~stringr::str_detect(.x, "GEOCLIENT_APP_ID|GEOCLIENT_APP_KEY"))
+
+  if (is_null(id) && is_null(key)) {
+    message("Your API ID and key have been removed from your .Renviron")
+    writeLines(env_no_keys, ".Renviron", sep = "\n")
+    Sys.unsetenv("GEOCLIENT_APP_ID")
+    Sys.unsetenv("GEOCLIENT_APP_KEY")
+    return(invisible(NULL))
+  }
+
+  env_no_keys %>%
+    c(glue::glue("GEOCLIENT_APP_ID='{id}'")) %>%
+    c(glue::glue("GEOCLIENT_APP_KEY='{key}'")) %>%
+    writeLines(".Renviron", sep = "\n")
+
+  msg_glue(
+    'Your API ID and key have been stored in your .Renviron and can be accessed by \\
+     Sys.getenv("GEOCLIENT_APP_ID") and Sys.getenv("GEOCLIENT_APP_KEY").
+        To use now, restart R or run `readRenviron("~/.Renviron")`'
+  )
 }
 
 get_creds <- function(id = NULL, key = NULL) {
 
-  if (!is_null(id) && !is_null(key)) {
-    creds <- list(app_id = id, app_key = key)
-  } else if (Sys.getenv("GEOCLIENT_APP_ID") != "" && Sys.getenv("GEOCLIENT_APP_KEY") != "") {
-    creds <- list(app_id = Sys.getenv("GEOCLIENT_APP_ID"), app_key = Sys.getenv("GEOCLIENT_APP_KEY"))
-  } else {
+  if (is_null(id) && is_null(key)) {
+    id <- Sys.getenv("GEOCLIENT_APP_ID")
+    key <- Sys.getenv("GEOCLIENT_APP_KEY")
+  }
+
+  if (id == "" && key == "") {
     stop_glue(
       "A Geoclient API app ID and key are required.
       Obtain them at https://developer.cityofnewyork.us/user/register?destination=api",
@@ -127,5 +130,6 @@ get_creds <- function(id = NULL, key = NULL) {
       See ?geoclient_api_keys for details."
     )
   }
-  creds
+
+  list(app_id = id, app_key = key)
 }
