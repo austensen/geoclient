@@ -15,7 +15,7 @@ inputs <- tibble::tribble(
 test_that("placeholder dataframe still returned if inputs are invalid", {
   multi_inputs <- tibble(houseNumber = rep(517, 2), street = rep("clinton st", 2), borough = c(NA, "mn"), zip = rep(NA, 2))
   multi_ret <- geoclient_reqs(multi_inputs, creds = creds, operation = "address", rate_limit = TRUE)
-  expect_identical(select(multi_ret, no_results), tibble(no_results = c(TRUE, FALSE)))
+  expect_identical(select(multi_ret, no_results), tibble(no_results = c(FALSE, TRUE)))
 
   single_inputs <- slice(multi_inputs, 1)
   single_ret <- geoclient_reqs(single_inputs, creds = creds,  operation = "address", rate_limit = TRUE )

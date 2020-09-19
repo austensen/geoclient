@@ -5,8 +5,7 @@
 \alias{geo_search_data}
 \title{Retrieve Geoclient Response for Any Location Type as a Dataframe}
 \usage{
-geo_search_data(.data, location, id = NULL, key = NULL,
-  rate_limit = TRUE)
+geo_search_data(.data, location, id = NULL, key = NULL, rate_limit = TRUE)
 
 geo_search(location, id = NULL, key = NULL, rate_limit = TRUE)
 }

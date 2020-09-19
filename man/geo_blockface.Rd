@@ -5,15 +5,32 @@
 \alias{geo_blockface_data}
 \title{Retrieve Geoclient Response for Blockfaces as a Dataframe}
 \usage{
-geo_blockface_data(.data, on_street, cross_street_1, cross_street_2,
-  borough, cross_street_1_borough = NULL,
-  cross_street_2_borough = NULL, compass_direction = NULL, id = NULL,
-  key = NULL, rate_limit = TRUE)
+geo_blockface_data(
+  .data,
+  on_street,
+  cross_street_1,
+  cross_street_2,
+  borough,
+  cross_street_1_borough = NULL,
+  cross_street_2_borough = NULL,
+  compass_direction = NULL,
+  id = NULL,
+  key = NULL,
+  rate_limit = TRUE
+)
 
-geo_blockface(on_street, cross_street_1, cross_street_2, borough,
-  cross_street_1_borough = NULL, cross_street_2_borough = NULL,
-  compass_direction = NULL, id = NULL, key = NULL,
-  rate_limit = TRUE)
+geo_blockface(
+  on_street,
+  cross_street_1,
+  cross_street_2,
+  borough,
+  cross_street_1_borough = NULL,
+  cross_street_2_borough = NULL,
+  compass_direction = NULL,
+  id = NULL,
+  key = NULL,
+  rate_limit = TRUE
+)
 }
 \arguments{
 \item{.data}{Dataframe containing columns to be used for other arguments.}
@@ -76,7 +93,7 @@ For more details see the Geoclient Documentation's guide to
 \href{https://api.cityofnewyork.us/geoclient/v1/doc#section-1.2.4}{making blockface requests},
 interpreting the
 \href{https://api.cityofnewyork.us/geoclient/v1/doc#section-2.2}{Geosupport return codes},
-the \href{https://api.cityofnewyork.us/geoclient/v1/doc#section-3.4}{data returned by geo_blockface},
+the \href{https://api.cityofnewyork.us/geoclient/v1/doc#section-3.4}{data returned by \code{geo_blockface}},
 and a \href{https://api.cityofnewyork.us/geoclient/v1/doc#section-4.0}{complete data dictionary}
 for all possible data elements returned by any geoclient function.
 }

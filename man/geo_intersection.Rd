@@ -5,13 +5,28 @@
 \alias{geo_intersection_data}
 \title{Retrieve Geoclient Response for Intersections as a Dataframe}
 \usage{
-geo_intersection_data(.data, cross_street_1, cross_street_2, borough,
-  cross_street_2_borough = NULL, compass_direction = NULL, id = NULL,
-  key = NULL, rate_limit = TRUE)
+geo_intersection_data(
+  .data,
+  cross_street_1,
+  cross_street_2,
+  borough,
+  cross_street_2_borough = NULL,
+  compass_direction = NULL,
+  id = NULL,
+  key = NULL,
+  rate_limit = TRUE
+)
 
-geo_intersection(cross_street_1, cross_street_2, borough,
-  cross_street_2_borough = NULL, compass_direction = NULL, id = NULL,
-  key = NULL, rate_limit = TRUE)
+geo_intersection(
+  cross_street_1,
+  cross_street_2,
+  borough,
+  cross_street_2_borough = NULL,
+  compass_direction = NULL,
+  id = NULL,
+  key = NULL,
+  rate_limit = TRUE
+)
 }
 \arguments{
 \item{.data}{Dataframe containing columns to be used for other arguments.}
@@ -62,7 +77,7 @@ called securely without being stored in your code.
 For more details see the Geoclient Documentation's guide to
 \href{https://api.cityofnewyork.us/geoclient/v1/doc#section-1.2.5}{making intersection requests},
 interpreting the \href{https://api.cityofnewyork.us/geoclient/v1/doc#section-2.2}{Geosupport return codes}, the
-\href{https://api.cityofnewyork.us/geoclient/v1/doc#section-3.5}{data returned by geo_intersection},
+\href{https://api.cityofnewyork.us/geoclient/v1/doc#section-3.5}{data returned by \code{geo_intersection}},
 and a \href{https://api.cityofnewyork.us/geoclient/v1/doc#section-4.0}{complete data dictionary} for
 all possible data elements returned by any geoclient function.
 }

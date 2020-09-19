@@ -5,11 +5,24 @@
 \alias{geo_place_data}
 \title{Retrieve Geoclient Response for Well-Known NYC Places as a Dataframe}
 \usage{
-geo_place_data(.data, place, borough = NULL, zip = NULL, id = NULL,
-  key = NULL, rate_limit = TRUE)
+geo_place_data(
+  .data,
+  place,
+  borough = NULL,
+  zip = NULL,
+  id = NULL,
+  key = NULL,
+  rate_limit = TRUE
+)
 
-geo_place(place, borough = NULL, zip = NULL, id = NULL, key = NULL,
-  rate_limit = TRUE)
+geo_place(
+  place,
+  borough = NULL,
+  zip = NULL,
+  id = NULL,
+  key = NULL,
+  rate_limit = TRUE
+)
 }
 \arguments{
 \item{.data}{Dataframe containing columns to be used for other arguments.}
@@ -52,7 +65,7 @@ called securely without being stored in your code.
 For more details see the Geoclient Documentation's guide to
 \href{https://api.cityofnewyork.us/geoclient/v1/doc#section-1.2.6}{making place requests},
 interpreting the \href{https://api.cityofnewyork.us/geoclient/v1/doc#section-2.2}{Geosupport return codes},
-the \href{https://api.cityofnewyork.us/geoclient/v1/doc#section-3.6}{data returned by geo_place},
+the \href{https://api.cityofnewyork.us/geoclient/v1/doc#section-3.6}{data returned by \code{geo_place}},
 and a \href{https://api.cityofnewyork.us/geoclient/v1/doc#section-4.0}{complete data dictionary}
 for all possible data elements returned by any geoclient function.
 }
