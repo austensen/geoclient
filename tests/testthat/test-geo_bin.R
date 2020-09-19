@@ -30,6 +30,17 @@ test_that("input validator catches invalid BINs", {
   purrr::walk(bad_bins, ~expect_error(validate_bin_inputs(.x), "Invalid values for BIN"))
 })
 
+test_that("input validator catches invalid BINs", {
+  bad_bins <- c(
+    "6008760",
+    "1000000",
+    "12345678",
+    "123456",
+    "1abcdef"
+  )
+  purrr::walk(bad_bins, ~expect_error(validate_bin_inputs(.x), "Invalid values for BIN"))
+})
+
 test_that("input validator handles factors", {
   expect_all_cols_chr(validate_bin_inputs(factor(1234567)))
 })
