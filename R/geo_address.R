@@ -111,6 +111,10 @@ validate_address_inputs <- function(house_number, street, borough, zip) {
 
   len <- length(house_number)
 
+  if (is_null(house_number) || is_null(street)) {
+    stop_glue("Both house number and street must be provided")
+  }
+
   if (is_null(borough) && is_null(zip)) {
     stop_glue("One of either borough or zip must be provided")
   }

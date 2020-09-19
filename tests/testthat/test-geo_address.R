@@ -33,10 +33,10 @@ test_that("input validator reqires borough or zip", {
 })
 
 test_that("input validator requires number and street", {
-  expect_error(validate_address_inputs(NULL, "macdougal", "MN", NULL), "Column `house_number` must be")
-  expect_error(validate_address_inputs(139, NULL, "MN", NULL), "Column `street` must be")
+  expect_error(validate_address_inputs(NULL, "macdougal", "MN", NULL), "house number and street must be provided")
+  expect_error(validate_address_inputs(139, NULL, "MN", NULL), "house number and street must be provided")
 })
 
 test_that("input validator requires equal length inputs", {
-  expect_error(validate_address_inputs(c(1, 2), c("a", "b", "c"), "MN", NULL), "must be length")
+  expect_error(validate_address_inputs(c(1, 2), c("a", "b", "c"), "MN", NULL), class = "tibble_error_incompatible_size")
 })

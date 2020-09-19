@@ -1,11 +1,11 @@
 
-# Takes dataframe of inputs, filters out duplicte and invalid rows to limit the
-# number of API requests and avoid errors, applies rate-limiting if necessary,
-# then iterates over rows in input dataframe making requests and stacking all
-# the 1-row results, then the results are joined back to the original inputs so
-# that the final return dataframe has the same number of rows in the same order
-# and contains the input columns (with the names of the geo_*() arguments rather
-# than API names).
+# Takes dataframe of inputs, filters out duplicates and invalid rows to limit
+# the number of API requests and avoid errors, applies rate-limiting if
+# necessary, then iterates over rows in input dataframe making requests and
+# stacking all the 1-row results, then the results are joined back to the
+# original inputs so that the final return dataframe has the same number of rows
+# in the same order and contains the input columns (with the names of the
+# geo_*() arguments rather than API names).
 
 geoclient_reqs <- function(inputs, operation, creds, rate_limit) {
 
@@ -19,13 +19,13 @@ geoclient_reqs <- function(inputs, operation, creds, rate_limit) {
 
   if (nrow(inputs_dedup) == 0) {
     all_invalid <- inputs %>%
-      mutate(!!"no_results" := TRUE) %>%
+      dplyr::mutate(!!"no_results" := TRUE) %>%
       fix_input_names(operation)
 
     return(all_invalid)
   }
 
-  pb <- dplyr::progress_estimated(nrow(inputs_dedup))
+  pb <- progress::progress_bar$new(total = nrow(inputs_dedup))
 
   ret <- purrr::pmap_dfr(
     inputs_dedup,
@@ -36,10 +36,13 @@ geoclient_reqs <- function(inputs, operation, creds, rate_limit) {
   )
 
   inputs_dedup %>%
+    fix_input_names(operation) %>%
     dplyr::bind_cols(ret) %>%
-    dplyr::right_join(inputs, by = names(inputs)) %>%
-    dplyr::mutate(!!"no_results" := replace_na(!!sym("no_results"), TRUE)) %>% # Rows dropped by drop_invalid_rows()
-    fix_input_names(operation)
+    dplyr::right_join(
+      fix_input_names(inputs, operation),
+      by = names(fix_input_names(inputs, operation))
+    ) %>%
+    dplyr::mutate(!!"no_results" := replace_na(!!sym("no_results"), TRUE)) # Rows dropped by drop_invalid_rows()
 }
 
 
@@ -51,7 +54,7 @@ geoclient_reqs <- function(inputs, operation, creds, rate_limit) {
 geoclient_req <- function(..., operation, creds, pb = NULL) {
 
   # TODO: Look into {progress}
-  if (!is_null(pb) && (pb$n > 10)) pb$tick()$print()
+  if (!is_null(pb) && !pb$finished) pb$tick()
 
   # Build query param list, removing element if NA (eg. address borough/zip)
   params <- purrr::splice(..., creds) %>% purrr::discard(is_na)
@@ -102,7 +105,7 @@ geoclient_req <- function(..., operation, creds, pb = NULL) {
 
 # For the geoclient API request we rename the inputs, but for the return
 # dataframe we want to use the R function argument names for consistency. These
-# are always at the begining of the dataframe.
+# are always at the beginning of the dataframe.
 fix_input_names <- function(.data, operation) {
 
   # All other operation the number of user args and api inputs are the same,
@@ -151,7 +154,7 @@ drop_invalid_rows <- function(.data, operation) {
 
   ret <- .data %>% dplyr::filter_at(mandatory_vars, dplyr::all_vars(!are_na(.)))
 
-  # Borugh and zip can't both be NA
+  # Borough and zip can't both be NA
   if (operation %in% c("address", "place")) {
     ret <- ret %>% dplyr::filter(!(are_na(!!sym("borough")) & are_na(!!sym("zip"))))
   }

@@ -39,7 +39,7 @@ file so they can be called securely without being stored in your code.
 For more details see the Geoclient Documentation's guide to
 \href{https://api.cityofnewyork.us/geoclient/v1/doc#section-1.2.3}{making BIN requests},
 interpreting the \href{https://api.cityofnewyork.us/geoclient/v1/doc#section-2.2}{Geosupport return codes}, the
-\href{https://api.cityofnewyork.us/geoclient/v1/doc#section-3.3}{data returned by geo_bin},
+\href{https://api.cityofnewyork.us/geoclient/v1/doc#section-3.3}{data returned by \code{geo_bin}},
 and a \href{https://api.cityofnewyork.us/geoclient/v1/doc#section-4.0}{complete data dictionary} for
 all possible data elements returned by any geoclient function.
 }

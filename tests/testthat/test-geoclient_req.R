@@ -30,7 +30,7 @@ test_that("opertion=bbl works", {
 
   res <- purrr::pmap(input, geoclient_req, operation = "bbl", creds = creds)
 
-  expect_identical(res[[1]][["buildingIdentificationNumber"]], "1008760")
+  expect_identical(res[[1]][["buildingIdentificationNumber"]], "1088641")
   expect_identical(res[[2]][["message"]], "BOROUGH CODE IS MISSING")
 })
 
@@ -38,7 +38,7 @@ test_that("opertion=bbl works", {
 
 test_that("opertion=bin works", {
 
-  input <- tibble(bin = c("1008760", ""))
+  input <- tibble(bin = c("1088641", ""))
 
   res <- purrr::pmap(input, geoclient_req, operation = "bin", creds = creds)
 
