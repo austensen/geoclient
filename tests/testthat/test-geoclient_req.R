@@ -112,7 +112,8 @@ test_that("http:500 errors are handled for invlaid inputs", {
   search_req <- purrr::partial(geoclient_req, input = "?", operation = "search", creds = creds)
 
   expect_message(search_req(), "HTTP error 500")
-  expect_identical(search_req()[["no_results"]], TRUE)
+  expect_identical(search_req(), tibble(no_results = TRUE))
+
 })
 
 
@@ -132,7 +133,7 @@ test_that("error for invalid api creds", {
 
 test_that("placeholder returned if inputs are invalid", {
 
-  ret <- geoclient_req(
+  address_ret <- geoclient_req(
     houseNumber = 139,
     street = "macdougal st",
     borough = NA, # either borough or zip required, so this invalid
@@ -141,6 +142,11 @@ test_that("placeholder returned if inputs are invalid", {
     operation = "address"
   )
 
-  expect_identical(ret, tibble(no_results = TRUE))
+  search_ret <- geoclient_req(input = "Forest Ave , 11385", operation = "search", creds = get_creds())
+
+  expected_ret <- tibble(no_results = TRUE)
+
+  expect_identical(address_ret, expected_ret)
+  expect_identical(search_ret, expected_ret)
 
 })

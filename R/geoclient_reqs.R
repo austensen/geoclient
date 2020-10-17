@@ -53,7 +53,6 @@ geoclient_reqs <- function(inputs, operation, creds, rate_limit) {
 # Returns: API response as a dataframe
 geoclient_req <- function(..., operation, creds, pb = NULL) {
 
-  # TODO: Look into {progress}
   if (!is_null(pb) && !pb$finished) pb$tick()
 
   # Build query param list, removing element if NA (eg. address borough/zip)
@@ -88,19 +87,21 @@ geoclient_req <- function(..., operation, creds, pb = NULL) {
     parsed <- content_as_json_UTF8(resp)[[operation]]
   }
 
+  # If these is no response (bad inputs, but request executed normally) return a
+  # 1-row tibble with column indicating the issue
+  placeholder <- dplyr::tibble(no_results = is_empty(parsed))
+
+  if (is_empty(parsed)) {
+    return(placeholder)
+  }
+
   # Sometimes, for no clear reason, it will return two rows for one request with
   # no important differences, so slice one row
   # TODO: Look into this more. I don't remember but this could have to do with
   # single-input-search returning multiple possible matches
   parsed <- dplyr::as_tibble(parsed) %>% dplyr::slice(1)
 
-  # If these is no response (bad inputs, but request executed normally) return a
-  # 1-row tibble with column indicating the issue
-  placeholder <- dplyr::tibble(no_results = is_null(parsed))
-
-  if (!is_null(parsed)) {
-    dplyr::bind_cols(placeholder, dplyr::as_tibble(parsed))
-  }
+  dplyr::bind_cols(placeholder, dplyr::as_tibble(parsed))
 }
 
 # For the geoclient API request we rename the inputs, but for the return
