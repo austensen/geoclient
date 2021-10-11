@@ -5,9 +5,9 @@
 \alias{geo_search_data}
 \title{Retrieve Geoclient Response for Any Location Type as a Dataframe}
 \usage{
-geo_search_data(.data, location, id = NULL, key = NULL, rate_limit = TRUE)
+geo_search_data(.data, location, key = NULL, rate_limit = TRUE)
 
-geo_search(location, id = NULL, key = NULL, rate_limit = TRUE)
+geo_search(location, key = NULL, rate_limit = TRUE)
 }
 \arguments{
 \item{.data}{Dataframe containing columns to be used for other arguments.}
@@ -17,11 +17,7 @@ BBL, BIN, Blockface, Intersection, or Place. The argument can be either a
 single vector of locations, or a bare column name of the location field if
 a dataframe is provided.}
 
-\item{id}{The API app ID provided to you from the NYC Developer Portal
-formated in quotes. Defaults to \code{NULL} and your key is accessed from your
-\code{.Renviron}.}
-
-\item{key}{The API app key provided to you from the NYC Developer Portal
+\item{key}{The API key provided to you from the NYC Developer Portal
 formated in quotes. Defaults to \code{NULL} and your key is accessed from your
 \code{.Renviron}.}
 
@@ -34,9 +30,9 @@ This function takes any of the 6 location types as a single input and returns
 the Geoclient response as a tibble. The locations are provided either in a
 single vector as a named argument or with a dataframe and column name of the
 location field. This function is helpful when your address data is not
-separated into components. The Geoclient API's app ID and key can either be
-provided directly as arguments, or you can first use \code{\link[=geoclient_api_keys]{geoclient_api_keys()}}
-to add them to your \code{.Renviron} file so they can be called securely without
+separated into components. The Geoclient API key can either be
+provided directly as an argument, or you can first use \code{\link[=geoclient_api_key]{geoclient_api_key()}}
+to add it to your \code{.Renviron} file so it can be called securely without
 being stored in your code.
 }
 \details{
@@ -54,7 +50,7 @@ all possible data elements returned by any geoclient function.
 
 \dontrun{
 
-geoclient_api_keys("1a2b3c4", "9d8f7b6wh4jfgud67s89jfyw68vj38fh")
+geoclient_api_key("9d8f7b6wh4jfgud67s89jfyw68vj38fh")
 
 geo_search(1005430053) # BBL
 geo_search("139 macdougal st mn") # Address

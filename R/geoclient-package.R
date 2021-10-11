@@ -7,16 +7,14 @@
 #' https://austensen.github.io/geoclient/ or `browseVignettes(package =
 #' "geoclient")`
 #'
-#' For information about the Geoclient API visit [NYC's Developers
-#' Portal](https://developer.cityofnewyork.us/api/geoclient-api).
+#' For information about the Geoclient API visit [NYC's API Portal](https://api-portal.nyc.gov/).
 #'
-#' You can acquire your Geoclient app ID and Key by first registering with the
-#' [NYC's Developer
-#' Portal](https://developer.cityofnewyork.us/user/register?destination=api) at,
-#' then [create a new
-#' project](https://developer.cityofnewyork.us/create/project), selecting
-#' "Geoclient v1" from available APIs. For more information on using these
-#' credentials with this package see [geoclient_api_keys()]
+#' You can acquire your Geoclient API key by first registering with the
+#' [NYC's API Portal](https://api-portal.nyc.gov/),
+#' then adding a "subscription" to the
+#' [Geoclient User](https://api-portal.nyc.gov/products/geoclient-user)
+#' API. For more information on using these credentials with this package see
+#' [geoclient_api_key()]
 #'
 #' @section Geoclient Description:
 #'

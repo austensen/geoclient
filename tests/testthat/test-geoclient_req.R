@@ -105,12 +105,13 @@ test_that("opertion=search works", {
   expect_identical(res[[3]][["no_results"]], TRUE)
 })
 
-test_that("http:500 errors are handled for invlaid inputs", {
+test_that("http:500/429 errors are handled for invlaid inputs", {
 
   # Search operation returns http:500 error when it can't find results. But we
-  # should still getback a placeholder tibble.
+  # should still get back a placeholder tibble.
   search_req <- purrr::partial(geoclient_req, input = "?", operation = "search", creds = creds)
 
+  # TODO: keep getting 429 (too many reqs) before 500, I think because of the GET helper retries
   expect_message(search_req(), "HTTP error 500")
   expect_identical(search_req(), tibble(no_results = TRUE))
 
@@ -124,10 +125,10 @@ test_that("error for invalid api creds", {
     block = "00543",
     lot = "0053",
     operation = "bbl",
-    creds = list(app_id = "foo", app_key = "bar")
+    creds = list(key = "foo")
   )
 
-  expect_error(bad_creds_call(), "Authentication failed: Geoclient API app ID and/or Key are invalid")
+  expect_error(bad_creds_call(), "Authentication failed")
 })
 
 
@@ -150,3 +151,4 @@ test_that("placeholder returned if inputs are invalid", {
   expect_identical(search_ret, expected_ret)
 
 })
+

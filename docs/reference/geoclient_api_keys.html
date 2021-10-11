@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Install Geoclient API ID and Key for Repeated Use — geoclient_api_keys • geoclient</title>
+<title>Install Geoclient API ID and Key for Repeated Use — geoclient_api_key • geoclient</title>
 
 <!-- jquery -->
 <script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script>
@@ -30,7 +30,7 @@
 
 
 
-<meta property="og:title" content="Install Geoclient API ID and Key for Repeated Use — geoclient_api_keys" />
+<meta property="og:title" content="Install Geoclient API ID and Key for Repeated Use — geoclient_api_key" />
 
 <meta property="og:description" content="This function will add your Geoclient app ID and key to your .Renviron file
 so they can be called securely without being stored in your code. After you
@@ -107,8 +107,8 @@ selecting &quot;Geoclient v1&quot; from available APIs." />
   <div class="col-md-9 contents">
     <div class="page-header">
     <h1>Install Geoclient API ID and Key for Repeated Use</h1>
-    <small class="dont-index">Source: <a href='https://github.com/austensen/geoclient/blob/master/R/geoclient_api_keys.R'><code>R/geoclient_api_keys.R</code></a></small>
-    <div class="hidden name"><code>geoclient_api_keys.Rd</code></div>
+    <small class="dont-index">Source: <a href='https://github.com/austensen/geoclient/blob/master/R/geoclient_api_key.R'><code>R/geoclient_api_key.R</code></a></small>
+    <div class="hidden name"><code>geoclient_api_key.Rd</code></div>
     </div>
 
     <div class="ref-description">
@@ -129,7 +129,7 @@ selecting "Geoclient v1" from available APIs.</p>
     
     </div>
 
-    <pre class="usage"><span class='fu'>geoclient_api_keys</span>(<span class='no'>id</span>, <span class='no'>key</span>, <span class='kw'>overwrite</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>install</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</pre>
+    <pre class="usage"><span class='fu'>geoclient_api_key</span>(<span class='no'>id</span>, <span class='no'>key</span>, <span class='kw'>overwrite</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>install</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -163,17 +163,17 @@ in future sessions.  Defaults to FALSE.</p></td>
     <pre class="examples"><div class='input'>
 </div><span class='co'># NOT RUN {</span>
 <span class='co'># To set the keys for use in this session only:</span>
-<span class='fu'>geoclient_api_keys</span>(<span class='kw'>id</span> <span class='kw'>=</span> <span class='st'>"1a2b3c4"</span>, <span class='kw'>key</span> <span class='kw'>=</span> <span class='st'>"9d8f7b6wh4jfgud67s89jfyw68vj38fh"</span>)
+<span class='fu'>geoclient_api_key</span>(<span class='kw'>id</span> <span class='kw'>=</span> <span class='st'>"1a2b3c4"</span>, <span class='kw'>key</span> <span class='kw'>=</span> <span class='st'>"9d8f7b6wh4jfgud67s89jfyw68vj38fh"</span>)
 
 <span class='co'># To save the keys in your R.environ file for use in future sessions:</span>
-<span class='fu'>geoclient_api_keys</span>(
+<span class='fu'>geoclient_api_key</span>(
   <span class='kw'>id</span> <span class='kw'>=</span> <span class='st'>"1a2b3c4"</span>,
   <span class='kw'>key</span> <span class='kw'>=</span> <span class='st'>"9d8f7b6wh4jfgud67s89jfyw68vj38fh"</span>,
   <span class='kw'>install</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>
  )
 
 <span class='co'># If you need to overwrite existing keys:</span>
-<span class='fu'>geoclient_api_keys</span>(<span class='st'>"1a2b3c4"</span>, <span class='st'>"9d8f7b6wh4jfgud67s89jfyw68vj38fh"</span>, <span class='kw'>overwrite</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>install</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)
+<span class='fu'>geoclient_api_key</span>(<span class='st'>"1a2b3c4"</span>, <span class='st'>"9d8f7b6wh4jfgud67s89jfyw68vj38fh"</span>, <span class='kw'>overwrite</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>install</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)
 
 <span class='co'># First time, reload your environment so you can use the keys without restarting R.</span>
 <span class='fu'>readRenviron</span>(<span class='st'>"~/.Renviron"</span>)

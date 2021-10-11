@@ -12,6 +12,7 @@ geoclient_reqs <- function(inputs, operation, creds, rate_limit) {
   if (!(is_logical(rate_limit, 1L))) stop_glue("`rate_limit` must be either TRUE or FALSE")
 
   if (rate_limit) {
+    # 100 calls per IP per second, 2,500 calls per minute, 500,000 calls per day
     geoclient_req <- ratelimitr::limit_rate(geoclient_req, ratelimitr::rate(n = 2500, period = 60))
   }
 
@@ -64,20 +65,23 @@ geoclient_req <- function(..., operation, creds, pb = NULL) {
   if (!is_null(pb) && !pb$finished) pb$tick()
 
   # Build query param list, removing element if NA (eg. address borough/zip)
-  params <- purrr::splice(..., creds) %>% purrr::discard(is_na)
+  params <- purrr::splice(...) %>% purrr::discard(is_na)
 
   resp <- rGET(
-    glue::glue("https://api.cityofnewyork.us/geoclient/v1/{operation}.json?"),
-    httr::accept_json(),
+    glue::glue("https://api.nyc.gov/geo/geoclient/v1/{operation}"),
+    config = httr::add_headers(
+      "Accept" = "application/json",
+      "Ocp-Apim-Subscription-Key" = creds$key
+    ),
     query = params
   )
 
-  auth_failed <- try(httr::content(resp)[[1]][[1]] == "Authentication failed", silent = TRUE)
+  auth_failed <- try(httr::content(resp)[[1]][[1]] == "401", silent = TRUE)
 
   if (is_true(auth_failed)) {
     stop_glue(
-      "Authentication failed: Geoclient API app ID and/or Key are invalid.
-      See ?geoclient_api_keys for details on how to aquire valid credentials."
+      "Authentication failed: Geoclient API key is invalid.
+      See ?geoclient_api_key for details on how to aquire valid credentials."
     )
   }
 
@@ -85,7 +89,7 @@ geoclient_req <- function(..., operation, creds, pb = NULL) {
   # it should just return the empty tibble like when returns null.
   geoclient_stop_for_status(resp)
 
-  if (httr::status_code(resp) %in% c(400, 500)) {
+  if (httr::status_code(resp) %in% c(400, 429, 500)) {
     return(dplyr::tibble(no_results = TRUE))
   }
 

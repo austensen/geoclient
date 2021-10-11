@@ -10,19 +10,11 @@ geo_place_data(
   place,
   borough = NULL,
   zip = NULL,
-  id = NULL,
   key = NULL,
   rate_limit = TRUE
 )
 
-geo_place(
-  place,
-  borough = NULL,
-  zip = NULL,
-  id = NULL,
-  key = NULL,
-  rate_limit = TRUE
-)
+geo_place(place, borough = NULL, zip = NULL, key = NULL, rate_limit = TRUE)
 }
 \arguments{
 \item{.data}{Dataframe containing columns to be used for other arguments.}
@@ -39,11 +31,7 @@ is accepted) or a bare column name of the borough field if a dataframe
 is provided. Five- and seven-digit Zip codes are accepted. The Zip code is
 only required if borough is not provided.}
 
-\item{id}{The API app ID provided to you from the NYC Developer Portal
-formated in quotes. Defaults to \code{NULL} and your key is accessed from your
-\code{.Renviron}.}
-
-\item{key}{The API app key provided to you from the NYC Developer Portal
+\item{key}{The API key provided to you from the NYC Developer Portal
 formated in quotes. Defaults to \code{NULL} and your key is accessed from your
 \code{.Renviron}.}
 
@@ -56,9 +44,9 @@ This function takes the name of a well-known NYC place and returns the
 Geoclient response as a tibble. The place name, and one of either borough
 or Zip code are required. The place components can be provided either in
 separate vectors as named arguments or with a dataframe and column names
-containing each component. The Geoclient API's app ID and key
-can either be provided directly as arguments, or you can first use
-\code{\link[=geoclient_api_keys]{geoclient_api_keys()}} to add them to your \code{.Renviron} file so they can be
+containing each component. The Geoclient API key
+can either be provided directly as an argument, or you can first use
+\code{\link[=geoclient_api_key]{geoclient_api_key()}} to add it to your \code{.Renviron} file so it can be
 called securely without being stored in your code.
 }
 \details{
@@ -73,7 +61,7 @@ for all possible data elements returned by any geoclient function.
 
 \dontrun{
 
-geoclient_api_keys("1a2b3c4", "9d8f7b6wh4jfgud67s89jfyw68vj38fh")
+geoclient_api_key("9d8f7b6wh4jfgud67s89jfyw68vj38fh")
 
 geoclient_place(place = "empire state building", borough = "mn")
 

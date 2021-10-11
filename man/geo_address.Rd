@@ -11,7 +11,6 @@ geo_address_data(
   street,
   borough = NULL,
   zip = NULL,
-  id = NULL,
   key = NULL,
   rate_limit = TRUE
 )
@@ -21,7 +20,6 @@ geo_address(
   street,
   borough = NULL,
   zip = NULL,
-  id = NULL,
   key = NULL,
   rate_limit = TRUE
 )
@@ -45,11 +43,7 @@ character is accepted) or a bare column name of the borough field if a
 dataframe is provided. The Zip code is only required if borough is not
 provided.}
 
-\item{id}{The API app ID provided to you from the NYC Developer Portal
-formated in quotes. Defaults to \code{NULL} and your key is accessed from your
-\code{.Renviron}.}
-
-\item{key}{The API app key provided to you from the NYC Developer Portal
+\item{key}{The API key provided to you from the NYC Developer Portal
 formated in quotes. Defaults to \code{NULL} and your key is accessed from your
 \code{.Renviron}.}
 
@@ -64,9 +58,9 @@ borough or Zip code are required. The address components can be provided
 either in separate vectors as named arguments or with a dataframe and column
 names containing each component. If your address data is not easily separted
 into these components you can use \code{\link[=geo_search]{geo_search()}} with the full address as a
-string. The Geoclient API's app ID and key can either be provided directly as
-arguments, or you can first use \code{\link[=geoclient_api_keys]{geoclient_api_keys()}} to add them to your
-\code{.Renviron} file so they can be called securely without being stored in your
+string. The Geoclient API key can either be provided directly an
+argument, or you can first use \code{\link[=geoclient_api_key]{geoclient_api_key()}} to add it to your
+\code{.Renviron} file so it can be called securely without being stored in your
 code.
 }
 \details{
@@ -80,7 +74,7 @@ all possible data elements returned by any geoclient function.
 
 \dontrun{
 
-geoclient_api_keys("1a2b3c4", "9d8f7b6wh4jfgud67s89jfyw68vj38fh")
+geoclient_api_key("9d8f7b6wh4jfgud67s89jfyw68vj38fh")
 
 geo_address("139", "MacDougal St", "MN")
 

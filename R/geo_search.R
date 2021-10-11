@@ -4,9 +4,9 @@
 #' the Geoclient response as a tibble. The locations are provided either in a
 #' single vector as a named argument or with a dataframe and column name of the
 #' location field. This function is helpful when your address data is not
-#' separated into components. The Geoclient API's app ID and key can either be
-#' provided directly as arguments, or you can first use [geoclient_api_keys()]
-#' to add them to your `.Renviron` file so they can be called securely without
+#' separated into components. The Geoclient API key can either be
+#' provided directly as an argument, or you can first use [geoclient_api_key()]
+#' to add it to your `.Renviron` file so it can be called securely without
 #' being stored in your code.
 #'
 #' @inheritParams geo_address
@@ -32,7 +32,7 @@
 #'
 #' \dontrun{
 #'
-#' geoclient_api_keys("1a2b3c4", "9d8f7b6wh4jfgud67s89jfyw68vj38fh")
+#' geoclient_api_key("9d8f7b6wh4jfgud67s89jfyw68vj38fh")
 #'
 #' geo_search(1005430053) # BBL
 #' geo_search("139 macdougal st mn") # Address
@@ -56,9 +56,9 @@
 #'
 #' @name geo_search
 #' @export
-geo_search_data <- function(.data, location, id = NULL, key = NULL, rate_limit = TRUE) {
+geo_search_data <- function(.data, location, key = NULL, rate_limit = TRUE) {
 
-  creds <- get_creds(id, key)
+  creds <- get_creds(key)
 
   search_inputs <- validate_search_inputs(pull_or_null(.data, enquo(location)))
 
@@ -67,9 +67,9 @@ geo_search_data <- function(.data, location, id = NULL, key = NULL, rate_limit =
 
 #' @rdname geo_search
 #' @export
-geo_search <- function(location, id = NULL, key = NULL, rate_limit = TRUE) {
+geo_search <- function(location, key = NULL, rate_limit = TRUE) {
 
-  creds <- get_creds(id, key)
+  creds <- get_creds(key)
 
   search_inputs <- validate_search_inputs(location)
 

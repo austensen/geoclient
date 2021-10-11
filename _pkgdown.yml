@@ -8,7 +8,7 @@ reference:
     - geoclient
 - title: Setup
   contents:
-    - geoclient_api_keys
+    - geoclient_api_key
 - title: Six Location Type Functions
   contents:
     - geo_address

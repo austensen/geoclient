@@ -14,7 +14,6 @@ geo_blockface_data(
   cross_street_1_borough = NULL,
   cross_street_2_borough = NULL,
   compass_direction = NULL,
-  id = NULL,
   key = NULL,
   rate_limit = TRUE
 )
@@ -27,7 +26,6 @@ geo_blockface(
   cross_street_1_borough = NULL,
   cross_street_2_borough = NULL,
   compass_direction = NULL,
-  id = NULL,
   key = NULL,
   rate_limit = TRUE
 )
@@ -66,11 +64,7 @@ argument can be provided as either a vector or a bare column name of the
 field if a dataframe is provided. The valid values of are \code{"N"}, \code{"E"},
 \code{"S"}, or \code{"W"}}
 
-\item{id}{The API app ID provided to you from the NYC Developer Portal
-formated in quotes. Defaults to \code{NULL} and your key is accessed from your
-\code{.Renviron}.}
-
-\item{key}{The API app key provided to you from the NYC Developer Portal
+\item{key}{The API key provided to you from the NYC Developer Portal
 formated in quotes. Defaults to \code{NULL} and your key is accessed from your
 \code{.Renviron}.}
 
@@ -83,9 +77,9 @@ This function takes components of addresses and returns the Geoclient
 response as a tibble. The house number, street name, and one of either
 borough or Zip code are required. The address components can be provided
 either in separate vectors as named arguments or with a dataframe and column
-names containing each component. The Geoclient API's app ID and key can
-either be provided directly as arguments, or you can first use
-\code{\link[=geoclient_api_keys]{geoclient_api_keys()}} to add them to your \code{.Renviron} file so they can be
+names containing each component. The Geoclient API key can
+either be provided directly as an argument, or you can first use
+\code{\link[=geoclient_api_key]{geoclient_api_key()}} to add it to your \code{.Renviron} file so it can be
 called securely without being stored in your code.
 }
 \details{
@@ -101,7 +95,7 @@ for all possible data elements returned by any geoclient function.
 
 \dontrun{
 
-geoclient_api_keys("1a2b3c4", "9d8f7b6wh4jfgud67s89jfyw68vj38fh")
+geoclient_api_key("1a2b3c4", "9d8f7b6wh4jfgud67s89jfyw68vj38fh")
 
 geo_blockface(
   on_street = "cypress ave",
