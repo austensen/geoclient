@@ -9,7 +9,7 @@ Tools to work with NYC's *Geoclient* REST API.
 
 This packages uses NYC's Geoclient API but is neither endorsed nor supported by the the City of New York.
 
-For information about the Geoclient API visit [NYC's Developers Portal](https://developer.cityofnewyork.us/api/geoclient-api).
+For information about the Geoclient API visit [NYC's Developers Portal](https://api-portal.nyc.gov/docs/services/geoclient/operations/geoclient).
 
 ### Installation
 
@@ -20,11 +20,11 @@ Install from Github with [remotes](https://github.com/r-lib/remotes):
 remotes::install_github("austensen/geoclient")
 ```
 
-### Set up *Geoclient* API keys
+### Set up *Geoclient* API key
 
-You can acquire your Geoclient app ID and Key by first registering with the [NYC's Developer Portal](https://developer.cityofnewyork.us/user/register?destination=api) at, then [create a new project](https://developer.cityofnewyork.us/create/project), selecting "Geoclient v1" from available APIs.
+You can acquire your Geoclient API Key by first registering with the [NYC's API Portal](https://api-portal.nyc.gov/), then adding a "subscription" to the [Geoclient User](https://api-portal.nyc.gov/products/geoclient-user) API. Once completed, you will then be able to access your 'Primary key' at any point by visiting the [NYC's API Portal](https://api-portal.nyc.gov/) and viewing your user profile.
 
-To avoid having to provide the ID and Key with each function call you can use `geoclient_api_keys()` to add your Geoclient app ID and Key to your `.Renviron` file so they can be called securely without being stored in your code.
+To avoid having to provide the Key with each function call you can use `geoclient_api_key()` to add your Geoclient Key to your `.Renviron` file so they can be called securely without being stored in your code.
 
 ### Basic Usage
 
