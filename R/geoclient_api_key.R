@@ -1,16 +1,20 @@
 #' Install Geoclient API Key for Repeated Use
 #'
-#' This function will add your Geoclient app ID and key to your `.Renviron` file
+#' This function will add your Geoclient API key to your `.Renviron` file
 #' so they can be called securely without being stored in your code. After you
 #' have installed your key, it can be called any time by typing
 #' `Sys.getenv("GEOCLIENT_KEY")` and can be used in package functions by simply
 #' typing GEOCLIENT_KEY. If you do not have an `.Renviron` file, the function
 #' will create on for you. If you already have an `.Renviron` file, the function
 #' will append the key to your existing file, while making a backup of
-#' your original file for disaster recovery purposes. You can acquire your
-#' Geoclient API Key by first registering with the [NYC's API
-#' Portal](https://api-portal.nyc.gov/) at, then adding a "subscription" to the
-#' [Geoclient User](https://api-portal.nyc.gov/products/geoclient-user) API.
+#' your original file for disaster recovery purposes. 
+#'
+#' You can acquire your Geoclient API Key by first registering with the
+#' [NYC's API Portal](https://api-portal.nyc.gov/), then adding a "subscription"
+#' to the [Geoclient User](https://api-portal.nyc.gov/products/geoclient-user) API.
+#' Once completed, you will then be able to access your 'Primary key' at any point
+#' by visiting the [NYC's API Portal](https://api-portal.nyc.gov/) and 
+#' viewing your user profile.
 #'
 #' @param key The API key provided to you from the NYC Developer Portal
 #'   formatted in quotes.
