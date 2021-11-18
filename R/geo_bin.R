@@ -2,9 +2,9 @@
 #'
 #' This function takes BINs (Building Identification Number) and returns the
 #' Geoclient response as a tibble. The BINs can be provided either in a vector
-#' as a named argument or with a dataframe and column name of the BIN field. The
-#' Geoclient API's app ID and key can either be provided directly as arguments,
-#' or you can first use [`geoclient_api_keys()`] to add them to your `.Renviron`
+#' as a named argument or with a dataframe and column name of the BIN field. Your
+#' Geoclient API key can either be provided directly as arguments,
+#' or you can first use [`geoclient_api_key()`] to add them to your `.Renviron`
 #' file so they can be called securely without being stored in your code.
 #'
 #' @inheritParams geo_address
@@ -22,7 +22,7 @@
 #'
 #' \dontrun{
 #'
-#' geoclient_api_keys("1a2b3c4", "9d8f7b6wh4jfgud67s89jfyw68vj38fh")
+#' geoclient_api_key("1a2b3c4", "9d8f7b6wh4jfgud67s89jfyw68vj38fh")
 #'
 #' geo_bin(1015862)
 #'
@@ -40,9 +40,9 @@
 #'
 #' @name geo_bin
 #' @export
-geo_bin_data <- function(.data, bin, id = NULL, key = NULL, rate_limit = TRUE) {
+geo_bin_data <- function(.data, bin, key = NULL, rate_limit = TRUE) {
 
-  creds <- get_creds(id, key)
+  creds <- get_creds(key)
 
   bin_inputs <- validate_bin_inputs(
     bin = pull_or_null(.data, enquo(bin))
@@ -53,9 +53,9 @@ geo_bin_data <- function(.data, bin, id = NULL, key = NULL, rate_limit = TRUE) {
 
 #' @rdname geo_bin
 #' @export
-geo_bin <- function(bin, id = NULL, key = NULL, rate_limit = TRUE) {
+geo_bin <- function(bin, key = NULL, rate_limit = TRUE) {
 
-  creds <- get_creds(id, key)
+  creds <- get_creds(key)
 
   bin_inputs <- validate_bin_inputs(bin)
 

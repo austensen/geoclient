@@ -3,9 +3,9 @@
 #' This function takes BBLs (borough-block-lot) and returns the Geoclient
 #' response as a tibble. The BBLs can be provided either in a vector as a named
 #' argument or with a dataframe and column name of the BBL field. The Geoclient
-#' API's app ID and key can either be provided directly as arguments, or you
-#' can first use [`geoclient_api_keys()`] to add them to your `.Renviron` file
-#' so they can be called securely without being stored in your code.
+#' API key can either be provided directly as an argument, or you
+#' can first use [`geoclient_api_key()`] to add it to your `.Renviron` file
+#' so it can be called securely without being stored in your code.
 #'
 #' @inheritParams geo_address
 #' @param bbl Either a vector of BBLs (numeric or character is accepted), or a
@@ -22,7 +22,7 @@
 #'
 #' \dontrun{
 #'
-#' geoclient_api_keys("1a2b3c4", "9d8f7b6wh4jfgud67s89jfyw68vj38fh")
+#' geoclient_api_key("1a2b3c4", "9d8f7b6wh4jfgud67s89jfyw68vj38fh")
 #'
 #' geo_bbl(1005430053)
 #'
@@ -42,7 +42,7 @@
 #' @export
 geo_bbl_data <- function(.data, bbl, id = NULL, key = NULL, rate_limit = TRUE) {
 
-  creds <- get_creds(id, key)
+  creds <- get_creds(key)
 
   bbl_inputs <- validate_bbl_inputs(
     bbl = pull_or_null(.data, enquo(bbl))
@@ -55,7 +55,7 @@ geo_bbl_data <- function(.data, bbl, id = NULL, key = NULL, rate_limit = TRUE) {
 #' @export
 geo_bbl <- function(bbl, id = NULL, key = NULL, rate_limit = TRUE) {
 
-  creds <- get_creds(id, key)
+  creds <- get_creds(key)
 
   bbl_inputs <- validate_bbl_inputs(bbl)
 

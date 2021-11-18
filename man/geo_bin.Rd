@@ -5,9 +5,9 @@
 \alias{geo_bin_data}
 \title{Retrieve Geoclient Response for BINs as a Dataframe}
 \usage{
-geo_bin_data(.data, bin, id = NULL, key = NULL, rate_limit = TRUE)
+geo_bin_data(.data, bin, key = NULL, rate_limit = TRUE)
 
-geo_bin(bin, id = NULL, key = NULL, rate_limit = TRUE)
+geo_bin(bin, key = NULL, rate_limit = TRUE)
 }
 \arguments{
 \item{.data}{Dataframe containing columns to be used for other arguments.}
@@ -15,11 +15,7 @@ geo_bin(bin, id = NULL, key = NULL, rate_limit = TRUE)
 \item{bin}{Either a vector of BINs (numeric or character is accepted), or a
 bare column name of the bin field if a dataframe is provided.}
 
-\item{id}{The API app ID provided to you from the NYC Developer Portal
-formated in quotes. Defaults to \code{NULL} and your key is accessed from your
-\code{.Renviron}.}
-
-\item{key}{The API app key provided to you from the NYC Developer Portal
+\item{key}{The API key provided to you from the NYC Developer Portal
 formated in quotes. Defaults to \code{NULL} and your key is accessed from your
 \code{.Renviron}.}
 
@@ -30,9 +26,9 @@ more information.}
 \description{
 This function takes BINs (Building Identification Number) and returns the
 Geoclient response as a tibble. The BINs can be provided either in a vector
-as a named argument or with a dataframe and column name of the BIN field. The
-Geoclient API's app ID and key can either be provided directly as arguments,
-or you can first use \code{\link[=geoclient_api_keys]{geoclient_api_keys()}} to add them to your \code{.Renviron}
+as a named argument or with a dataframe and column name of the BIN field. Your
+Geoclient API key can either be provided directly as arguments,
+or you can first use \code{\link[=geoclient_api_key]{geoclient_api_key()}} to add them to your \code{.Renviron}
 file so they can be called securely without being stored in your code.
 }
 \details{
@@ -47,7 +43,7 @@ all possible data elements returned by any geoclient function.
 
 \dontrun{
 
-geoclient_api_keys("1a2b3c4", "9d8f7b6wh4jfgud67s89jfyw68vj38fh")
+geoclient_api_key("1a2b3c4", "9d8f7b6wh4jfgud67s89jfyw68vj38fh")
 
 geo_bin(1015862)
 

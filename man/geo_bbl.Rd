@@ -15,11 +15,7 @@ geo_bbl(bbl, id = NULL, key = NULL, rate_limit = TRUE)
 \item{bbl}{Either a vector of BBLs (numeric or character is accepted), or a
 bare column name of the bbl field if a dataframe is provided.}
 
-\item{id}{The API app ID provided to you from the NYC Developer Portal
-formated in quotes. Defaults to \code{NULL} and your key is accessed from your
-\code{.Renviron}.}
-
-\item{key}{The API app key provided to you from the NYC Developer Portal
+\item{key}{The API key provided to you from the NYC Developer Portal
 formated in quotes. Defaults to \code{NULL} and your key is accessed from your
 \code{.Renviron}.}
 
@@ -31,9 +27,9 @@ more information.}
 This function takes BBLs (borough-block-lot) and returns the Geoclient
 response as a tibble. The BBLs can be provided either in a vector as a named
 argument or with a dataframe and column name of the BBL field. The Geoclient
-API's app ID and key can either be provided directly as arguments, or you
-can first use \code{\link[=geoclient_api_keys]{geoclient_api_keys()}} to add them to your \code{.Renviron} file
-so they can be called securely without being stored in your code.
+API key can either be provided directly as an argument, or you
+can first use \code{\link[=geoclient_api_key]{geoclient_api_key()}} to add it to your \code{.Renviron} file
+so it can be called securely without being stored in your code.
 }
 \details{
 For more details see the Geoclient Documentation's guide to
@@ -47,7 +43,7 @@ all possible data elements returned by any geoclient function.
 
 \dontrun{
 
-geoclient_api_keys("1a2b3c4", "9d8f7b6wh4jfgud67s89jfyw68vj38fh")
+geoclient_api_key("1a2b3c4", "9d8f7b6wh4jfgud67s89jfyw68vj38fh")
 
 geo_bbl(1005430053)
 

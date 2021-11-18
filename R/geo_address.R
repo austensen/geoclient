@@ -6,9 +6,9 @@
 #' either in separate vectors as named arguments or with a dataframe and column
 #' names containing each component. If your address data is not easily separted
 #' into these components you can use [`geo_search()`] with the full address as a
-#' string. The Geoclient API's app ID and key can either be provided directly as
-#' arguments, or you can first use [`geoclient_api_keys()`] to add them to your
-#' `.Renviron` file so they can be called securely without being stored in your
+#' string. The Geoclient API key can either be provided directly an
+#' argument, or you can first use [`geoclient_api_key()`] to add it to your
+#' `.Renviron` file so it can be called securely without being stored in your
 #' code.
 #'
 #' @param .data Dataframe containing columns to be used for other arguments.
@@ -24,10 +24,7 @@
 #'   character is accepted) or a bare column name of the borough field if a
 #'   dataframe is provided. The Zip code is only required if borough is not
 #'   provided.
-#' @param id The API app ID provided to you from the NYC Developer Portal
-#'   formated in quotes. Defaults to `NULL` and your key is accessed from your
-#'   `.Renviron`.
-#' @param key The API app key provided to you from the NYC Developer Portal
+#' @param key The API key provided to you from the NYC Developer Portal
 #'   formated in quotes. Defaults to `NULL` and your key is accessed from your
 #'   `.Renviron`.
 #' @param rate_limit Whether you would like to limit the rate of API requests in
@@ -49,7 +46,7 @@
 #'
 #' \dontrun{
 #'
-#' geoclient_api_keys("1a2b3c4", "9d8f7b6wh4jfgud67s89jfyw68vj38fh")
+#' geoclient_api_key("9d8f7b6wh4jfgud67s89jfyw68vj38fh")
 #'
 #' geo_address("139", "MacDougal St", "MN")
 #'
@@ -73,11 +70,10 @@ geo_address_data <- function(.data,
                              street,
                              borough = NULL,
                              zip = NULL,
-                             id = NULL,
                              key = NULL,
                              rate_limit = TRUE) {
 
-  creds <- get_creds(id, key)
+  creds <- get_creds(key)
 
   address_inputs <- validate_address_inputs(
     house_number = pull_or_null(.data, enquo(house_number)),
@@ -95,11 +91,10 @@ geo_address <- function(house_number,
                         street,
                         borough = NULL,
                         zip = NULL,
-                        id = NULL,
                         key = NULL,
                         rate_limit = TRUE) {
 
-  creds <- get_creds(id, key)
+  creds <- get_creds(key)
 
   address_inputs <- validate_address_inputs(house_number, street, borough, zip)
 

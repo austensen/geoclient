@@ -13,13 +13,14 @@ by the the City of New York.
 To learn more about using this package, visit
 https://austensen.github.io/geoclient/ or \code{browseVignettes(package = "geoclient")}
 
-For information about the Geoclient API visit \href{https://developer.cityofnewyork.us/api/geoclient-api}{NYC's Developers Portal}.
+For information about the Geoclient API visit \href{https://api-portal.nyc.gov/}{NYC's API Portal}.
 
-You can acquire your Geoclient app ID and Key by first registering with the
-\href{https://developer.cityofnewyork.us/user/register?destination=api}{NYC's Developer Portal} at,
-then \href{https://developer.cityofnewyork.us/create/project}{create a new project}, selecting
-"Geoclient v1" from available APIs. For more information on using these
-credentials with this package see \code{\link[=geoclient_api_keys]{geoclient_api_keys()}}
+You can acquire your Geoclient API key by first registering with the
+\href{https://api-portal.nyc.gov/}{NYC's API Portal},
+then adding a "subscription" to the
+\href{https://api-portal.nyc.gov/products/geoclient-user}{Geoclient User}
+API. For more information on using these credentials with this package see
+\code{\link[=geoclient_api_key]{geoclient_api_key()}}
 }
 \section{Geoclient Description}{
 

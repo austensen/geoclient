@@ -4,9 +4,9 @@
 #' response as a tibble. The house number, street name, and one of either
 #' borough or Zip code are required. The address components can be provided
 #' either in separate vectors as named arguments or with a dataframe and
-#' column names containing each component. The Geoclient API's app ID and key
-#' can either be provided directly as arguments, or you can first use
-#' [`geoclient_api_keys()`] to add them to your `.Renviron` file so they can be
+#' column names containing each component. The Geoclient API key
+#' can either be provided directly as an argument, or you can first use
+#' [`geoclient_api_key()`] to add it to your `.Renviron` file so it can be
 #' called securely without being stored in your code.
 #'
 #' @inheritParams geo_blockface
@@ -32,7 +32,7 @@
 #'
 #' \dontrun{
 #'
-#' geoclient_api_keys("1a2b3c4", "9d8f7b6wh4jfgud67s89jfyw68vj38fh")
+#' geoclient_api_key("1a2b3c4", "9d8f7b6wh4jfgud67s89jfyw68vj38fh")
 #'
 #' geo_intersection("macdougal st", "w 3rd st", "mn")
 #'
@@ -60,11 +60,10 @@ geo_intersection_data <- function(.data,
                                   borough,
                                   cross_street_2_borough = NULL,
                                   compass_direction = NULL,
-                                  id = NULL,
                                   key = NULL,
                                   rate_limit = TRUE) {
 
-  creds <- get_creds(id, key)
+  creds <- get_creds(key)
 
   intersection_inputs <- validate_intersection_inputs(
              cross_street_1 = pull_or_null(.data, enquo(cross_street_1)),
@@ -84,11 +83,10 @@ geo_intersection <- function(cross_street_1,
                              borough,
                              cross_street_2_borough = NULL,
                              compass_direction = NULL,
-                             id = NULL,
                              key = NULL,
                              rate_limit = TRUE) {
 
-  creds <- get_creds(id, key)
+  creds <- get_creds(key)
 
   intersection_inputs <- validate_intersection_inputs(
     cross_street_1,
