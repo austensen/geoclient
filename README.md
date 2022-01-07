@@ -26,6 +26,17 @@ You can acquire your Geoclient API Key by first registering with the [NYC's API 
 
 To avoid having to provide the Key with each function call you can use `geoclient_api_key()` to add your Geoclient Key to your `.Renviron` file so they can be called securely without being stored in your code.
 
+#### Sample .Renviron file
+
+Create a file `.Renviron` in the root of your project directory defining the variables `GEOCLIENT_APP_ID` and `GEOCLIENT_APP_KEY`.
+
+```
+GEOCLIENT_APP_ID=yourAppId
+GEOCLIENT_APP_KEY=yourAppKey
+```
+
+Early in your R script, run `readRenviron(".Renviron")`.
+
 ### Basic Usage
 
 There are 6 main location types that can be set with *Geoclient*: Address, BBL (Borough-Block-Lot), BIN (Building Identification Number), Blockface, Intersection, and Place ("well-known NYC place name"). All of these functions return the results of the *Geoclient* API call as a dataframe, with additional columns for the arguments provided to the function.
