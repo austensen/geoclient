@@ -68,7 +68,7 @@ geoclient_req <- function(..., operation, creds, pb = NULL) {
   params <- purrr::splice(...) %>% purrr::discard(is_na)
 
   resp <- rGET(
-    glue::glue("https://api.nyc.gov/geo/geoclient/v1/{operation}"),
+    glue::glue("https://api.nyc.gov/geo/geoclient/v2/{operation}"),
     config = httr::add_headers(
       "Accept" = "application/json",
       "Ocp-Apim-Subscription-Key" = creds$key
